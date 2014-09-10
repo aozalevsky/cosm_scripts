@@ -1,0 +1,58 @@
+; INPUT FILE 
+
+; GENERAL INPUT FLAGS
+  title                  = 1ns equilibration NPT
+  cpp                    = /usr/bin/cpp
+  define                 = -DPOSRES
+
+; RUN FLAGS
+  integrator             = md
+  dt                     = 0.020
+  nsteps                 = 50000
+  pbc                    = xyz
+
+; NON-BONDED INTERACTIONS FLAGS
+  ns_type                = grid
+  nstlist                = 10
+  rlist                  = 1.2
+  coulombtype            = PME
+  rcoulomb               = 1.2
+  vdwtype                = Cut-off
+  rvdw                   = 1.2
+
+  optimize_fft           = yes
+  fourierspacing         = 0.2
+
+; TEMPERATURE COUPLING FLAGS
+  tcoupl                 = V-rescale
+  tc-grps                = DNA WT4_NAW
+  tau_t                  = 0.1 0.1
+  ref_t                  = 300 300 
+
+; INITIAL STEP VELOCITIES FLAGS
+  gen_vel                = no
+  gen_temp               = 300
+  gen_seed               = -1
+
+; PRESSURE COUPLING FLAGS
+  Pcoupl                 = Parrinello-Rahman
+  pcoupltype             = isotropic
+  tau_p                  = 6.0
+  compressibility        = 4.5e-5
+  ref_p                  = 1.0
+  refcoord-scaling       = com
+
+; CONSTRAINTS
+  constraints            = hbonds
+  constraint_algorithm   = lincs   
+  unconstrained_start    = yes
+
+; DISTANCE RESTRAINTS
+; None (see manual)
+
+; OUTPUT FLAGS
+  nstxout                = 2500
+  nstvout                = 2500
+  nstlog                 = 2500
+  nstenergy              = 2500
+  nstxtcout              = 2500 

@@ -1,0 +1,263 @@
+[ bondedtypes ]
+; Col 1: Type of bond
+; Col 2: Type of angles
+; Col 3: Type of proper dihedrals
+; Col 4: Type of improper dihedrals
+; Col 5: Generate all dihedrals if 1, only heavy atoms of 0.
+; Col 6: Number of excluded neighbors for nonbonded interactions
+; Col 7: Generate 1,4 interactions between pairs of hydrogens if 1
+; Col 8: Remove propers over the same bond as an improper if it is 1
+; bonds  angles  dihedrals  impropers all_dihedrals nrexcl HH14 RemoveDih
+     1       1          1          4        1        3      1     0
+
+;DNA
+
+[ PT ]
+ [ atoms ]
+     D   PTA -0.2  0
+
+ [ bonds ]
+    -D     D
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ PTT ]
+ [ atoms ]
+     D   PTA -0.2  0
+
+ [ bonds ]
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D1 ]
+ [ atoms ]
+     D   D1A -0.2  0
+
+ [ bonds ]
+    -D     D
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D1T ]
+ [ atoms ]
+     D   D1A -0.2  0
+
+ [ bonds ]
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D2 ]
+ [ atoms ]
+     D   D2A -0.2  0
+
+ [ bonds ]
+    -D     D
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D2T ]
+ [ atoms ]
+     D   D2A -0.2  0
+
+ [ bonds ]
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D3 ]
+ [ atoms ]
+     D   D3A -0.2  0
+
+ [ bonds ]
+    -D     D
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D3T ]
+ [ atoms ]
+     D   D3A -0.2  0
+
+ [ bonds ]
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D4 ]
+ [ atoms ]
+     D   D4A -0.2  0
+
+ [ bonds ]
+    -D     D
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D4T ]
+ [ atoms ]
+     D   D4A -0.2  0
+
+ [ bonds ]
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D5 ]
+ [ atoms ]
+     D   D5A -0.2  0
+
+ [ bonds ]
+    -D     D
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D5T ]
+ [ atoms ]
+     D   D5A -0.2  0
+
+ [ bonds ]
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D6 ]
+ [ atoms ]
+     D   D6A -0.2  0
+
+ [ bonds ]
+    -D     D
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D6T ]
+ [ atoms ]
+     D   D6A -0.2  0
+
+ [ bonds ]
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D7 ]
+ [ atoms ]
+     D   D7A -0.2  0
+
+ [ bonds ]
+    -D     D
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ D7T ]
+ [ atoms ]
+     D   D7A -0.2  0
+
+ [ bonds ]
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ T ]
+ [ atoms ]
+     D    TA -0.2  0
+
+ [ bonds ]
+    -D     D
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ TT ]
+ [ atoms ]
+     D    TA -0.2  0
+
+ [ bonds ]
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
+
+[ S ]
+ [ atoms ]
+     D    SA -0.2  0
+
+ [ bonds ]
+    -D     D
+
+ [ angles ] 
+      
+ [ dihedrals ]   
+
+ [ impropers ]
+
+[ ST ]
+ [ atoms ]
+     D    SA -0.2  0
+
+ [ bonds ]
+
+ [ angles ]
+
+ [ dihedrals ]
+
+ [ impropers ]
