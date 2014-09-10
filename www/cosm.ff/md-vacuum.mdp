@@ -1,28 +1,28 @@
 integrator          =  md
 dt                  =  0.02 ; ps !
-nsteps              =  500000 ; total 10 ns.
+nsteps              =  1000000 ; total 1 ns.
 
 ; continuation        =  yes
 
 nstxout             =  100
 nstvout             =  1000
 nstfout             =  1000
-nstlist             =  0
+nstlist             =  0 ;10
 nstlog              =  1000
 ; table-extension     =  20
 
 ; morse               =  yes
 
-rlist               =  0 ;30
-rvdw                =  0 ;30
-rcoulomb		= 0 ;30 
+rlist               =  30 ;8; 10; 0 ;30
+rvdw                =  30 ;8; 10 ; 0 ;30
+rcoulomb		= 30 ;8; 10 ; 0 ;30 
 coulombtype		= cut-off
 vdwtype			= cut-off
-rcoulomb-switch     =  0
-rvdw-switch         =  0
+;rcoulomb-switch     =  0
+;rvdw-switch         =  0
 ;fourierspacing      =  0.16
 ;pme_order           =  4
-
+;cutoff-scheme = Verlet
 
 
 ; bd_fric             =  0
@@ -37,7 +37,7 @@ constraints         =  none ; all-bonds
 Tcoupl              = v-rescale
 tau_t               = 1.0
 tc-grps             =  DNA
-ref_t               =  300
+ref_t               =  400
 
 Pcoupl              =  no ;berendsen
 Pcoupltype          =  isotropic
@@ -47,7 +47,7 @@ ref_p               =  1.0 ;1.0 1.0 1.0 1.0 1.0
 refcoord_scaling    =  all
 
 gen_vel             =  yes
-gen_temp            =  300
+gen_temp            =  400
 gen_seed            =  173529
 ;http://www.mail-archive.com/gmx-users@gromacs.org/msg20866.html
 

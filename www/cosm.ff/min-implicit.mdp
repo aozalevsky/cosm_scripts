@@ -2,7 +2,7 @@ title               =  alanine dipeptide
 cpp                 =  /lib/cpp -traditional  						; prepocessor of the current machine
 define              =  -DFLEXIBLE						; -DPOSRES, -DPOSRES_IONS ;DFLEX_SPC; FLEXible SPC and POSition REStraints
 
-integrator          =  steep;l-bfgs ;steep    						; steepest descent algorithm
+integrator          =  l-bfgs ;steep    						; steepest descent algorithm
 dt                  =  0.1   						; time step in ps
 nsteps              =  500000      						; number of steps
 
@@ -35,7 +35,7 @@ Tcoupl              =  no
 Pcoupl              =  no
 gen_vel             =  no
  Free energy control stuff
-free_energy              = yes
+free_energy              = no ;yes
 init_lambda              = 0.0
 delta_lambda             = 0
 sc_alpha                 =0.5

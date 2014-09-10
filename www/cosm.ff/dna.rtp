@@ -14,7 +14,7 @@
 
 [ PT ]
  [ atoms ]
-     D   PTA -0.2  0
+     D   PTA -0.175   0
 
  [ bonds ]
     -D     D
@@ -27,7 +27,7 @@
 
 [ PTT ]
  [ atoms ]
-     D   PTA  0.0  0
+     D   PTA -0.175   0
 
  [ bonds ]
 
@@ -39,7 +39,7 @@
 
 [ N ]
  [ atoms ]
-     D   NA -0.01   0  
+     D   NA -0.025 0  
 
  [ bonds ]
     -D     D
@@ -64,7 +64,7 @@
 
 [ D1 ]
  [ atoms ]
-     D   D1A   -0.01  0
+     D   D1A   -0.025  0
 
  [ bonds ]
     -D     D
@@ -89,7 +89,7 @@
 
 [ D2 ]
  [ atoms ]
-     D   D2A   -0.01  0
+     D   D2A   -0.05 0
 
  [ bonds ]
     -D     D
@@ -114,7 +114,7 @@
 
 [ D3 ]
  [ atoms ]
-     D   D3A   -0.01  0
+     D   D3A   -0.075  0
 
  [ bonds ]
     -D     D
@@ -139,7 +139,7 @@
 
 [ D4 ]
  [ atoms ]
-     D   D4A   -0.01  0
+     D   D4A   -0.10 0
 
  [ bonds ]
     -D     D
@@ -164,7 +164,7 @@
 
 [ D5 ]
  [ atoms ]
-     D   D5A   -0.01  0
+     D   D5A   -0.125  0
 
  [ bonds ]
     -D     D
@@ -189,7 +189,7 @@
 
 [ D6 ]
  [ atoms ]
-     D   D6A   -0.01  0
+     D   D6A   -0.15  0
 
  [ bonds ]
     -D     D
@@ -214,7 +214,7 @@
 
 [ D7 ]
  [ atoms ]
-     D   D7A -0.036  0
+     D   D7A -0.175   0
 
  [ bonds ]
     -D     D
@@ -239,7 +239,7 @@
 
 [ T ]
  [ atoms ]
-     D    TA -0.2  0
+     D    TA -0.175   0
 
  [ bonds ]
     -D     D
@@ -264,7 +264,7 @@
 
 [ S ]
  [ atoms ]
-     D    SA -0.01 0
+     D    SA -0.012 0
 
  [ bonds ]
     -D     D
@@ -277,7 +277,7 @@
 
 [ O ]
  [ atoms ]
-     D    OA -0.01 0
+     D    OA -0.012 0
 
  [ bonds ]
     -D     D
@@ -288,7 +288,7 @@
 
 [ OT ]
  [ atoms ]
-     D    OA -0.01 0
+     D    OA -0.012 0
 
  [ bonds ]
 

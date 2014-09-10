@@ -18,16 +18,16 @@
 ;KW    147.10 ; Coarse grained K  
 ;ClW   143.45 ; Coarse grained Cl  
 
-PTA  4620.0  ; pre-terminal atom
-D1A   660.0  ; terminal atom, 1bp
-D2A  1320.0  ; terminal atom, 2bp
-D3A  1980.0  ; terminal atom, 3bp
-D4A  2640.0  ; terminal atom, 4bp
-D5A  3300.0  ; terminal atom, 5bp
-D6A  3960.0  ; terminal atom, 6bp
-D7A  4620.0  ; inner atom of the helix
-TA   4620.0  ; terminal atom, 7 bp
-SA    660.0  ; single-stranded scaffold
-OA    660.0  ;  single-stranded olig
-NA   4620.0  ; duplex crossover atom
+PTA  4760.0  ; pre-terminal atom
+D1A   680.0  ; terminal atom, 1bp
+D2A  1360.0  ; terminal atom, 2bp
+D3A  2040.0  ; terminal atom, 3bp
+D4A  2720.0  ; terminal atom, 4bp
+D5A  3400.0  ; terminal atom, 5bp
+D6A  4080.0  ; terminal atom, 6bp
+D7A  4760.0  ; inner atom of the helix
+TA   4760.0  ; terminal atom, 7 bp
+SA    340.0  ; single-stranded scaffold
+OA    340.0  ;  single-stranded olig
+NA   4760.0  ; duplex crossover atom
 ;SA    330.0  ; single-stranded atom
