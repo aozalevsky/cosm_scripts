@@ -54,5 +54,5 @@ mdrun -deffnm em$nt
 grompp -f ${ccg}.ff/min-implicit.mdp -c em -p topol -o em2
 mdrun -deffnm em2 -pd$nt
 grompp -f ${ccg}.ff/md-vacuum.mdp -c em2 -p topol -o md
-mdrun -deffnm md$nt
+mdrun -deffnm md$nt -pd
 #trjconv -f md -s md -o md.pdb -skip 500
