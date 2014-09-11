@@ -36,7 +36,7 @@ ccg="cosm"
 else
 ccg="cosm8"
 fi
-ln -s ~/${ccg}.ff .
+ln -s ../${ccg}.ff .
 ln -s ${ccg}.ff/residuetypes.dat .
 if [ "$3" == "0" ]
 then
@@ -50,7 +50,7 @@ pdb2gmx -f $1.pdb -o beg.gro -merge all -ff ${ccg} -water none
 awk -v name=$1 '/; Include Position restraint file/{print "#include \"" name "_r\""}1' topol.top > topol_tmp
 mv topol_tmp topol.top 
 grompp -f ${ccg}.ff/minl.mdp -c beg -p topol -o em
-mdrun -deffnm em$nt
+mdrun -deffnm em
 grompp -f ${ccg}.ff/min-implicit.mdp -c em -p topol -o em2
 mdrun -deffnm em2 -pd$nt
 grompp -f ${ccg}.ff/md-vacuum.mdp -c em2 -p topol -o md
