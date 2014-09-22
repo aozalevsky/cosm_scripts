@@ -1,0 +1,19 @@
+PTA  4760.0  ; pre-terminal particle, 7bp
+HA   4760.0  ; basic helix particle, 7bp
+TA   4760.0  ; terminal particle for a || helix, 7bp. Goes only after HA
+T1A   680.0  ; terminal particle for a || helix, 1bp. Goes after PTA
+T2A  1360.0  ; terminal particle for a || helix, 2bp. Goes after PTA
+T3A  2040.0  ; terminal particle for a || helix, 3bp. Goes after PTA
+T4A  2720.0  ; terminal particle for a || helix, 4bp. Goes after PTA
+T5A  3400.0  ; terminal particle for a || helix, 5bp. Goes after PTA
+T6A  4080.0  ; terminal particle for a || helix, 6bp. Goes after PTA
+BA   4760.0  ; terminal particle for a __/ helix (branch), 7bp. Goes only after HA
+B1A   680.0  ; terminal particle for a __/ helix, 1bp. Goes after PTA
+B2A  1360.0  ; terminal particle for a __/ helix, 2bp. Goes after PTA
+B3A  2040.0  ; terminal particle for a __/ helix, 3bp. Goes after PTA
+B4A  2720.0  ; terminal particle for a __/ helix, 4bp. Goes after PTA
+B5A  3400.0  ; terminal particle for a __/ helix, 5bp. Goes after PTA
+B6A  4080.0  ; terminal particle for a __/ helix, 6bp. Goes after PTA
+SA    340.0  ; single-stranded scaffold particle, 1 nt
+OA    340.0  ; single-stranded oligonucleotide particle, 1nt
+NA    680.0  ; duplex crossover particle, 1bp

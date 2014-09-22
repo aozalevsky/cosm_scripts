@@ -1,0 +1,1343 @@
+; Dx S Dx angles! 
+
+
+[ bondtypes ]
+;i     j     func  b0     kb
+
+;DNA
+
+ PTA  D1A    1     0.350  56840    ;
+ NA    NA    1     0.350  56840    ;
+ NA    NA    1     0.350  56840    ;
+ PTA   NA    1     0.350  56840    ;
+ TA    NA    1     0.350  56840    ;
+ PTA  D2A    1     0.700  56840    ;
+ PTA  D3A    1     1.050  56840    ;
+ PTA  D4A    1     1.400  56840    ;
+ PTA  D5A    1     1.750  56840    ;
+ PTA  D6A    1     2.100  56840    ;
+ PTA  D7A    1     2.450  56840    ;
+ D7A  D7A    1     2.450  56840    ;
+ D7A   TA    1     2.450  56840    ;
+ PTA   TA    1     2.450  56840    ;
+ PTA  PTA    1     2.450  56840    ;
+  TA   SA    1     0.350  56840    ;
+ D1A   SA    1     0.350  56840    ;
+ D2A   SA    1     0.350  56840    ;
+ D3A   SA    1     0.350  56840    ;
+ D4A   SA    1     0.350  56840    ;
+ D5A   SA    1     0.350  56840    ;
+ D6A   SA    1     0.350  56840    ;
+  SA   SA    1     0.350  56840    ;
+  OA   OA    1     0.350  56840    ;
+ D1A  D1A    1     2.200  56840    ;
+ D1A  D2A    1     2.200  56840    ;
+ D1A  D3A    1     2.200  56840    ;
+ D1A  D4A    1     2.200  56840    ;
+ D1A  D5A    1     2.200  56840    ;
+ D1A  D6A    1     2.200  56840    ;
+ D2A  D2A    1     2.200  56840    ;
+ D2A  D3A    1     2.200  56840    ;
+ D2A  D4A    1     2.200  56840    ;
+ D2A  D5A    1     2.200  56840    ;
+ D2A  D6A    1     2.200  56840    ;
+ D3A  D3A    1     2.200  56840    ;
+ D3A  D4A    1     2.200  56840    ;
+ D3A  D5A    1     2.200  56840    ;
+ D3A  D6A    1     2.200  56840    ;
+ D4A  D4A    1     2.200  56840    ;
+ D4A  D5A    1     2.200  56840    ;
+ D4A  D6A    1     2.200  56840    ;
+ D5A  D5A    1     2.200  56840    ;
+ D5A  D6A    1     2.200  56840    ;
+ D6A  D6A    1     2.200  56840    ;
+ D1A   TA    1     2.200  56840    ;
+ D2A   TA    1     2.200  56840    ;
+ D3A   TA    1     2.200  56840    ;
+ D4A   TA    1     2.200  56840    ;
+ D5A   TA    1     2.200  56840    ;
+ D6A   TA    1     2.200  56840    ;
+ TA    TA    1     2.200  56840    ;
+
+ [ angletypes ]
+;i     j     k     func   th0      cth
+
+;DNA
+ D7A   D7A   D7A   1      180.0    50.9    ;
+ D7A   D7A   PTA   1      180.0    50.9    ;
+ D7A   PTA   D1A   1      180.0    89.0    ;
+ D7A   PTA   D2A   1      180.0    79.1    ;
+ D7A   PTA   D3A   1      180.0    71.2    ;
+ D7A   PTA   D4A   1      180.0    64.7    ;
+ D7A   PTA   D5A   1      180.0    59.4    ;
+ D7A   PTA   D6A   1      180.0    54.8    ;
+ D7A   PTA   NA   1      180.0    89.0    ;
+ PTA   NA    NA   1      180.0    89.0    ;
+ D1A   NA    NA   1      180.0   356.2    ;
+ D2A   NA    NA   1      180.0   237.4    ;
+ D3A   NA    NA   1      180.0   178.1    ;
+ D4A   NA    NA   1      180.0   142.5    ;
+ D5A   NA    NA   1      180.0   124.6    ;
+ D6A   NA    NA   1      180.0   101.8    ;
+ NA    NA    NA   1      180.0   356.2    ;
+; TA    NA    NA   1      180.0    89.0    ;
+ NA    PTA   NA   1      180.0   356.2    ;
+ PTA   PTA   NA   1      180.0    89.0    ;
+ D1A   PTA   NA   1      180.0   356.2    ;
+ D2A   PTA   NA   1      180.0   237.4    ;
+ D3A   PTA   NA   1      180.0   178.1    ;
+ D4A   PTA   NA   1      180.0   142.5    ;
+ D5A   PTA   NA   1      180.0   124.6    ;
+ D6A   PTA   NA   1      180.0   101.8    ;
+ TA    PTA   NA   1      180.0    89.0    ;
+  TA   NA    NA    1      180.0   356.2    ;
+  TA   NA    TA    1      180.0   356.2    ;
+ D7A   D7A   TA    1      180.0    50.9    ;
+ PTA   D1A   SA    1      180.0   356.2    ;
+ PTA   D2A   SA    1      180.0   237.4    ;
+ PTA   D3A   SA    1      180.0   178.1    ;
+ PTA   D4A   SA    1      180.0   142.5    ;
+ PTA   D5A   SA    1      180.0   124.6    ;
+ PTA   D6A   SA    1      180.0   101.8    ;
+ D7A   TA    SA    1      180.0    89.0    ;
+ TA    TA    SA    1      180.0    89.0    ;
+ NA    TA    SA    1      180.0   356.2    ;
+ D1A   SA    SA    1      150.0     14.3    ;
+ TA    SA    SA    1      150.0     14.3    ;
+ D2A   SA    SA    1      150.0     14.3    ;
+ D3A   SA    SA    1      150.0     14.3    ;
+ D4A   SA    SA    1      150.0     14.3    ;
+ D5A   SA    SA    1      150.0     14.3    ;
+ D6A   SA    SA    1      150.0     14.3    ;
+ SA    SA    SA    1      150.0     14.3    ;
+;NA    PTA   NA    1      180.0    50.9    ;
+ OA    OA    OA    1      150.0     14.3    ;
+ PTA   D1A   D1A   1      180.0       7.1    ;
+ PTA   D1A   D2A   1      180.0       7.1    ;
+ PTA   D1A   D3A   1      180.0       7.1    ;
+ PTA   D1A   D4A   1      180.0       7.1    ;
+ PTA   D1A   D5A   1      180.0       7.1    ;
+ PTA   D1A   D6A   1      180.0       7.1    ;
+ PTA   D1A   TA    1      180.0       7.1    ;
+ PTA   D2A   D1A   1      180.0       7.1    ;
+ PTA   D2A   D2A   1      180.0       7.1    ;
+ PTA   D2A   D3A   1      180.0       7.1    ;
+ PTA   D2A   D4A   1      180.0       7.1    ;
+ PTA   D2A   D5A   1      180.0       7.1    ;
+ PTA   D2A   D6A   1      180.0       7.1    ;
+ PTA   D2A   TA    1      180.0       7.1    ;
+ PTA   D3A   D1A   1      180.0       7.1    ;
+ PTA   D3A   D2A   1      180.0       7.1    ;
+ PTA   D3A   D3A   1      180.0       7.1    ;
+ PTA   D3A   D4A   1      180.0       7.1    ;
+ PTA   D3A   D5A   1      180.0       7.1    ;
+ PTA   D3A   D6A   1      180.0       7.1    ;
+ PTA   D3A   TA    1      180.0       7.1    ;
+ PTA   D4A   D1A   1      180.0       7.1    ;
+ PTA   D4A   D2A   1      180.0       7.1    ;
+ PTA   D4A   D3A   1      180.0       7.1    ;
+ PTA   D4A   D4A   1      180.0       7.1    ;
+ PTA   D4A   D5A   1      180.0       7.1    ;
+ PTA   D4A   D6A   1      180.0       7.1    ;
+ PTA   D4A   TA    1      180.0       7.1    ;
+ PTA   D5A   D1A   1      180.0       7.1    ;
+ PTA   D5A   D2A   1      180.0       7.1    ;
+ PTA   D5A   D3A   1      180.0       7.1    ;
+ PTA   D5A   D4A   1      180.0       7.1    ;
+ PTA   D5A   D5A   1      180.0       7.1    ;
+ PTA   D5A   D6A   1      180.0       7.1    ;
+ PTA   D5A   TA    1      180.0       7.1    ;
+ PTA   D6A   D1A   1      180.0       7.1    ;
+ PTA   D6A   D2A   1      180.0       7.1    ;
+ PTA   D6A   D3A   1      180.0       7.1    ;
+ PTA   D6A   D4A   1      180.0       7.1    ;
+ PTA   D6A   D5A   1      180.0       7.1    ;
+ PTA   D6A   D6A   1      180.0       7.1    ;
+ PTA   D6A   TA    1      180.0       7.1    ;
+ D7A   TA    TA    1      180.0       7.1    ;
+ PTA   TA    SA    1      180.0    89.0    ;
+ PTA   D7A   PTA   1      180.0    50.9    ;
+ D5A   PTA   TA    1      180.0    59.4    ;
+ PTA   PTA   TA    1      180.0    50.9    ;
+ PTA   PTA   D1A   1      180.0    89.0    ;
+ PTA   PTA   D2A   1      180.0    79.1    ;
+ PTA   PTA   D3A   1      180.0    71.2    ;
+ PTA   PTA   D4A   1      180.0    64.7    ;
+ PTA   PTA   D5A   1      180.0    59.4    ;
+ PTA   PTA   D6A   1      180.0    54.8    ;
+ PTA   PTA   D7A   1      180.0    50.9    ;
+ D1A   TA    D7A   1      180.0    89.0    ;
+ D2A   TA    D7A   1      180.0    79.1    ;
+ D3A   TA    D7A   1      180.0    71.2    ;
+ D4A   TA    D7A   1      180.0    64.7    ;
+ D5A   TA    D7A   1      180.0    59.4    ;
+ D6A   TA    D7A   1      180.0    54.8    ;
+
+ D1A   TA    SA    1      180.0  356.2    ;
+ D2A   TA    SA    1      180.0  237.4    ;
+ D3A   TA    SA    1      180.0  178.1    ;
+ D4A   TA    SA    1      180.0  142.5    ;
+ D5A   TA    SA    1      180.0  124.6    ;
+ D6A   TA    SA    1      180.0  101.8    ;
+ ;PTA   TA    SA    1      180.0  356.2    ; 
+
+
+ D2A   PTA   D1A   1      180.0   237.4    ;
+ D2A   PTA   D2A   1      180.0   178.1    ;
+ D2A   PTA   D3A   1      180.0   142.5    ;
+ D2A   PTA   D4A   1      180.0   124.6    ;
+ D2A   PTA   D5A   1      180.0   101.8    ;
+ D2A   PTA   D6A   1      180.0    89.0    ;
+ D1A   PTA   D1A   1      180.0   356.2    ;
+ D1A   PTA   D2A   1      180.0   237.4    ;
+ D1A   PTA   D3A   1      180.0   178.1    ;
+ D1A   PTA   D4A   1      180.0   142.5    ;
+ D1A   PTA   D5A   1      180.0   124.6    ;
+ D1A   PTA   D6A   1      180.0   101.8    ;
+ D3A   PTA   D1A   1      180.0   178.1    ;
+ D3A   PTA   D2A   1      180.0   142.5    ;
+ D3A   PTA   D3A   1      180.0   124.6    ;
+ D3A   PTA   D4A   1      180.0   101.8    ;
+ D3A   PTA   D5A   1      180.0    89.0    ;
+ D3A   PTA   D6A   1      180.0    79.1    ;
+ D4A   PTA   D1A   1      180.0   142.5    ;
+ D4A   PTA   D2A   1      180.0   124.6    ;
+ D4A   PTA   D3A   1      180.0   101.8    ;
+ D4A   PTA   D4A   1      180.0    89.0    ;
+ D4A   PTA   D5A   1      180.0    79.1    ;
+ D4A   PTA   D6A   1      180.0    71.2    ;
+ D5A   PTA   D1A   1      180.0   124.6    ;
+ D5A   PTA   D2A   1      180.0   101.8    ;
+ D5A   PTA   D3A   1      180.0    89.0    ;
+ D5A   PTA   D4A   1      180.0    79.1    ;
+ D5A   PTA   D5A   1      180.0    71.2    ;
+ D5A   PTA   D6A   1      180.0    64.7    ;
+ D6A   PTA   D1A   1      180.0   101.8    ;
+ D6A   PTA   D2A   1      180.0    89.0    ;
+ D6A   PTA   D3A   1      180.0    79.1    ;
+ D6A   PTA   D4A   1      180.0    71.2    ;
+ D6A   PTA   D5A   1      180.0    64.7    ;
+ D6A   PTA   D6A   1      180.0    59.4    ;
+ D1A   PTA   TA    1      180.0    89.0    ;
+ D2A   PTA   TA    1      180.0    79.1    ;
+ D3A   PTA   TA    1      180.0    71.2    ;
+ D4A   PTA   TA    1      180.0    64.7    ;
+ D5A   PTA   TA    1      180.0    59.4    ;
+ D6A   PTA   TA    1      180.0    54.8    ;
+
+ D1A  D1A    TA    1      180.0       7.1    ;
+ D1A  D2A    TA    1      180.0       7.1    ;
+ D1A  D3A    TA    1      180.0       7.1    ;
+ D1A  D4A    TA    1      180.0       7.1    ;
+ D1A  D5A    TA    1      180.0       7.1    ;
+ D1A  D6A    TA    1      180.0       7.1    ;
+ D2A  D1A    TA    1      180.0       7.1    ;
+ D2A  D2A    TA    1      180.0       7.1    ;
+ D2A  D3A    TA    1      180.0       7.1    ;
+ D2A  D4A    TA    1      180.0       7.1    ;
+ D2A  D5A    TA    1      180.0       7.1    ;
+ D2A  D6A    TA    1      180.0       7.1    ;
+ D3A  D1A    TA    1      180.0       7.1    ;
+ D3A  D2A    TA    1      180.0       7.1    ;
+ D3A  D3A    TA    1      180.0       7.1    ;
+ D3A  D4A    TA    1      180.0       7.1    ;
+ D3A  D5A    TA    1      180.0       7.1    ;
+ D3A  D6A    TA    1      180.0       7.1    ;
+ D4A  D1A    TA    1      180.0       7.1    ;
+ D4A  D2A    TA    1      180.0       7.1    ;
+ D4A  D3A    TA    1      180.0       7.1    ;
+ D4A  D4A    TA    1      180.0       7.1    ;
+ D4A  D5A    TA    1      180.0       7.1    ;
+ D4A  D6A    TA    1      180.0       7.1    ;
+ D5A  D1A    TA    1      180.0       7.1    ;
+ D5A  D2A    TA    1      180.0       7.1    ;
+ D5A  D3A    TA    1      180.0       7.1    ;
+ D5A  D4A    TA    1      180.0       7.1    ;
+ D5A  D5A    TA    1      180.0       7.1    ;
+ D5A  D6A    TA    1      180.0       7.1    ;
+ D6A  D1A    TA    1      180.0       7.1    ;
+ D6A  D2A    TA    1      180.0       7.1    ;
+ D6A  D3A    TA    1      180.0       7.1    ;
+ D6A  D4A    TA    1      180.0       7.1    ;
+ D6A  D5A    TA    1      180.0       7.1    ;
+ D6A  D6A    TA    1      180.0       7.1    ;
+
+
+ PTA   D7A   TA    1      180.0    50.9    ;
+  TA    TA   NA    1      180.0       7.1    ;
+ D1A    TA   NA    1      180.0       7.1    ;
+ D2A    TA   NA    1      180.0       7.1    ;
+ D3A    TA   NA    1      180.0       7.1    ;
+ D4A    TA   NA    1      180.0       7.1    ;
+ D5A    TA   NA    1      180.0       7.1    ;
+ D6A    TA   NA    1      180.0       7.1    ;
+; D1A    PTA  TA    1      180.0      21.4    ;
+; D2A    PTA  TA    1      180.0      21.4    ;
+; D3A    PTA  TA    1      180.0      21.4    ;
+; D4A    PTA  TA    1      180.0      21.4    ;
+; D5A    PTA  TA    1      180.0      21.4    ;
+; D6A    PTA  TA    1      180.0      21.4    ;
+
+
+[ dihedraltypes ]
+;i     j     k     l      func   phase      kd        pn
+
+;DNA
+
+
+;hard dihedrals
+D1A   PTA   PTA   D1A     1        0.0      9.00      1
+D1A   PTA   PTA   D2A     1        0.0      9.00      1
+D1A   PTA   PTA   D3A     1        0.0      9.00      1
+D1A   PTA   PTA   D4A     1        0.0      9.00      1
+D1A   PTA   PTA   D5A     1        0.0      9.00      1
+D1A   PTA   PTA   D6A     1        0.0      9.00      1
+D2A   PTA   PTA   D1A     1        0.0      9.00      1
+D2A   PTA   PTA   D2A     1        0.0      9.00      1
+D2A   PTA   PTA   D3A     1        0.0      9.00      1
+D2A   PTA   PTA   D4A     1        0.0      9.00      1
+D2A   PTA   PTA   D5A     1        0.0      9.00      1
+D2A   PTA   PTA   D6A     1        0.0      9.00      1
+D3A   PTA   PTA   D1A     1        0.0      9.00      1
+D3A   PTA   PTA   D2A     1        0.0      9.00      1
+D3A   PTA   PTA   D3A     1        0.0      9.00      1
+D3A   PTA   PTA   D4A     1        0.0      9.00      1
+D3A   PTA   PTA   D5A     1        0.0      9.00      1
+D3A   PTA   PTA   D6A     1        0.0      9.00      1
+D4A   PTA   PTA   D1A     1        0.0      9.00      1
+D4A   PTA   PTA   D2A     1        0.0      9.00      1
+D4A   PTA   PTA   D3A     1        0.0      9.00      1
+D4A   PTA   PTA   D4A     1        0.0      9.00      1
+D4A   PTA   PTA   D5A     1        0.0      9.00      1
+D4A   PTA   PTA   D6A     1        0.0      9.00      1
+D5A   PTA   PTA   D1A     1        0.0      9.00      1
+D5A   PTA   PTA   D2A     1        0.0      9.00      1
+D5A   PTA   PTA   D3A     1        0.0      9.00      1
+D5A   PTA   PTA   D4A     1        0.0      9.00      1
+D5A   PTA   PTA   D5A     1        0.0      9.00      1
+D5A   PTA   PTA   D6A     1        0.0      9.00      1
+D6A   PTA   PTA   D1A     1        0.0      9.00      1
+D6A   PTA   PTA   D2A     1        0.0      9.00      1
+D6A   PTA   PTA   D3A     1        0.0      9.00      1
+D6A   PTA   PTA   D4A     1        0.0      9.00      1
+D6A   PTA   PTA   D5A     1        0.0      9.00      1
+D6A   PTA   PTA   D6A     1        0.0      9.00      1
+SA    TA    D7A   PTA     1        0.0      9.00      1
+D7A   D7A   TA    SA      1        0.0      9.00      1
+SA    D1A   PTA   D7A     1        0.0      9.00      1
+SA    D2A   PTA   D7A     1        0.0      9.00      1
+SA    D3A   PTA   D7A     1        0.0      9.00      1
+SA    D4A   PTA   D7A     1        0.0      9.00      1
+SA    D5A   PTA   D7A     1        0.0      9.00      1
+SA    D6A   PTA   D7A     1        0.0      9.00      1
+D7A   D7A   D7A   D7A     1        0.0      9.00      1
+D7A   D7A   D7A   PTA     1        0.0      9.00      1
+D7A   D7A   D7A   TA      1        0.0      9.00      1
+D1A   PTA   D7A   D7A     1        0.0      9.00      1
+D2A   PTA   D7A   D7A     1        0.0      9.00      1
+D3A   PTA   D7A   D7A     1        0.0      9.00      1
+D4A   PTA   D7A   D7A     1        0.0      9.00      1
+D5A   PTA   D7A   D7A     1        0.0      9.00      1
+D6A   PTA   D7A   D7A     1        0.0      9.00      1
+TA    D7A   D7A   PTA     1        0.0      9.00      1
+TA    D7A   D7A   TA      1        0.0      9.00      1
+PTA   D7A   D7A   PTA     1        0.0      9.00      1
+
+D1A   PTA   D1A   SA      1        0.0      9.00      1 ; was semi-hard
+D1A   PTA   D2A   SA      1        0.0      9.00      1 ; was semi-hard
+D1A   PTA   D3A   SA      1        0.0      9.00      1 ; was semi-hard
+D1A   PTA   D4A   SA      1        0.0      9.00      1 ; was semi-hard
+D1A   PTA   D5A   SA      1        0.0      9.00      1 ; was semi-hard
+D1A   PTA   D6A   SA      1        0.0      9.00      1 ; was semi-hard
+D2A   PTA   D1A   SA      1        0.0      9.00      1
+D2A   PTA   D2A   SA      1        0.0      9.00      1
+D2A   PTA   D3A   SA      1        0.0      9.00      1
+D2A   PTA   D4A   SA      1        0.0      9.00      1
+D2A   PTA   D5A   SA      1        0.0      9.00      1
+D2A   PTA   D6A   SA      1        0.0      9.00      1
+D3A   PTA   D1A   SA      1        0.0      9.00      1
+D3A   PTA   D2A   SA      1        0.0      9.00      1
+D3A   PTA   D3A   SA      1        0.0      9.00      1
+D3A   PTA   D4A   SA      1        0.0      9.00      1
+D3A   PTA   D5A   SA      1        0.0      9.00      1
+D3A   PTA   D6A   SA      1        0.0      9.00      1
+D4A   PTA   D1A   SA      1        0.0      9.00      1
+D4A   PTA   D2A   SA      1        0.0      9.00      1
+D4A   PTA   D3A   SA      1        0.0      9.00      1
+D4A   PTA   D4A   SA      1        0.0      9.00      1
+D4A   PTA   D5A   SA      1        0.0      9.00      1
+D4A   PTA   D6A   SA      1        0.0      9.00      1
+D5A   PTA   D1A   SA      1        0.0      9.00      1
+D5A   PTA   D2A   SA      1        0.0      9.00      1
+D5A   PTA   D3A   SA      1        0.0      9.00      1
+D5A   PTA   D4A   SA      1        0.0      9.00      1
+D5A   PTA   D5A   SA      1        0.0      9.00      1
+D5A   PTA   D6A   SA      1        0.0      9.00      1
+D6A   PTA   D1A   SA      1        0.0      9.00      1
+D6A   PTA   D2A   SA      1        0.0      9.00      1
+D6A   PTA   D3A   SA      1        0.0      9.00      1
+D6A   PTA   D4A   SA      1        0.0      9.00      1
+D6A   PTA   D5A   SA      1        0.0      9.00      1
+D6A   PTA   D6A   SA      1        0.0      9.00      1
+
+;almost hard dihedrals
+
+
+TA    SA    SA    SA      1        0.0     5.00      1
+D1A   SA    SA    SA      1        0.0     5.00      1
+D2A   SA    SA    SA      1        0.0     5.00      1
+D3A   SA    SA    SA      1        0.0     5.00      1
+D4A   SA    SA    SA      1        0.0     5.00      1
+D5A   SA    SA    SA      1        0.0     5.00      1
+D6A   SA    SA    SA      1        0.0     5.00      1
+SA    SA    D1A   PTA     1        0.0     5.00      1 ; was semi-hard
+SA    SA    D2A   PTA     1        0.0     5.00      1
+SA    SA    D3A   PTA     1        0.0     5.00      1
+SA    SA    D4A   PTA     1        0.0     5.00      1
+SA    SA    D5A   PTA     1        0.0     5.00      1
+SA    SA    D6A   PTA     1        0.0     5.00      1
+TA    TA    SA    SA      1        0.0     5.00      1
+D7A   TA    SA    SA      1        0.0     5.00      1
+
+
+
+
+;semi-hard dihedrals
+
+
+
+
+
+
+
+D1A   SA    D1A   PTA     1        0.0      1.00      1
+D1A   SA    D2A   PTA     1        0.0      1.00      1
+D1A   SA    D3A   PTA     1        0.0      1.00      1
+D1A   SA    D4A   PTA     1        0.0      1.00      1
+D1A   SA    D5A   PTA     1        0.0      1.00      1
+D1A   SA    D6A   PTA     1        0.0      1.00      1
+D1A   SA    SA    D1A     1        0.0      5.00      1
+D1A   SA    SA    D2A     1        0.0      5.00      1
+D1A   SA    SA    D3A     1        0.0      5.00      1
+D1A   SA    SA    D4A     1        0.0      5.00      1
+D1A   SA    SA    D5A     1        0.0      5.00      1
+D1A   SA    SA    D6A     1        0.0      5.00      1
+D1A   SA    SA    TA      1        0.0      5.00      1
+D1A   SA    TA    D7A     1        0.0      1.00      1
+
+D2A   SA    D1A   PTA     1        0.0      1.00      1
+D2A   SA    D2A   PTA     1        0.0      1.00      1
+D2A   SA    D3A   PTA     1        0.0      1.00      1
+D2A   SA    D4A   PTA     1        0.0      1.00      1
+D2A   SA    D5A   PTA     1        0.0      1.00      1
+D2A   SA    D6A   PTA     1        0.0      1.00      1
+D2A   SA    SA    D1A     1        0.0      5.00      1
+D2A   SA    SA    D2A     1        0.0      5.00      1
+D2A   SA    SA    D3A     1        0.0      5.00      1
+D2A   SA    SA    D4A     1        0.0      5.00      1
+D2A   SA    SA    D5A     1        0.0      5.00      1
+D2A   SA    SA    D6A     1        0.0      5.00      1
+D2A   SA    SA    TA      1        0.0      5.00      1
+D2A   SA    TA    D7A     1        0.0      1.00      1
+
+D3A   SA    D1A   PTA     1        0.0      1.00      1
+D3A   SA    D2A   PTA     1        0.0      1.00      1
+D3A   SA    D3A   PTA     1        0.0      1.00      1
+D3A   SA    D4A   PTA     1        0.0      1.00      1
+D3A   SA    D5A   PTA     1        0.0      1.00      1
+D3A   SA    D6A   PTA     1        0.0      1.00      1
+D3A   SA    SA    D1A     1        0.0      5.00      1
+D3A   SA    SA    D2A     1        0.0      5.00      1
+D3A   SA    SA    D3A     1        0.0      5.00      1
+D3A   SA    SA    D4A     1        0.0      5.00      1
+D3A   SA    SA    D5A     1        0.0      5.00      1
+D3A   SA    SA    D6A     1        0.0      5.00      1
+D3A   SA    SA    TA      1        0.0      5.00      1
+D3A   SA    TA    D7A     1        0.0      1.00      1
+
+D4A   SA    D1A   PTA     1        0.0      1.00      1
+D4A   SA    D2A   PTA     1        0.0      1.00      1
+D4A   SA    D3A   PTA     1        0.0      1.00      1
+D4A   SA    D4A   PTA     1        0.0      1.00      1
+D4A   SA    D5A   PTA     1        0.0      1.00      1
+D4A   SA    D6A   PTA     1        0.0      1.00      1
+D4A   SA    SA    D1A     1        0.0      5.00      1
+D4A   SA    SA    D2A     1        0.0      5.00      1
+D4A   SA    SA    D3A     1        0.0      5.00      1
+D4A   SA    SA    D4A     1        0.0      5.00      1
+D4A   SA    SA    D5A     1        0.0      5.00      1
+D4A   SA    SA    D6A     1        0.0      5.00      1
+D4A   SA    SA    TA      1        0.0      5.00      1
+D4A   SA    TA    D7A     1        0.0      1.00      1
+
+D5A   SA    D1A   PTA     1        0.0      1.00      1
+D5A   SA    D2A   PTA     1        0.0      1.00      1
+D5A   SA    D3A   PTA     1        0.0      1.00      1
+D5A   SA    D4A   PTA     1        0.0      1.00      1
+D5A   SA    D5A   PTA     1        0.0      1.00      1
+D5A   SA    D6A   PTA     1        0.0      1.00      1
+D5A   SA    SA    D1A     1        0.0      5.00      1
+D5A   SA    SA    D2A     1        0.0      5.00      1
+D5A   SA    SA    D3A     1        0.0      5.00      1
+D5A   SA    SA    D4A     1        0.0      5.00      1
+D5A   SA    SA    D5A     1        0.0      5.00      1
+D5A   SA    SA    D6A     1        0.0      5.00      1
+D5A   SA    SA    TA      1        0.0      5.00      1
+D5A   SA    TA    D7A     1        0.0      1.00      1
+
+D6A   SA    D1A   PTA     1        0.0      1.00      1
+D6A   SA    D2A   PTA     1        0.0      1.00      1
+D6A   SA    D3A   PTA     1        0.0      1.00      1
+D6A   SA    D4A   PTA     1        0.0      1.00      1
+D6A   SA    D5A   PTA     1        0.0      1.00      1
+D6A   SA    D6A   PTA     1        0.0      1.00      1
+D6A   SA    SA    D1A     1        0.0      5.00      1
+D6A   SA    SA    D2A     1        0.0      5.00      1
+D6A   SA    SA    D3A     1        0.0      5.00      1
+D6A   SA    SA    D4A     1        0.0      5.00      1
+D6A   SA    SA    D5A     1        0.0      5.00      1
+D6A   SA    SA    D6A     1        0.0      5.00      1
+D6A   SA    SA    TA      1        0.0      5.00      1
+D6A   SA    TA    D7A     1        0.0      1.00      1
+
+D7A   TA    SA    D1A     1        0.0      1.00      1
+D7A   TA    SA    D2A     1        0.0      1.00      1
+D7A   TA    SA    D3A     1        0.0      1.00      1
+D7A   TA    SA    D4A     1        0.0      1.00      1
+D7A   TA    SA    D5A     1        0.0      1.00      1
+D7A   TA    SA    D6A     1        0.0      1.00      1
+D7A   TA    SA    TA      1        0.0      1.00      1
+ 
+PTA   D1A   SA    D1A     1        0.0      1.00      1
+PTA   D1A   SA    D2A     1        0.0      1.00      1
+PTA   D1A   SA    D3A     1        0.0      1.00      1
+PTA   D1A   SA    D4A     1        0.0      1.00      1
+PTA   D1A   SA    D5A     1        0.0      1.00      1
+PTA   D1A   SA    D6A     1        0.0      1.00      1
+PTA   D1A   SA    TA      1        0.0      1.00      1
+PTA   D2A   SA    D1A     1        0.0      1.00      1
+PTA   D2A   SA    D2A     1        0.0      1.00      1
+PTA   D2A   SA    D3A     1        0.0      1.00      1
+PTA   D2A   SA    D4A     1        0.0      1.00      1
+PTA   D2A   SA    D5A     1        0.0      1.00      1
+PTA   D2A   SA    D6A     1        0.0      1.00      1
+PTA   D2A   SA    TA      1        0.0      1.00      1
+PTA   D3A   SA    D1A     1        0.0      1.00      1
+PTA   D3A   SA    D2A     1        0.0      1.00      1
+PTA   D3A   SA    D3A     1        0.0      1.00      1
+PTA   D3A   SA    D4A     1        0.0      1.00      1
+PTA   D3A   SA    D5A     1        0.0      1.00      1
+PTA   D3A   SA    D6A     1        0.0      1.00      1
+PTA   D3A   SA    TA      1        0.0      1.00      1
+PTA   D4A   SA    D1A     1        0.0      1.00      1
+PTA   D4A   SA    D2A     1        0.0      1.00      1
+PTA   D4A   SA    D3A     1        0.0      1.00      1
+PTA   D4A   SA    D4A     1        0.0      1.00      1
+PTA   D4A   SA    D5A     1        0.0      1.00      1
+PTA   D4A   SA    D6A     1        0.0      1.00      1
+PTA   D4A   SA    TA      1        0.0      1.00      1
+PTA   D5A   SA    D1A     1        0.0      1.00      1
+PTA   D5A   SA    D2A     1        0.0      1.00      1
+PTA   D5A   SA    D3A     1        0.0      1.00      1
+PTA   D5A   SA    D4A     1        0.0      1.00      1
+PTA   D5A   SA    D5A     1        0.0      1.00      1
+PTA   D5A   SA    D6A     1        0.0      1.00      1
+PTA   D5A   SA    TA      1        0.0      1.00      1
+PTA   D6A   SA    D1A     1        0.0      1.00      1
+PTA   D6A   SA    D2A     1        0.0      1.00      1
+PTA   D6A   SA    D3A     1        0.0      1.00      1
+PTA   D6A   SA    D4A     1        0.0      1.00      1
+PTA   D6A   SA    D5A     1        0.0      1.00      1
+PTA   D6A   SA    D6A     1        0.0      1.00      1
+PTA   D6A   SA    TA      1        0.0      1.00      1
+
+SA    D1A   PTA   TA      1        0.0      1.00      1
+SA    D2A   PTA   TA      1        0.0      1.00      1
+SA    D3A   PTA   TA      1        0.0      1.00      1
+SA    D4A   PTA   TA      1        0.0      1.00      1
+SA    D5A   PTA   TA      1        0.0      1.00      1
+SA    D6A   PTA   TA      1        0.0      1.00      1
+SA    SA    SA    SA      1        0.0      5.00      1
+OA    OA    OA    OA      1        0.0      5.00      1
+
+TA    D7A   D1A   SA      1        0.0      1.00      1
+TA    D7A   D2A   SA      1        0.0      1.00      1
+TA    D7A   D3A   SA      1        0.0      1.00      1
+TA    D7A   D4A   SA      1        0.0      1.00      1
+TA    D7A   D5A   SA      1        0.0      1.00      1
+TA    D7A   D6A   SA      1        0.0      1.00      1
+TA    D7A   TA    SA      1        0.0      1.00      1
+TA    SA    D1A   PTA     1        0.0      1.00      1
+TA    SA    D2A   PTA     1        0.0      1.00      1
+TA    SA    D3A   PTA     1        0.0      1.00      1
+TA    SA    D4A   PTA     1        0.0      1.00      1
+TA    SA    D5A   PTA     1        0.0      1.00      1
+TA    SA    D6A   PTA     1        0.0      1.00      1
+TA    SA    SA    D1A     1        0.0      5.00      1
+TA    SA    SA    D2A     1        0.0      5.00      1
+TA    SA    SA    D3A     1        0.0      5.00      1
+TA    SA    SA    D4A     1        0.0      5.00      1
+TA    SA    SA    D5A     1        0.0      5.00      1
+TA    SA    SA    D6A     1        0.0      5.00      1
+TA    SA    SA    TA      1        0.0      5.00      1
+TA    SA    TA    D7A     1        0.0      1.00      1
+TA    TA    SA    D1A     1        0.0      1.00      1
+TA    TA    SA    D2A     1        0.0      1.00      1
+TA    TA    SA    D3A     1        0.0      1.00      1
+TA    TA    SA    D4A     1        0.0      1.00      1
+TA    TA    SA    D5A     1        0.0      1.00      1
+TA    TA    SA    D6A     1        0.0      1.00      1
+TA    TA    SA    TA      1        0.0      1.00      1
+ 
+D1A   D1A   PTA   D7A     1        0.0      1.00      1
+D1A   D2A   PTA   D7A     1        0.0      1.00      1
+D1A   D3A   PTA   D7A     1        0.0      1.00      1
+D1A   D4A   PTA   D7A     1        0.0      1.00      1
+D1A   D5A   PTA   D7A     1        0.0      1.00      1
+D1A   D6A   PTA   D7A     1        0.0      1.00      1
+D1A   PTA   D1A   D1A     1        0.0      1.00      1
+D1A   PTA   D1A   D2A     1        0.0      1.00      1
+D1A   PTA   D1A   D3A     1        0.0      1.00      1
+D1A   PTA   D1A   D4A     1        0.0      1.00      1
+D1A   PTA   D1A   D5A     1        0.0      1.00      1
+D1A   PTA   D1A   D6A     1        0.0      1.00      1
+D1A   PTA   D1A   TA      1        0.0      1.00      1
+D1A   PTA   D2A   D1A     1        0.0      1.00      1
+D1A   PTA   D2A   D2A     1        0.0      1.00      1
+D1A   PTA   D2A   D3A     1        0.0      1.00      1
+D1A   PTA   D2A   D4A     1        0.0      1.00      1
+D1A   PTA   D2A   D5A     1        0.0      1.00      1
+D1A   PTA   D2A   D6A     1        0.0      1.00      1
+D1A   PTA   D2A   TA      1        0.0      1.00      1
+D1A   PTA   D3A   D1A     1        0.0      1.00      1
+D1A   PTA   D3A   D2A     1        0.0      1.00      1
+D1A   PTA   D3A   D3A     1        0.0      1.00      1
+D1A   PTA   D3A   D4A     1        0.0      1.00      1
+D1A   PTA   D3A   D5A     1        0.0      1.00      1
+D1A   PTA   D3A   D6A     1        0.0      1.00      1
+D1A   PTA   D3A   TA      1        0.0      1.00      1
+D1A   PTA   D4A   D1A     1        0.0      1.00      1
+D1A   PTA   D4A   D2A     1        0.0      1.00      1
+D1A   PTA   D4A   D3A     1        0.0      1.00      1
+D1A   PTA   D4A   D4A     1        0.0      1.00      1
+D1A   PTA   D4A   D5A     1        0.0      1.00      1
+D1A   PTA   D4A   D6A     1        0.0      1.00      1
+D1A   PTA   D4A   TA      1        0.0      1.00      1
+D1A   PTA   D5A   D1A     1        0.0      1.00      1
+D1A   PTA   D5A   D2A     1        0.0      1.00      1
+D1A   PTA   D5A   D3A     1        0.0      1.00      1
+D1A   PTA   D5A   D4A     1        0.0      1.00      1
+D1A   PTA   D5A   D5A     1        0.0      1.00      1
+D1A   PTA   D5A   D6A     1        0.0      1.00      1
+D1A   PTA   D5A   TA      1        0.0      1.00      1
+D1A   PTA   D6A   D1A     1        0.0      1.00      1
+D1A   PTA   D6A   D2A     1        0.0      1.00      1
+D1A   PTA   D6A   D3A     1        0.0      1.00      1
+D1A   PTA   D6A   D4A     1        0.0      1.00      1
+D1A   PTA   D6A   D5A     1        0.0      1.00      1
+D1A   PTA   D6A   D6A     1        0.0      1.00      1
+D1A   PTA   D6A   TA      1        0.0      1.00      1
+D1A   TA    D7A   D7A     1        0.0      1.00      1
+
+D2A   D1A   PTA   D7A     1        0.0      1.00      1
+D2A   D2A   PTA   D7A     1        0.0      1.00      1
+D2A   D3A   PTA   D7A     1        0.0      1.00      1
+D2A   D4A   PTA   D7A     1        0.0      1.00      1
+D2A   D5A   PTA   D7A     1        0.0      1.00      1
+D2A   D6A   PTA   D7A     1        0.0      1.00      1
+D2A   PTA   D1A   D1A     1        0.0      1.00      1
+D2A   PTA   D1A   D2A     1        0.0      1.00      1
+D2A   PTA   D1A   D3A     1        0.0      1.00      1
+D2A   PTA   D1A   D4A     1        0.0      1.00      1
+D2A   PTA   D1A   D5A     1        0.0      1.00      1
+D2A   PTA   D1A   D6A     1        0.0      1.00      1
+D2A   PTA   D1A   TA      1        0.0      1.00      1
+D2A   PTA   D2A   D1A     1        0.0      1.00      1
+D2A   PTA   D2A   D2A     1        0.0      1.00      1
+D2A   PTA   D2A   D3A     1        0.0      1.00      1
+D2A   PTA   D2A   D4A     1        0.0      1.00      1
+D2A   PTA   D2A   D5A     1        0.0      1.00      1
+D2A   PTA   D2A   D6A     1        0.0      1.00      1
+D2A   PTA   D2A   TA      1        0.0      1.00      1
+D2A   PTA   D3A   D1A     1        0.0      1.00      1
+D2A   PTA   D3A   D2A     1        0.0      1.00      1
+D2A   PTA   D3A   D3A     1        0.0      1.00      1
+D2A   PTA   D3A   D4A     1        0.0      1.00      1
+D2A   PTA   D3A   D5A     1        0.0      1.00      1
+D2A   PTA   D3A   D6A     1        0.0      1.00      1
+D2A   PTA   D3A   TA      1        0.0      1.00      1
+D2A   PTA   D4A   D1A     1        0.0      1.00      1
+D2A   PTA   D4A   D2A     1        0.0      1.00      1
+D2A   PTA   D4A   D3A     1        0.0      1.00      1
+D2A   PTA   D4A   D4A     1        0.0      1.00      1
+D2A   PTA   D4A   D5A     1        0.0      1.00      1
+D2A   PTA   D4A   D6A     1        0.0      1.00      1
+D2A   PTA   D4A   TA      1        0.0      1.00      1
+D2A   PTA   D5A   D1A     1        0.0      1.00      1
+D2A   PTA   D5A   D2A     1        0.0      1.00      1
+D2A   PTA   D5A   D3A     1        0.0      1.00      1
+D2A   PTA   D5A   D4A     1        0.0      1.00      1
+D2A   PTA   D5A   D5A     1        0.0      1.00      1
+D2A   PTA   D5A   D6A     1        0.0      1.00      1
+D2A   PTA   D5A   TA      1        0.0      1.00      1
+D2A   PTA   D6A   D1A     1        0.0      1.00      1
+D2A   PTA   D6A   D2A     1        0.0      1.00      1
+D2A   PTA   D6A   D3A     1        0.0      1.00      1
+D2A   PTA   D6A   D4A     1        0.0      1.00      1
+D2A   PTA   D6A   D5A     1        0.0      1.00      1
+D2A   PTA   D6A   D6A     1        0.0      1.00      1
+D2A   PTA   D6A   TA      1        0.0      1.00      1
+D2A   TA    D7A   D7A     1        0.0      1.00      1
+
+D3A   D1A   PTA   D7A     1        0.0      1.00      1
+D3A   D2A   PTA   D7A     1        0.0      1.00      1
+D3A   D3A   PTA   D7A     1        0.0      1.00      1
+D3A   D4A   PTA   D7A     1        0.0      1.00      1
+D3A   D5A   PTA   D7A     1        0.0      1.00      1
+D3A   D6A   PTA   D7A     1        0.0      1.00      1
+D3A   PTA   D1A   D1A     1        0.0      1.00      1
+D3A   PTA   D1A   D2A     1        0.0      1.00      1
+D3A   PTA   D1A   D3A     1        0.0      1.00      1
+D3A   PTA   D1A   D4A     1        0.0      1.00      1
+D3A   PTA   D1A   D5A     1        0.0      1.00      1
+D3A   PTA   D1A   D6A     1        0.0      1.00      1
+D3A   PTA   D1A   TA      1        0.0      1.00      1
+D3A   PTA   D2A   D1A     1        0.0      1.00      1
+D3A   PTA   D2A   D2A     1        0.0      1.00      1
+D3A   PTA   D2A   D3A     1        0.0      1.00      1
+D3A   PTA   D2A   D4A     1        0.0      1.00      1
+D3A   PTA   D2A   D5A     1        0.0      1.00      1
+D3A   PTA   D2A   D6A     1        0.0      1.00      1
+D3A   PTA   D2A   TA      1        0.0      1.00      1
+D3A   PTA   D3A   D1A     1        0.0      1.00      1
+D3A   PTA   D3A   D2A     1        0.0      1.00      1
+D3A   PTA   D3A   D3A     1        0.0      1.00      1
+D3A   PTA   D3A   D4A     1        0.0      1.00      1
+D3A   PTA   D3A   D5A     1        0.0      1.00      1
+D3A   PTA   D3A   D6A     1        0.0      1.00      1
+D3A   PTA   D3A   TA      1        0.0      1.00      1
+D3A   PTA   D4A   D1A     1        0.0      1.00      1
+D3A   PTA   D4A   D2A     1        0.0      1.00      1
+D3A   PTA   D4A   D3A     1        0.0      1.00      1
+D3A   PTA   D4A   D4A     1        0.0      1.00      1
+D3A   PTA   D4A   D5A     1        0.0      1.00      1
+D3A   PTA   D4A   D6A     1        0.0      1.00      1
+D3A   PTA   D4A   TA      1        0.0      1.00      1
+D3A   PTA   D5A   D1A     1        0.0      1.00      1
+D3A   PTA   D5A   D2A     1        0.0      1.00      1
+D3A   PTA   D5A   D3A     1        0.0      1.00      1
+D3A   PTA   D5A   D4A     1        0.0      1.00      1
+D3A   PTA   D5A   D5A     1        0.0      1.00      1
+D3A   PTA   D5A   D6A     1        0.0      1.00      1
+D3A   PTA   D5A   TA      1        0.0      1.00      1
+D3A   PTA   D6A   D1A     1        0.0      1.00      1
+D3A   PTA   D6A   D2A     1        0.0      1.00      1
+D3A   PTA   D6A   D3A     1        0.0      1.00      1
+D3A   PTA   D6A   D4A     1        0.0      1.00      1
+D3A   PTA   D6A   D5A     1        0.0      1.00      1
+D3A   PTA   D6A   D6A     1        0.0      1.00      1
+D3A   PTA   D6A   TA      1        0.0      1.00      1
+D3A   TA    D7A   D7A     1        0.0      1.00      1
+                     
+D4A   D1A   PTA   D7A     1        0.0      1.00      1
+D4A   D2A   PTA   D7A     1        0.0      1.00      1
+D4A   D3A   PTA   D7A     1        0.0      1.00      1
+D4A   D4A   PTA   D7A     1        0.0      1.00      1
+D4A   D5A   PTA   D7A     1        0.0      1.00      1
+D4A   D6A   PTA   D7A     1        0.0      1.00      1
+D4A   PTA   D1A   D1A     1        0.0      1.00      1
+D4A   PTA   D1A   D2A     1        0.0      1.00      1
+D4A   PTA   D1A   D3A     1        0.0      1.00      1
+D4A   PTA   D1A   D4A     1        0.0      1.00      1
+D4A   PTA   D1A   D5A     1        0.0      1.00      1
+D4A   PTA   D1A   D6A     1        0.0      1.00      1
+D4A   PTA   D1A   TA      1        0.0      1.00      1
+D4A   PTA   D2A   D1A     1        0.0      1.00      1
+D4A   PTA   D2A   D2A     1        0.0      1.00      1
+D4A   PTA   D2A   D3A     1        0.0      1.00      1
+D4A   PTA   D2A   D4A     1        0.0      1.00      1
+D4A   PTA   D2A   D5A     1        0.0      1.00      1
+D4A   PTA   D2A   D6A     1        0.0      1.00      1
+D4A   PTA   D2A   TA      1        0.0      1.00      1
+D4A   PTA   D3A   D1A     1        0.0      1.00      1
+D4A   PTA   D3A   D2A     1        0.0      1.00      1
+D4A   PTA   D3A   D3A     1        0.0      1.00      1
+D4A   PTA   D3A   D4A     1        0.0      1.00      1
+D4A   PTA   D3A   D5A     1        0.0      1.00      1
+D4A   PTA   D3A   D6A     1        0.0      1.00      1
+D4A   PTA   D3A   TA      1        0.0      1.00      1
+D4A   PTA   D4A   D1A     1        0.0      1.00      1
+D4A   PTA   D4A   D2A     1        0.0      1.00      1
+D4A   PTA   D4A   D3A     1        0.0      1.00      1
+D4A   PTA   D4A   D4A     1        0.0      1.00      1
+D4A   PTA   D4A   D5A     1        0.0      1.00      1
+D4A   PTA   D4A   D6A     1        0.0      1.00      1
+D4A   PTA   D4A   TA      1        0.0      1.00      1
+D4A   PTA   D5A   D1A     1        0.0      1.00      1
+D4A   PTA   D5A   D2A     1        0.0      1.00      1
+D4A   PTA   D5A   D3A     1        0.0      1.00      1
+D4A   PTA   D5A   D4A     1        0.0      1.00      1
+D4A   PTA   D5A   D5A     1        0.0      1.00      1
+D4A   PTA   D5A   D6A     1        0.0      1.00      1
+D4A   PTA   D5A   TA      1        0.0      1.00      1
+D4A   PTA   D6A   D1A     1        0.0      1.00      1
+D4A   PTA   D6A   D2A     1        0.0      1.00      1
+D4A   PTA   D6A   D3A     1        0.0      1.00      1
+D4A   PTA   D6A   D4A     1        0.0      1.00      1
+D4A   PTA   D6A   D5A     1        0.0      1.00      1
+D4A   PTA   D6A   D6A     1        0.0      1.00      1
+D4A   PTA   D6A   TA      1        0.0      1.00      1
+D4A   TA    D7A   D7A     1        0.0      1.00      1
+
+D5A   D1A   PTA   D7A     1        0.0      1.00      1
+D5A   D2A   PTA   D7A     1        0.0      1.00      1
+D5A   D3A   PTA   D7A     1        0.0      1.00      1
+D5A   D4A   PTA   D7A     1        0.0      1.00      1
+D5A   D5A   PTA   D7A     1        0.0      1.00      1
+D5A   D6A   PTA   D7A     1        0.0      1.00      1
+D5A   PTA   D1A   D1A     1        0.0      1.00      1
+D5A   PTA   D1A   D2A     1        0.0      1.00      1
+D5A   PTA   D1A   D3A     1        0.0      1.00      1
+D5A   PTA   D1A   D4A     1        0.0      1.00      1
+D5A   PTA   D1A   D5A     1        0.0      1.00      1
+D5A   PTA   D1A   D6A     1        0.0      1.00      1
+D5A   PTA   D1A   TA      1        0.0      1.00      1
+D5A   PTA   D2A   D1A     1        0.0      1.00      1
+D5A   PTA   D2A   D2A     1        0.0      1.00      1
+D5A   PTA   D2A   D3A     1        0.0      1.00      1
+D5A   PTA   D2A   D4A     1        0.0      1.00      1
+D5A   PTA   D2A   D5A     1        0.0      1.00      1
+D5A   PTA   D2A   D6A     1        0.0      1.00      1
+D5A   PTA   D2A   TA      1        0.0      1.00      1
+D5A   PTA   D3A   D1A     1        0.0      1.00      1
+D5A   PTA   D3A   D2A     1        0.0      1.00      1
+D5A   PTA   D3A   D3A     1        0.0      1.00      1
+D5A   PTA   D3A   D4A     1        0.0      1.00      1
+D5A   PTA   D3A   D5A     1        0.0      1.00      1
+D5A   PTA   D3A   D6A     1        0.0      1.00      1
+D5A   PTA   D3A   TA      1        0.0      1.00      1
+D5A   PTA   D4A   D1A     1        0.0      1.00      1
+D5A   PTA   D4A   D2A     1        0.0      1.00      1
+D5A   PTA   D4A   D3A     1        0.0      1.00      1
+D5A   PTA   D4A   D4A     1        0.0      1.00      1
+D5A   PTA   D4A   D5A     1        0.0      1.00      1
+D5A   PTA   D4A   D6A     1        0.0      1.00      1
+D5A   PTA   D4A   TA      1        0.0      1.00      1
+D5A   PTA   D5A   D1A     1        0.0      1.00      1
+D5A   PTA   D5A   D2A     1        0.0      1.00      1
+D5A   PTA   D5A   D3A     1        0.0      1.00      1
+D5A   PTA   D5A   D4A     1        0.0      1.00      1
+D5A   PTA   D5A   D5A     1        0.0      1.00      1
+D5A   PTA   D5A   D6A     1        0.0      1.00      1
+D5A   PTA   D5A   TA      1        0.0      1.00      1
+D5A   PTA   D6A   D1A     1        0.0      1.00      1
+D5A   PTA   D6A   D2A     1        0.0      1.00      1
+D5A   PTA   D6A   D3A     1        0.0      1.00      1
+D5A   PTA   D6A   D4A     1        0.0      1.00      1
+D5A   PTA   D6A   D5A     1        0.0      1.00      1
+D5A   PTA   D6A   D6A     1        0.0      1.00      1
+D5A   PTA   D6A   TA      1        0.0      1.00      1
+D5A   TA    D7A   D7A     1        0.0      1.00      1
+
+D6A   D1A   PTA   D7A     1        0.0      1.00      1
+D6A   D2A   PTA   D7A     1        0.0      1.00      1
+D6A   D3A   PTA   D7A     1        0.0      1.00      1
+D6A   D4A   PTA   D7A     1        0.0      1.00      1
+D6A   D5A   PTA   D7A     1        0.0      1.00      1
+D6A   D6A   PTA   D7A     1        0.0      1.00      1
+D6A   PTA   D1A   D1A     1        0.0      1.00      1
+D6A   PTA   D1A   D2A     1        0.0      1.00      1
+D6A   PTA   D1A   D3A     1        0.0      1.00      1
+D6A   PTA   D1A   D4A     1        0.0      1.00      1
+D6A   PTA   D1A   D5A     1        0.0      1.00      1
+D6A   PTA   D1A   D6A     1        0.0      1.00      1
+D6A   PTA   D1A   TA      1        0.0      1.00      1
+D6A   PTA   D2A   D1A     1        0.0      1.00      1
+D6A   PTA   D2A   D2A     1        0.0      1.00      1
+D6A   PTA   D2A   D3A     1        0.0      1.00      1
+D6A   PTA   D2A   D4A     1        0.0      1.00      1
+D6A   PTA   D2A   D5A     1        0.0      1.00      1
+D6A   PTA   D2A   D6A     1        0.0      1.00      1
+D6A   PTA   D2A   TA      1        0.0      1.00      1
+D6A   PTA   D3A   D1A     1        0.0      1.00      1
+D6A   PTA   D3A   D2A     1        0.0      1.00      1
+D6A   PTA   D3A   D3A     1        0.0      1.00      1
+D6A   PTA   D3A   D4A     1        0.0      1.00      1
+D6A   PTA   D3A   D5A     1        0.0      1.00      1
+D6A   PTA   D3A   D6A     1        0.0      1.00      1
+D6A   PTA   D3A   TA      1        0.0      1.00      1
+D6A   PTA   D4A   D1A     1        0.0      1.00      1
+D6A   PTA   D4A   D2A     1        0.0      1.00      1
+D6A   PTA   D4A   D3A     1        0.0      1.00      1
+D6A   PTA   D4A   D4A     1        0.0      1.00      1
+D6A   PTA   D4A   D5A     1        0.0      1.00      1
+D6A   PTA   D4A   D6A     1        0.0      1.00      1
+D6A   PTA   D4A   TA      1        0.0      1.00      1
+D6A   PTA   D5A   D1A     1        0.0      1.00      1
+D6A   PTA   D5A   D2A     1        0.0      1.00      1
+D6A   PTA   D5A   D3A     1        0.0      1.00      1
+D6A   PTA   D5A   D4A     1        0.0      1.00      1
+D6A   PTA   D5A   D5A     1        0.0      1.00      1
+D6A   PTA   D5A   D6A     1        0.0      1.00      1
+D6A   PTA   D5A   TA      1        0.0      1.00      1
+D6A   PTA   D6A   D1A     1        0.0      1.00      1
+D6A   PTA   D6A   D2A     1        0.0      1.00      1
+D6A   PTA   D6A   D3A     1        0.0      1.00      1
+D6A   PTA   D6A   D4A     1        0.0      1.00      1
+D6A   PTA   D6A   D5A     1        0.0      1.00      1
+D6A   PTA   D6A   D6A     1        0.0      1.00      1
+D6A   PTA   D6A   TA      1        0.0      1.00      1
+D6A   TA    D7A   D7A     1        0.0      1.00      1
+
+D7A   D7A   TA    D1A     1        0.0      1.00      1
+D7A   D7A   TA    D2A     1        0.0      1.00      1
+D7A   D7A   TA    D3A     1        0.0      1.00      1
+D7A   D7A   TA    D4A     1        0.0      1.00      1
+D7A   D7A   TA    D5A     1        0.0      1.00      1
+D7A   D7A   TA    D6A     1        0.0      1.00      1
+D7A   D7A   TA    TA      1        0.0      1.00      1
+D7A   PTA   D1A   D1A     1        0.0      1.00      1
+D7A   PTA   D1A   D2A     1        0.0      1.00      1
+D7A   PTA   D1A   D3A     1        0.0      1.00      1
+D7A   PTA   D1A   D4A     1        0.0      1.00      1
+D7A   PTA   D1A   D5A     1        0.0      1.00      1
+D7A   PTA   D1A   D6A     1        0.0      1.00      1
+D7A   PTA   D1A   TA      1        0.0      1.00      1
+D7A   PTA   D2A   D1A     1        0.0      1.00      1
+D7A   PTA   D2A   D2A     1        0.0      1.00      1
+D7A   PTA   D2A   D3A     1        0.0      1.00      1
+D7A   PTA   D2A   D4A     1        0.0      1.00      1
+D7A   PTA   D2A   D5A     1        0.0      1.00      1
+D7A   PTA   D2A   D6A     1        0.0      1.00      1
+D7A   PTA   D2A   TA      1        0.0      1.00      1
+D7A   PTA   D3A   D1A     1        0.0      1.00      1
+D7A   PTA   D3A   D2A     1        0.0      1.00      1
+D7A   PTA   D3A   D3A     1        0.0      1.00      1
+D7A   PTA   D3A   D4A     1        0.0      1.00      1
+D7A   PTA   D3A   D5A     1        0.0      1.00      1
+D7A   PTA   D3A   D6A     1        0.0      1.00      1
+D7A   PTA   D3A   TA      1        0.0      1.00      1
+D7A   PTA   D4A   D1A     1        0.0      1.00      1
+D7A   PTA   D4A   D2A     1        0.0      1.00      1
+D7A   PTA   D4A   D3A     1        0.0      1.00      1
+D7A   PTA   D4A   D4A     1        0.0      1.00      1
+D7A   PTA   D4A   D5A     1        0.0      1.00      1
+D7A   PTA   D4A   D6A     1        0.0      1.00      1
+D7A   PTA   D4A   TA      1        0.0      1.00      1
+D7A   PTA   D5A   D1A     1        0.0      1.00      1
+D7A   PTA   D5A   D2A     1        0.0      1.00      1
+D7A   PTA   D5A   D3A     1        0.0      1.00      1
+D7A   PTA   D5A   D4A     1        0.0      1.00      1
+D7A   PTA   D5A   D5A     1        0.0      1.00      1
+D7A   PTA   D5A   D6A     1        0.0      1.00      1
+D7A   PTA   D5A   TA      1        0.0      1.00      1
+D7A   PTA   D6A   D1A     1        0.0      1.00      1
+D7A   PTA   D6A   D2A     1        0.0      1.00      1
+D7A   PTA   D6A   D3A     1        0.0      1.00      1
+D7A   PTA   D6A   D4A     1        0.0      1.00      1
+D7A   PTA   D6A   D5A     1        0.0      1.00      1
+D7A   PTA   D6A   D6A     1        0.0      1.00      1
+D7A   PTA   D6A   TA      1        0.0      1.00      1
+D7A   TA    D1A   PTA     1        0.0      1.00      1
+D7A   TA    D2A   PTA     1        0.0      1.00      1
+D7A   TA    D3A   PTA     1        0.0      1.00      1
+D7A   TA    D4A   PTA     1        0.0      1.00      1
+D7A   TA    D5A   PTA     1        0.0      1.00      1
+D7A   TA    D6A   PTA     1        0.0      1.00      1
+D7A   TA    TA    D7A     1        0.0      1.00      1
+
+PTA   D1A   TA    D7A     1        0.0      1.00      1
+PTA   D1A   D1A   PTA     1        0.0      1.00      1
+PTA   D1A   D2A   PTA     1        0.0      1.00      1
+PTA   D1A   D3A   PTA     1        0.0      1.00      1
+PTA   D1A   D4A   PTA     1        0.0      1.00      1
+PTA   D1A   D5A   PTA     1        0.0      1.00      1
+PTA   D1A   D6A   PTA     1        0.0      1.00      1
+PTA   D2A   TA    D7A     1        0.0      1.00      1
+PTA   D2A   D1A   PTA     1        0.0      1.00      1
+PTA   D2A   D2A   PTA     1        0.0      1.00      1
+PTA   D2A   D3A   PTA     1        0.0      1.00      1
+PTA   D2A   D4A   PTA     1        0.0      1.00      1
+PTA   D2A   D5A   PTA     1        0.0      1.00      1
+PTA   D2A   D6A   PTA     1        0.0      1.00      1
+PTA   D3A   TA    D7A     1        0.0      1.00      1
+PTA   D3A   D1A   PTA     1        0.0      1.00      1
+PTA   D3A   D2A   PTA     1        0.0      1.00      1
+PTA   D3A   D3A   PTA     1        0.0      1.00      1
+PTA   D3A   D4A   PTA     1        0.0      1.00      1
+PTA   D3A   D5A   PTA     1        0.0      1.00      1
+PTA   D3A   D6A   PTA     1        0.0      1.00      1
+PTA   D4A   TA    D7A     1        0.0      1.00      1
+PTA   D4A   D1A   PTA     1        0.0      1.00      1
+PTA   D4A   D2A   PTA     1        0.0      1.00      1
+PTA   D4A   D3A   PTA     1        0.0      1.00      1
+PTA   D4A   D4A   PTA     1        0.0      1.00      1
+PTA   D4A   D5A   PTA     1        0.0      1.00      1
+PTA   D4A   D6A   PTA     1        0.0      1.00      1
+PTA   D5A   TA    D7A     1        0.0      1.00      1
+PTA   D5A   D1A   PTA     1        0.0      1.00      1
+PTA   D5A   D2A   PTA     1        0.0      1.00      1
+PTA   D5A   D3A   PTA     1        0.0      1.00      1
+PTA   D5A   D4A   PTA     1        0.0      1.00      1
+PTA   D5A   D5A   PTA     1        0.0      1.00      1
+PTA   D5A   D6A   PTA     1        0.0      1.00      1
+PTA   D6A   TA    D7A     1        0.0      1.00      1
+PTA   D6A   D1A   PTA     1        0.0      1.00      1
+PTA   D6A   D2A   PTA     1        0.0      1.00      1
+PTA   D6A   D3A   PTA     1        0.0      1.00      1
+PTA   D6A   D4A   PTA     1        0.0      1.00      1
+PTA   D6A   D5A   PTA     1        0.0      1.00      1
+PTA   D6A   D6A   PTA     1        0.0      1.00      1
+
+TA    D1A   PTA   D7A     1        0.0      1.00      1
+TA    D2A   PTA   D7A     1        0.0      1.00      1
+TA    D3A   PTA   D7A     1        0.0      1.00      1
+TA    D4A   PTA   D7A     1        0.0      1.00      1
+TA    D5A   PTA   D7A     1        0.0      1.00      1
+TA    D6A   PTA   D7A     1        0.0      1.00      1
+TA    D7A   D1A   TA      1        0.0      1.00      1
+TA    D7A   D2A   TA      1        0.0      1.00      1
+TA    D7A   D3A   TA      1        0.0      1.00      1
+TA    D7A   D4A   TA      1        0.0      1.00      1
+TA    D7A   D5A   TA      1        0.0      1.00      1
+TA    D7A   D6A   TA      1        0.0      1.00      1
+TA    D7A   PTA   D1A     1        0.0      1.00      1
+TA    D7A   PTA   D2A     1        0.0      1.00      1
+TA    D7A   PTA   D3A     1        0.0      1.00      1
+TA    D7A   PTA   D4A     1        0.0      1.00      1
+TA    D7A   PTA   D5A     1        0.0      1.00      1
+TA    D7A   PTA   D6A     1        0.0      1.00      1
+TA    D7A   TA    D1A     1        0.0      1.00      1
+TA    D7A   TA    D2A     1        0.0      1.00      1
+TA    D7A   TA    D3A     1        0.0      1.00      1
+TA    D7A   TA    D4A     1        0.0      1.00      1
+TA    D7A   TA    D5A     1        0.0      1.00      1
+TA    D7A   TA    D6A     1        0.0      1.00      1
+TA    D7A   TA    TA      1        0.0      1.00      1
+TA    PTA   D1A   D1A     1        0.0      1.00      1
+TA    PTA   D1A   D2A     1        0.0      1.00      1
+TA    PTA   D1A   D3A     1        0.0      1.00      1
+TA    PTA   D1A   D4A     1        0.0      1.00      1
+TA    PTA   D1A   D5A     1        0.0      1.00      1
+TA    PTA   D1A   D6A     1        0.0      1.00      1
+TA    PTA   D2A   D1A     1        0.0      1.00      1
+TA    PTA   D2A   D2A     1        0.0      1.00      1
+TA    PTA   D2A   D3A     1        0.0      1.00      1
+TA    PTA   D2A   D4A     1        0.0      1.00      1
+TA    PTA   D2A   D5A     1        0.0      1.00      1
+TA    PTA   D2A   D6A     1        0.0      1.00      1
+TA    PTA   D3A   D1A     1        0.0      1.00      1
+TA    PTA   D3A   D2A     1        0.0      1.00      1
+TA    PTA   D3A   D3A     1        0.0      1.00      1
+TA    PTA   D3A   D4A     1        0.0      1.00      1
+TA    PTA   D3A   D5A     1        0.0      1.00      1
+TA    PTA   D3A   D6A     1        0.0      1.00      1
+TA    PTA   D4A   D1A     1        0.0      1.00      1
+TA    PTA   D4A   D2A     1        0.0      1.00      1
+TA    PTA   D4A   D3A     1        0.0      1.00      1
+TA    PTA   D4A   D4A     1        0.0      1.00      1
+TA    PTA   D4A   D5A     1        0.0      1.00      1
+TA    PTA   D4A   D6A     1        0.0      1.00      1
+TA    PTA   D5A   D1A     1        0.0      1.00      1
+TA    PTA   D5A   D2A     1        0.0      1.00      1
+TA    PTA   D5A   D3A     1        0.0      1.00      1
+TA    PTA   D5A   D4A     1        0.0      1.00      1
+TA    PTA   D5A   D5A     1        0.0      1.00      1
+TA    PTA   D5A   D6A     1        0.0      1.00      1
+TA    PTA   D6A   D1A     1        0.0      1.00      1
+TA    PTA   D6A   D2A     1        0.0      1.00      1
+TA    PTA   D6A   D3A     1        0.0      1.00      1
+TA    PTA   D6A   D4A     1        0.0      1.00      1
+TA    PTA   D6A   D5A     1        0.0      1.00      1
+TA    PTA   D6A   D6A     1        0.0      1.00      1
+TA    TA    D1A   PTA     1        0.0      1.00      1
+TA    TA    D2A   PTA     1        0.0      1.00      1
+TA    TA    D3A   PTA     1        0.0      1.00      1
+TA    TA    D4A   PTA     1        0.0      1.00      1
+TA    TA    D5A   PTA     1        0.0      1.00      1
+TA    TA    D6A   PTA     1        0.0      1.00      1
+TA    TA    D7A   D7A     1        0.0      1.00      1
+TA    TA    TA    D7A     1        0.0      1.00      1
+
+D1A   D1A   PTA   PTA     1        0.0      1.00      1
+D1A   D2A   PTA   PTA     1        0.0      1.00      1
+D1A   D3A   PTA   PTA     1        0.0      1.00      1
+D1A   D4A   PTA   PTA     1        0.0      1.00      1
+D1A   D5A   PTA   PTA     1        0.0      1.00      1
+D1A   D6A   PTA   PTA     1        0.0      1.00      1
+D2A   D1A   PTA   PTA     1        0.0      1.00      1
+D2A   D2A   PTA   PTA     1        0.0      1.00      1
+D2A   D3A   PTA   PTA     1        0.0      1.00      1
+D2A   D4A   PTA   PTA     1        0.0      1.00      1
+D2A   D5A   PTA   PTA     1        0.0      1.00      1
+D2A   D6A   PTA   PTA     1        0.0      1.00      1
+D3A   D1A   PTA   PTA     1        0.0      1.00      1
+D3A   D2A   PTA   PTA     1        0.0      1.00      1
+D3A   D3A   PTA   PTA     1        0.0      1.00      1
+D3A   D4A   PTA   PTA     1        0.0      1.00      1
+D3A   D5A   PTA   PTA     1        0.0      1.00      1
+D3A   D6A   PTA   PTA     1        0.0      1.00      1
+D4A   D1A   PTA   PTA     1        0.0      1.00      1
+D4A   D2A   PTA   PTA     1        0.0      1.00      1
+D4A   D3A   PTA   PTA     1        0.0      1.00      1
+D4A   D4A   PTA   PTA     1        0.0      1.00      1
+D4A   D5A   PTA   PTA     1        0.0      1.00      1
+D4A   D6A   PTA   PTA     1        0.0      1.00      1
+D5A   D1A   PTA   PTA     1        0.0      1.00      1
+D5A   D2A   PTA   PTA     1        0.0      1.00      1
+D5A   D3A   PTA   PTA     1        0.0      1.00      1
+D5A   D4A   PTA   PTA     1        0.0      1.00      1
+D5A   D5A   PTA   PTA     1        0.0      1.00      1
+D5A   D6A   PTA   PTA     1        0.0      1.00      1
+D6A   D1A   PTA   PTA     1        0.0      1.00      1
+D6A   D2A   PTA   PTA     1        0.0      1.00      1
+D6A   D3A   PTA   PTA     1        0.0      1.00      1
+D6A   D4A   PTA   PTA     1        0.0      1.00      1
+D6A   D5A   PTA   PTA     1        0.0      1.00      1
+D6A   D6A   PTA   PTA     1        0.0      1.00      1
+
+D1A   PTA   D7A   PTA     1        0.0      5.00      1  
+D2A   PTA   D7A   PTA     1        0.0      5.00      1  
+D3A   PTA   D7A   PTA     1        0.0      5.00      1  
+D4A   PTA   D7A   PTA     1        0.0      5.00      1  
+D5A   PTA   D7A   PTA     1        0.0      5.00      1  
+D6A   PTA   D7A   PTA     1        0.0      5.00      1  
+
+PTA   D7A   PTA   D1A     1        0.0      5.00      1
+PTA   D7A   PTA   D2A     1        0.0      5.00      1
+PTA   D7A   PTA   D3A     1        0.0      5.00      1
+PTA   D7A   PTA   D4A     1        0.0      5.00      1
+PTA   D7A   PTA   D5A     1        0.0      5.00      1
+PTA   D7A   PTA   D6A     1        0.0      5.00      1
+
+PTA   PTA   D1A   SA      1        0.0      1.00      1
+PTA   PTA   D2A   SA      1        0.0      1.00      1
+PTA   PTA   D3A   SA      1        0.0      1.00      1
+PTA   PTA   D4A   SA      1        0.0      1.00      1
+PTA   PTA   D5A   SA      1        0.0      1.00      1
+PTA   PTA   D6A   SA      1        0.0      1.00      1
+                     
+PTA   TA    SA    SA      1        0.0      1.00      1
+
+D1A   PTA   TA    SA      1        0.0      5.00      1
+D2A   PTA   TA    SA      1        0.0      5.00      1
+D3A   PTA   TA    SA      1        0.0      5.00      1
+D4A   PTA   TA    SA      1        0.0      5.00      1
+D5A   PTA   TA    SA      1        0.0      5.00      1
+D6A   PTA   TA    SA      1        0.0      5.00      1
+
+NA    NA    NA    NA      1        0.0      5.00      1
+D7A   PTA   NA    NA      1        0.0      5.00      1
+TA    PTA   NA    NA      1        0.0      5.00      1
+D1A   PTA   NA    NA      1        0.0      5.00      1
+D2A   PTA   NA    NA      1        0.0      5.00      1
+D3A   PTA   NA    NA      1        0.0      5.00      1
+D4A   PTA   NA    NA      1        0.0      5.00      1
+D5A   PTA   NA    NA      1        0.0      5.00      1
+D6A   PTA   NA    NA      1        0.0      5.00      1
+NA    PTA   NA    NA      1        0.0      5.00      1
+PTA   PTA   NA    NA      1        0.0      5.00      1
+D7A   D7A   PTA   NA      1        0.0      5.00      1
+TA    D7A   PTA   NA      1        0.0      5.00      1
+PTA   D7A   PTA   NA      1        0.0      5.00      1
+NA    NA    PTA   NA      1        0.0      5.00      1
+PTA   NA    NA    NA      1        0.0      5.00      1
+ TA   NA    NA    NA      1        0.0      5.00      1
+ TA   NA    NA    TA      1        0.0      5.00      1
+ NA    NA    TA   SA      1        0.0      5.00      1
+ NA    NA    TA   TA      1        0.0      5.00      1
+ NA    TA    TA   NA      1        0.0      5.00      1
+ NA    TA    SA   SA      1        0.0      5.00      1
+D1A   TA    SA    SA      1        0.0      1.00      1
+D2A   TA    SA    SA      1        0.0      1.00      1
+D3A   TA    SA    SA      1        0.0      1.00      1
+D4A   TA    SA    SA      1        0.0      1.00      1
+D5A   TA    SA    SA      1        0.0      1.00      1
+D6A   TA    SA    SA      1        0.0      1.00      1
+D1A   PTA   PTA   NA      1        0.0      5.00      1
+D2A   PTA   PTA   NA      1        0.0      5.00      1
+D3A   PTA   PTA   NA      1        0.0      5.00      1
+D4A   PTA   PTA   NA      1        0.0      5.00      1
+D5A   PTA   PTA   NA      1        0.0      5.00      1
+D6A   PTA   PTA   NA      1        0.0      5.00      1
+
+
+
+D1A   D1A   PTA    NA      1       0.0      1.00      1
+D2A   D1A   PTA    NA      1       0.0      1.00      1
+D3A   D1A   PTA    NA      1       0.0      1.00      1
+D4A   D1A   PTA    NA      1       0.0      1.00      1
+D5A   D1A   PTA    NA      1       0.0      1.00      1
+D6A   D1A   PTA    NA      1       0.0      1.00      1
+ TA   D1A   PTA    NA      1       0.0      1.00      1
+ SA   D1A   PTA    NA      1       0.0      1.00      1
+D1A   D2A   PTA    NA      1       0.0      1.00      1
+D2A   D2A   PTA    NA      1       0.0      1.00      1
+D3A   D2A   PTA    NA      1       0.0      1.00      1
+D4A   D2A   PTA    NA      1       0.0      1.00      1
+D5A   D2A   PTA    NA      1       0.0      1.00      1
+D6A   D2A   PTA    NA      1       0.0      1.00      1
+ TA   D2A   PTA    NA      1       0.0      1.00      1
+ SA   D2A   PTA    NA      1       0.0      1.00      1
+D1A   D3A   PTA    NA      1       0.0      1.00      1
+D2A   D3A   PTA    NA      1       0.0      1.00      1
+D3A   D3A   PTA    NA      1       0.0      1.00      1
+D4A   D3A   PTA    NA      1       0.0      1.00      1
+D5A   D3A   PTA    NA      1       0.0      1.00      1
+D6A   D3A   PTA    NA      1       0.0      1.00      1
+ TA   D3A   PTA    NA      1       0.0      1.00      1
+ SA   D3A   PTA    NA      1       0.0      1.00      1
+D1A   D4A   PTA    NA      1       0.0      1.00      1
+D2A   D4A   PTA    NA      1       0.0      1.00      1
+D3A   D4A   PTA    NA      1       0.0      1.00      1
+D4A   D4A   PTA    NA      1       0.0      1.00      1
+D5A   D4A   PTA    NA      1       0.0      1.00      1
+D6A   D4A   PTA    NA      1       0.0      1.00      1
+ TA   D4A   PTA    NA      1       0.0      1.00      1
+ SA   D4A   PTA    NA      1       0.0      1.00      1
+D1A   D5A   PTA    NA      1       0.0      1.00      1
+D2A   D5A   PTA    NA      1       0.0      1.00      1
+D3A   D5A   PTA    NA      1       0.0      1.00      1
+D4A   D5A   PTA    NA      1       0.0      1.00      1
+D5A   D5A   PTA    NA      1       0.0      1.00      1
+D6A   D5A   PTA    NA      1       0.0      1.00      1
+ TA   D5A   PTA    NA      1       0.0      1.00      1
+ SA   D5A   PTA    NA      1       0.0      1.00      1
+D1A   D6A   PTA    NA      1       0.0      1.00      1
+D2A   D6A   PTA    NA      1       0.0      1.00      1
+D3A   D6A   PTA    NA      1       0.0      1.00      1
+D4A   D6A   PTA    NA      1       0.0      1.00      1
+D5A   D6A   PTA    NA      1       0.0      1.00      1
+D6A   D6A   PTA    NA      1       0.0      1.00      1
+ TA   D6A   PTA    NA      1       0.0      1.00      1
+ SA   D6A   PTA    NA      1       0.0      1.00      1
+ TA    TA   PTA    NA      1       0.0      1.00      1
+D1A    TA   PTA    NA      1       0.0      1.00      1
+D2A    TA   PTA    NA      1       0.0      1.00      1
+D3A    TA   PTA    NA      1       0.0      1.00      1
+D4A    TA   PTA    NA      1       0.0      1.00      1
+D5A    TA   PTA    NA      1       0.0      1.00      1
+D6A    TA   PTA    NA      1       0.0      1.00      1
+ SA    TA   PTA    NA      1       0.0      1.00      1
+ SA    TA   PTA    NA      1       0.0      1.00      1
+ SA    TA   PTA    NA      1       0.0      1.00      1
+ SA    TA   PTA    NA      1       0.0      1.00      1
+ SA    TA   PTA    NA      1       0.0      1.00      1
+ SA    TA   PTA    NA      1       0.0      1.00      1
+ SA    TA   PTA    NA      1       0.0      1.00      1
+
+TA    TA    D1A   PTA     1        0.0      1.00      1
+TA    TA    D2A   PTA     1        0.0      1.00      1
+TA    TA    D3A   PTA     1        0.0      1.00      1
+TA    TA    D4A   PTA     1        0.0      1.00      1
+TA    TA    D5A   PTA     1        0.0      1.00      1
+TA    TA    D6A   PTA     1        0.0      1.00      1
+TA    TA    D7A   D7A     1        0.0      1.00      1
+TA    TA    TA    D7A     1        0.0      1.00      1
+
+PTA   D1A    TA    NA      1       0.0      1.00      1
+PTA   D2A    TA    NA      1       0.0      1.00      1
+PTA   D3A    TA    NA      1       0.0      1.00      1
+PTA   D4A    TA    NA      1       0.0      1.00      1
+PTA   D5A    TA    NA      1       0.0      1.00      1
+PTA   D6A    TA    NA      1       0.0      1.00      1
+
+D1A   TA    NA    TA      1        0.0      1.00      1
+D2A   TA    NA    TA      1        0.0      1.00      1
+D3A   TA    NA    TA      1        0.0      1.00      1
+D4A   TA    NA    TA      1        0.0      1.00      1
+D5A   TA    NA    TA      1        0.0      1.00      1
+D6A   TA    NA    TA      1        0.0      1.00      1
+D1A    TA   NA    NA      1        0.0      1.00      1
+D2A    TA   NA    NA      1        0.0      1.00      1
+D3A    TA   NA    NA      1        0.0      1.00      1
+D4A    TA   NA    NA      1        0.0      1.00      1
+D5A    TA   NA    NA      1        0.0      1.00      1
+D6A    TA   NA    NA      1        0.0      1.00      1
+
+ TA   D1A   PTA   PTA     1        0.0      1.00      1
+ TA   D2A   PTA   PTA     1        0.0      1.00      1
+ TA   D3A   PTA   PTA     1        0.0      1.00      1
+ TA   D4A   PTA   PTA     1        0.0      1.00      1
+ TA   D5A   PTA   PTA     1        0.0      1.00      1
+ TA   D6A   PTA   PTA     1        0.0      1.00      1
+
+SA    TA    TA    SA      1        0.0      5.00      1
+NA    TA    TA    SA      1        0.0      5.00      1
+
+D1A   D1A    TA    SA      1       0.0      1.00      1
+D1A   D2A    TA    SA      1       0.0      1.00      1
+D1A   D3A    TA    SA      1       0.0      1.00      1
+D1A   D4A    TA    SA      1       0.0      1.00      1
+D1A   D5A    TA    SA      1       0.0      1.00      1
+D1A   D6A    TA    SA      1       0.0      1.00      1
+D2A   D1A    TA    SA      1       0.0      1.00      1
+D2A   D2A    TA    SA      1       0.0      1.00      1
+D2A   D3A    TA    SA      1       0.0      1.00      1
+D2A   D4A    TA    SA      1       0.0      1.00      1
+D2A   D5A    TA    SA      1       0.0      1.00      1
+D2A   D6A    TA    SA      1       0.0      1.00      1
+D3A   D1A    TA    SA      1       0.0      1.00      1
+D3A   D2A    TA    SA      1       0.0      1.00      1
+D3A   D3A    TA    SA      1       0.0      1.00      1
+D3A   D4A    TA    SA      1       0.0      1.00      1
+D3A   D5A    TA    SA      1       0.0      1.00      1
+D3A   D6A    TA    SA      1       0.0      1.00      1
+D4A   D1A    TA    SA      1       0.0      1.00      1
+D4A   D2A    TA    SA      1       0.0      1.00      1
+D4A   D3A    TA    SA      1       0.0      1.00      1
+D4A   D4A    TA    SA      1       0.0      1.00      1
+D4A   D5A    TA    SA      1       0.0      1.00      1
+D4A   D6A    TA    SA      1       0.0      1.00      1
+D5A   D1A    TA    SA      1       0.0      1.00      1
+D5A   D2A    TA    SA      1       0.0      1.00      1
+D5A   D3A    TA    SA      1       0.0      1.00      1
+D5A   D4A    TA    SA      1       0.0      1.00      1
+D5A   D5A    TA    SA      1       0.0      1.00      1
+D5A   D6A    TA    SA      1       0.0      1.00      1
+D6A   D1A    TA    SA      1       0.0      1.00      1
+D6A   D2A    TA    SA      1       0.0      1.00      1
+D6A   D3A    TA    SA      1       0.0      1.00      1
+D6A   D4A    TA    SA      1       0.0      1.00      1
+D6A   D5A    TA    SA      1       0.0      1.00      1
+D6A   D6A    TA    SA      1       0.0      1.00      1
+
+TA    D1A   D1A   PTA     1        0.0      1.00      1
+TA    D1A   D2A   PTA     1        0.0      1.00      1
+TA    D1A   D3A   PTA     1        0.0      1.00      1
+TA    D1A   D4A   PTA     1        0.0      1.00      1
+TA    D1A   D5A   PTA     1        0.0      1.00      1
+TA    D1A   D6A   PTA     1        0.0      1.00      1
+TA    D2A   D1A   PTA     1        0.0      1.00      1
+TA    D2A   D2A   PTA     1        0.0      1.00      1
+TA    D2A   D3A   PTA     1        0.0      1.00      1
+TA    D2A   D4A   PTA     1        0.0      1.00      1
+TA    D2A   D5A   PTA     1        0.0      1.00      1
+TA    D2A   D6A   PTA     1        0.0      1.00      1
+TA    D3A   D1A   PTA     1        0.0      1.00      1
+TA    D3A   D2A   PTA     1        0.0      1.00      1
+TA    D3A   D3A   PTA     1        0.0      1.00      1
+TA    D3A   D4A   PTA     1        0.0      1.00      1
+TA    D3A   D5A   PTA     1        0.0      1.00      1
+TA    D3A   D6A   PTA     1        0.0      1.00      1
+TA    D4A   D1A   PTA     1        0.0      1.00      1
+TA    D4A   D2A   PTA     1        0.0      1.00      1
+TA    D4A   D3A   PTA     1        0.0      1.00      1
+TA    D4A   D4A   PTA     1        0.0      1.00      1
+TA    D4A   D5A   PTA     1        0.0      1.00      1
+TA    D4A   D6A   PTA     1        0.0      1.00      1
+TA    D5A   D1A   PTA     1        0.0      1.00      1
+TA    D5A   D2A   PTA     1        0.0      1.00      1
+TA    D5A   D3A   PTA     1        0.0      1.00      1
+TA    D5A   D4A   PTA     1        0.0      1.00      1
+TA    D5A   D5A   PTA     1        0.0      1.00      1
+TA    D5A   D6A   PTA     1        0.0      1.00      1
+TA    D6A   D1A   PTA     1        0.0      1.00      1
+TA    D6A   D2A   PTA     1        0.0      1.00      1
+TA    D6A   D3A   PTA     1        0.0      1.00      1
+TA    D6A   D4A   PTA     1        0.0      1.00      1
+TA    D6A   D5A   PTA     1        0.0      1.00      1
+TA    D6A   D6A   PTA     1        0.0      1.00      1
+
+
+;[ impropertypes ]
