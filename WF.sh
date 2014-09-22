@@ -24,19 +24,19 @@ cd $1
 
 ### Step 1
 
-python ../json2cosm.py -i $1.json -o $1.pdb -r $1_r -t $1_t -l $2 
+python ../json2cosm.py -i $1.json -o $1.pdb -r $1_r -t $1_t -l $2
 
 ### Step 2
 
-rm -f cosm.ff
+rm -f cosm002.ff
 rm -f residuetypes.dat
 if [ "${2::1}" = "h" ]
 then 
-ccg="cosm"
+ccg="cosm002"
 else
-ccg="cosm8"
+ccg="cosm002sq"
 fi
-ln -s ~/${ccg}.ff .
+ln -s ../${ccg}.ff .
 ln -s ${ccg}.ff/residuetypes.dat .
 if [ "$3" == "0" ]
 then
@@ -50,9 +50,9 @@ pdb2gmx -f $1.pdb -o beg.gro -merge all -ff ${ccg} -water none
 awk -v name=$1 '/; Include Position restraint file/{print "#include \"" name "_r\""}1' topol.top > topol_tmp
 mv topol_tmp topol.top 
 grompp -f ${ccg}.ff/minl.mdp -c beg -p topol -o em
-mdrun -deffnm em$nt
+mdrun -deffnm em -v
 grompp -f ${ccg}.ff/min-implicit.mdp -c em -p topol -o em2
-mdrun -deffnm em2 -pd$nt
+mdrun -deffnm em2 -pd$nt -v
 grompp -f ${ccg}.ff/md-vacuum.mdp -c em2 -p topol -o md
-mdrun -deffnm md$nt
-trjconv -f md -s md -o md.pdb -skip 500
+mdrun -deffnm md$nt -pd -v
+#trjconv -f md -s md -o md.pdb -skip 500

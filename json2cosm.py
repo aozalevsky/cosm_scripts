@@ -1028,8 +1028,8 @@ def crosscheck(one, two, thr):
     '''Check if crossovers in the triple'''
     c = -1
     ok = True
-    if SQ: lim = 29
-    else:   lim = 100
+    if SQ: lim = 36
+    else:   lim = 21
     for pair in [[one, two], [two, thr]]:
         ok1 = False
         ok2 = False
@@ -1092,6 +1092,7 @@ for i, atom in enumerate(atomsh):
         x = atom[1]
         trcoords[x] = trcoords.get(x, []) + [(Rows[atom[0]], Cols[atom[0]])]
         triples[x] = triples.get(x, []) + [i]
+print triples
 for x in trcoords:
     vhs = trcoords[x]
     for i, base in enumerate(vhs):
@@ -1100,6 +1101,7 @@ for x in trcoords:
             one = atomsh[triples[x][i]]
             two = atomsh[triples[x][pair[0]]]
             thr = atomsh[triples[x][pair[1]]]
+            print triples[x][i], triples[x][pair[0]], triples[x][pair[1]]
             if crosscheck(one, two, thr):
                 cnct.write(str(triples[x][i]) + '\t' + str(triples[x][pair[1]]) + '\t1\t' + str(l) + '\t1\t' + a + '\t' + b + '\t' + c + '\t1.5\n')
                 l += 1
