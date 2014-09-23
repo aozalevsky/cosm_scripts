@@ -70,7 +70,7 @@ cd ../
 cp $1/$1_end.pdb .
 if [ $# != 3 ]
 then
-    python cosm2full.py -i $1_end.pdb -t $1_t -l $2 -c 50 -o $1_full.pdb
+    python cosm2full.py -i $1_end.pdb -t $1_t -l $2 -p 50 -o $1_full.pdb
 else
     python cosm2full.py -i $1_end.pdb -t $1_t -l $2 -s $5 -o $1_full.pdb
 fi
