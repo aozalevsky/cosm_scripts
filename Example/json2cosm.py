@@ -761,7 +761,7 @@ while end[0] != 'end':
     scheme.append(hm[0])
 
 if SQ:
-    dp = 7
+    dp = 0
 else:
     dp = 0
 for i, part in enumerate(scheme):

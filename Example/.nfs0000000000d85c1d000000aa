@@ -1,5 +1,0 @@
-# with sequence, hexagonal lattice. Input: phex.json (small M letter)
-bash WF.sh phex h 0 seq418 phex.csv
-cd phex
-trjconv -f md -s md -o phex_end.pdb -b 20000 -conect
-./cosm2full.pdb -i phex_end.pdb -t phex_t -l h -o phex_full.pdb -s phex.csv
