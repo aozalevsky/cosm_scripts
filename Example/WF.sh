@@ -67,7 +67,7 @@ grompp -f ${ccg}.ff/md-vacuum.mdp -c em2 -p topol -o md
 mdrun -deffnm md$nt -pd -v
 trjconv -f md -s md -o $1_end.pdb -conect -b 20000
 cd ../
-cp $1_end.pdb .
+cp $1/$1_end.pdb .
 if [ $# != 3 ]
 then
     python cosm2full.py -i $1_end.pdb -t $1_t -l $2 -c 50 -o $1_full.pdb

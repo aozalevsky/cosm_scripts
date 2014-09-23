@@ -6,7 +6,7 @@
 #    origami.json (hexagonal lattice, no sequence no mdrun -nt) --> molecular dynamics result
 #        bash WF.sh origami h 0
 #    origami.json (square lattice, with sequence, mdrun -nt 4) --> molecular dynamics result
-#        bash WF.sh origami s 4
+#        bash WF.sh origami s 4 seq origami.csv
 #
 # WARNING:
 #   replaces $1 directory!
@@ -22,9 +22,19 @@ mkdir $1
 cp $1.json $1
 cd $1
 
-### Step 1
-
+if [ $# != 3 ]
+then
+   if [ $# != 5 ]
+    then
+        exit 1
+    else
+    cp ../$4 .
+    cp ../$5 .
+    python ../json2cosm.py -i $1.json -o $1.pdb -r $1_r -t $1_t -l $2 --seq $4 --oligs $5
+    fi
+else
 python ../json2cosm.py -i $1.json -o $1.pdb -r $1_r -t $1_t -l $2
+fi
 
 ### Step 2
 
@@ -55,4 +65,12 @@ grompp -f ${ccg}.ff/min-implicit.mdp -c em -p topol -o em2
 mdrun -deffnm em2 -pd$nt -v
 grompp -f ${ccg}.ff/md-vacuum.mdp -c em2 -p topol -o md
 mdrun -deffnm md$nt -pd -v
-#trjconv -f md -s md -o md.pdb -skip 500
+trjconv -f md -s md -o $1_end.pdb -conect -b 20000
+cd ../
+cp $1/$1_end.pdb .
+if [ $# != 3 ]
+then
+    python cosm2full.py -i $1_end.pdb -t $1_t -l $2 -c 50 -o $1_full.pdb
+else
+    python cosm2full.py -i $1_end.pdb -t $1_t -l $2 -s $5 -o $1_full.pdb
+fi
