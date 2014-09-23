@@ -429,7 +429,7 @@ with open(args.input, 'r') as f:
                 s += 1
                 scaffold.append(coords)
 #print len(scaffold)
-print mmm
+#print mmm
 e3 = []
 e5 = []
 cross = []
@@ -493,7 +493,7 @@ for i, base in enumerate(scaffold[:scafres + 1]):
 #    print A
 #    ang = angle(i, 1)
 #    angles[i] = i % 10
-    print i
+#    print i
     if SEQ:
         seq[i] = tseq[i].upper() + 'A'
     else:
