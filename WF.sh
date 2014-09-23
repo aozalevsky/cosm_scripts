@@ -66,6 +66,7 @@ mdrun -deffnm em2 -pd$nt -v
 grompp -f ${ccg}.ff/md-vacuum.mdp -c em2 -p topol -o md
 mdrun -deffnm md$nt -pd -v
 echo 1 | trjconv -f md -s md -o $1_end.pdb -conect -b 20000
+echo 1 | trjconv -f md -s md -o $1_md.pdb -conect -skip 500
 cd ../
 cp $1/$1_end.pdb .
 if [ $# == 3 ]

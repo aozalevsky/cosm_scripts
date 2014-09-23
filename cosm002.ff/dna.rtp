@@ -450,6 +450,18 @@
 
  [ impropers ]
 
+[ ST ]
+ [ atoms ]
+     D    SA 0 0
+
+ [ bonds ]
+
+ [ angles ] 
+      
+ [ dihedrals ]   
+
+ [ impropers ]
+
 [ O ]
  [ atoms ]
      D    OA -0.012 0

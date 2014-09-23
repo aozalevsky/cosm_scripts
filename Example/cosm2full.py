@@ -59,7 +59,7 @@ count = {'T1': 1, 'T2': 2, 'T3': 3, 'T4': 4, 'T5': 5,
         'T5T': 5, 'T6T': 6, 'T7T': 7, 'O': 1, 'OT': 1, 'N': 1,
         'B1' : 1, 'B2': 2, 'B3': 3, 'B4': 4, 'B5': 5, 'B6': 6,
         'B7' : 7, 'B1T': 1, 'B2T' : 2, 'B3T' : 3, 'B4T' : 4,
-        'B5T' : 5, 'B6T': 6, 'B7T' : 7, 'B': 7}
+        'B5T' : 5, 'B6T': 6, 'B7T' : 7, 'B': 7, 'ST': 1}
 term = ['T', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'TT', 'T1T', 'T2T',
         'T3T', 'T4T', 'T5T', 'T6T', 'T7T', 'T7',
         'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7',
@@ -207,10 +207,6 @@ def normal(i, source):
     O = np.array([[0, 0, -1],[1, 0, 0],[0, 1, 0]])
 #    print rnum, A, np.dot(A,O)*-1
     return np.dot(C, O)
-#    alpha = acos((ny ** 2 + nz ** 2) /  (sqrt(nx ** 2 + ny ** 2 + nz ** 2) * sqrt(ny ** 2 + nz ** 2)))
-#    beta = acos((ny ** 2 + nx ** 2) /  (sqrt(nx ** 2 + ny ** 2 + nz ** 2) * sqrt(ny ** 2 + nx ** 2)))
-#    gamma = acos((nz ** 2 + nx ** 2) /  (sqrt(nx ** 2 + ny ** 2 + nz ** 2) * sqrt(nz ** 2 + nx ** 2)))
-#    return alpha, beta, gamma
 
 # center --> base
 
@@ -351,7 +347,7 @@ def rd():
     else:
         k = choice(['CA', 'GA'])
     if cur_st:
-        k = k[:-1] + 'o'
+        k = k[:-1] + 'B'
     return k
 
 
@@ -374,16 +370,16 @@ with open(args.input, 'r') as f:
     d = 0
     s = 1
     beg = 0
-    mmm = 0
-    for line in f:
+#    mmm = 0
+    for i, line in enumerate(f):
         if line[0:4] == 'ATOM':
             name = line[16:21].strip()
             coords = [float(line[30:38]), float(line[38:46]),
                       float(line[46:54])]
             c = count[name]
             num = int(line[6:11])
-            mmm += c
-            if name in ['S', 'N']:
+#            mmm += c
+            if name in ['S', 'ST', 'NT', 'N']:
                 scaffold.append(coords)
                 s += 1
                 atoms[num] = 1
@@ -523,7 +519,10 @@ for staple in staples:
 #            ang = angles[base[1]]
 #        else:
 #            ang = angles[0]
-        s = comp[seq[base[1]]]
+        if len(seq) - 1 >= base[1]:
+            s = comp[seq[base[1]]]
+        else:
+            s = rd()
         nbase = create_base(base[0], s, base[1], A)
         print_base(nbase, s, end)
     pdb.write('TER\n')

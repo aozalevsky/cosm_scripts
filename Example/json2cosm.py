@@ -300,8 +300,6 @@ def findconnects(vh, j, number, length, end):
         #### if crossover at 6/7 in another chain?
         #### if c-1 - N?
 
-# e5-e3 restr only if circular!
-
 
 def checkreg(pair):
     [[vh1, b1], [vh2, b2]] = pair
@@ -331,7 +329,7 @@ def crosscheck(one, two, thr):
 
 def TtoB(name, atom1):
 #    print crosscheck
-    if atom1 == a_sc - 1:
+    if atom1 == a_sc - 1 or atom1 == 1:
         return name
     atom2 = atom1 + 1
     atom1 = atomsh[atom1]
@@ -392,20 +390,25 @@ def scaffoldcross(vh, i, number):
 def outatom(atom):
     """Print atom in pdb"""
     global a_sc
-    template = "{0[0]:<6s}{0[1]:>5d}  {0[2]:<4s}{0[3]:<3s} {0[4]:>1s}{0[5]:>4d}    {0[6]:>8.3f}{0[7]:>8.3f}{0[8]:>8.3f}{0[9]:>6.2f}{0[10]:>6.2f}            {0[11]:<2s}"
-    t = tuple(atom)
-    pdb.write(template.format(t) + '\n')
+#    print atom
+    if len(atom) > 1:
+        template = "{0[0]:<6s}{0[1]:>5d}  {0[2]:<4s}{0[3]:<3s} {0[4]:>1s}{0[5]:>4d}    {0[6]:>8.3f}{0[7]:>8.3f}{0[8]:>8.3f}{0[9]:>6.2f}{0[10]:>6.2f}            {0[11]:<2s}"
+        t = tuple(atom)
+        pdb.write(template.format(t) + '\n')
+    else:
+        pdb.write(atom[0])
 
 
 def addtoout(aname, tname, nlname, ox, oy, z, chain, length):
     global a_sc, outpdb #, ppp
 #    ppp += length
 #    print tname, length
-    t = ['ATOM'] + [a_sc] + [aname] + [tname] + [nlname] + [a_sc] + [ox, oy] + [z * 3.5] + [1.00, 0.00] + [aname]
-    outpdb.append(t)
-    staplesends(chain, z, a_sc, length)
-    scaffoldcross(chain, z, a_sc)
-    a_sc += 1
+    if tname:
+        t = ['ATOM'] + [a_sc] + [aname] + [tname] + [nlname] + [a_sc] + [ox, oy] + [z * 3.5] + [1.00, 0.00] + [aname]
+        outpdb.append(t)
+        staplesends(chain, z, a_sc, length)
+        scaffoldcross(chain, z, a_sc)
+        a_sc += 1
 
 
 def createatom(z, chain, tname, length, end):
@@ -637,7 +640,10 @@ add = open(args.top, 'w')
 
 endtmp = False # indicator whether scaffold is circular
 if not end5scaf:
-    dl = 10     # length of duplex needed
+    if SQ:
+        dl = 36
+    else:
+        dl = 21     # length of duplex needed
     endtmp = True
     k = 0
     end = 0
@@ -898,6 +904,12 @@ for a, part in enumerate(scheme):
         else:
             createatom(part[2][1][-1], part[1], 'T', 1, 'e')
     elif part[0] == 's':
+        if a == 0:
+            createatom(part[2][0], part[1], 'ST', 1, 's')
+            if len(part[2]) > 1:
+                for atom in part[2][1:]:
+                    createatom(atom, part[1], 'S', 1, 's')
+        else:
             for atom in part[2]:
                 createatom(atom, part[1], 'S', 1, 's')
     elif part[0] == 'n':
@@ -916,10 +928,6 @@ for a, part in enumerate(scheme):
 # singlestranded 5' !!!
 #  check duplexes < 7 bp!
 
-# duplex analysys
-# fail if crossover is somewhere else - we doooon't see it
-
-
 #    print tname, a_sc
 # single-stranded staples search
 
@@ -932,9 +940,16 @@ for a, part in enumerate(scheme):
 ###### !!!! print sstrans!!! if we need
 
 #tn = open(args.tn, 'w')
+# sequence
+
+
+# hex and square search
+
+
 done = []
+num = len(outpdb) + 1
 while len(done) < len(ssoligs):
-    pdb.write('TER\n')
+    outpdb.append(['TER\n'])
     nl += 1
     i = 0
     while ssoligs[i] in done or ssind[i] != 'b':
@@ -948,7 +963,7 @@ while len(done) < len(ssoligs):
     if ssnear[n]:
         cnct.write(str(ssnear[n]) + '\t' + str(a_sc - 1) + '\t1\t' + str(l) + '\t1\t0.33\t0.35\t0.37\t0.2\t; ssnear\n')
         l += 1
-        add.write('cross ; ' + ' '.join(map(str, [ssnear[n], 0])) + ' ; ' +
+        add.write('cross ; ' + ' '.join(map(str, [ssnear[n], 0]))  + ' ' +
               ' '.join(map(str, [a_sc - 1, 0])) + '\n')
     base += k
     while (vh, base) not in ssoligs:
@@ -976,12 +991,28 @@ while len(done) < len(ssoligs):
 #pdb.close()
 #tn.close()
 
+pdb = open(args.output, 'w')
+for atom in outpdb:
+#    print atom
+    if len(atom) > 1:
+        if atom[3][0] == 'T' and atom[1] < a_sc - 1 and len(outpdb[atom[1]]) > 1:
+            if outpdb[atom[1]][3] not in ['S']:
+                new_name =  TtoB(atom[3], atom[1])
+                outpdb[atom[1] - 1][3] = new_name
+                if new_name[0] == 'B':
+                    if outpdb[atom[1]][3] == 'T':
+                        outpdb[atom[1]][3] = 'B'
+                    elif outpdb[atom[1]][3][0] == 'T':
+                        outpdb[atom[1]][3] = 'B' + outpdb[atom[1]][3][1:]
+    outatom(atom)
+
+print num
 
 #for i in range(len(connst)):
 #    add.write('cross ; ' + ' '.join(map(str, connst[i])) + ' ; ' +
 #              ' '.join(map(str, needst[i])) + '\n')
 cnct.write('; scaffold crossovers\n')
-if endtmp: cnct.write('1\t' + str(a_sc - 1) + '\t1\t' + str(l) + '\t1\t0.33\t0.35\t0.37\t2.5\t; 5\' - 3\' ends\n')
+if endtmp: cnct.write('1\t' + str(num - 1) + '\t1\t' + str(l) + '\t1\t0.33\t0.35\t0.37\t2.5\t; 5\' - 3\' ends\n')
 l += 1
 for i in range(len(scconn)):
 #    write scaffold dist.restr!
@@ -1004,23 +1035,6 @@ if len(connects) != len(needed):
 #        l += 1
 cnct.write('\n')
 
-# sequence
-
-
-# hex and square search
-
-pdb = open(args.output, 'w')
-for atom in outpdb:
-    if atom[3][0] == 'T' and atom[1] < a_sc - 1:
-        if outpdb[atom[1]][3] not in ['S']:
-            new_name =  TtoB(atom[3], atom[1])
-            outpdb[atom[1] - 1][3] = new_name
-            if new_name[0] == 'B':
-                if outpdb[atom[1]][3] == 'T':
-                    outpdb[atom[1]][3] = 'B'
-                elif outpdb[atom[1]][3][0] == 'T':
-                    outpdb[atom[1]][3] = 'B' + outpdb[atom[1]][3][1:]
-    outatom(atom)
 pdb.close()
 
 # ---------- lattice restraints ---------
