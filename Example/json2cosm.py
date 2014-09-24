@@ -24,9 +24,9 @@ parser.add_argument('-t' '--top', required=True,
 parser.add_argument('-l' '--lattice', required=True,
                     action='store', dest='lattice',
                     help='lattice type (hexagonal / square)')
-#parser.add_argument('-c' '--circular', required=True, type=boolean,
-#                    action='store', dest='circ',
-#                    help='circular')
+#parser.add_argument('-f' '--force', required=True, type=boolean,
+#                    action='store', dest='force',
+#                    help='force sequence')
 parser.add_argument('--seq',
                     action='store', dest='seq',
                     help='scaffold sequence')
@@ -121,11 +121,13 @@ def nextbase(vh, base, seq):
                     last2 = True
                 else:
                     last1 = True
+#                print [pair[0][1], pair[1][1]]
                 return [pair[0][1], pair[1][1]]
     if seq:
         last2 = False
     else:
         last1 = False
+#    print [vh, base + k]
     return [vh, base + k]
 
 
@@ -140,9 +142,9 @@ def checkseq(vh, base):
     # !!!!!!!!!!!!!
     # return True
     # !!!!!!!!!!!!!
-
-    while [vh, base] != beg or not i:
+    while ([vh, base] != beg or not i) and Path['scaf'][vh][base] != 'e3':
         if seqPath[vh][base] != '-':  #in ['A', 'T', 'G', 'C']:
+            print vh, base, seq[i].upper() , seqPath[vh][base]
             if seq[i].upper() != compl[seqPath[vh][base]]:
 #                print 'fail'
                 return False
@@ -638,15 +640,15 @@ add = open(args.top, 'w')
 
 # ---------------- end5 definition (if circular)  ---------------
 
-endtmp = False # indicator whether scaffold is circular
+endtmp = True # indicator whether scaffold is circular
 if not end5scaf:
     if SQ:
         dl = 36
     else:
         dl = 21     # length of duplex needed
-    endtmp = True
     k = 0
     end = 0
+    endtmp = False
     while not end and k in allPath:
         if (Rows[k] + Cols[k]) % 2:
             c = len(allPath[k]) / 2
@@ -683,6 +685,8 @@ Path['scaf'][end3scaf[0]][end3scaf[1]] = 'e3'
 #        if b != '-':
 #            ttt += 1
 #print ttt
+print end5scaf
+print end3scaf
 
 if args.seq and args.oligs:
     # Get sequence
@@ -691,8 +695,8 @@ if args.seq and args.oligs:
         for line in f:
             line = line.strip()
             seq += line
-#    sqdone = []
-    # Oligs ends information --> allPath
+    last1 = False
+    last2 = False
     with open(args.oligs, 'r') as f:
         for line in f:
             if line[0] != 'S':
@@ -701,28 +705,33 @@ if args.seq and args.oligs:
                 line[1] = line[1].split('[')
                 if line[2][1] != '?':
                     seqPath[int(line[0][0])][int(line[0][1][:-1])] = line[2][0]
-    #                oligs[int(line[0][0])][int(line[0][1][:-1])] = line[2][0]
+        #               oligs[int(line[0][0])][int(line[0][1][:-1])] = line[2][0]
                 if line[2][-1] != '?':
                     seqPath[int(line[1][0])][int(line[1][1][:-1])] = line[2][-1]
-    seq_end = None
     compl = {'A': 'T', 'T': 'A', 'G': 'C', 'C': 'G',
              'a': 'T', 't': 'A', 'g': 'C', 'c': 'G'}
-    [vh, base] = end5scaf
-    i = 0
-    last1 = False
-    last2 = False
-#    seq = seq[::-1]
+    if endtmp:
+        add.write('seq: ' + seq + '\n')
+        if not checkseq(end5scaf[0], end5scaf[1]):
+            raise Exception('Sequence doesn\'t match linear scaffold')
+    else:
+    #    sqdone = []
+        # Oligs ends information --> allPath
+        seq_end = None
+        [vh, base] = end5scaf
+        i = 0
+    #    seq = seq[::-1]
 
-    while not seq_end:
-        seq_end = checkseq(vh, base)
-        if [vh, base] == end3scaf and not seq_end:
-            raise Exception('Sequence not accepted')
-            seq_end = '-'
-        else:
-            [vh, base] = nextbase(vh, base, False)
-        i += 1
-    i = len(seq) - i
-    add.write('seq: ' + seq[i:] + seq[:i] + '\n')
+        while not seq_end:
+            seq_end = checkseq(vh, base)
+            if [vh, base] == end3scaf and not seq_end:
+                raise Exception('Sequence not accepted')
+                seq_end = '-'
+            else:
+                [vh, base] = nextbase(vh, base, False)
+            i += 1
+        i = len(seq) - i
+        add.write('seq: ' + seq[i:] + seq[:i] + '\n')
 #    print 'seq:', seq[i:], seq[:i]
 elif args.seq or args.oligs:
     raise Exception('Both sequence and oligs are needed')
@@ -1012,7 +1021,7 @@ print num
 #    add.write('cross ; ' + ' '.join(map(str, connst[i])) + ' ; ' +
 #              ' '.join(map(str, needst[i])) + '\n')
 cnct.write('; scaffold crossovers\n')
-if endtmp: cnct.write('1\t' + str(num - 1) + '\t1\t' + str(l) + '\t1\t0.33\t0.35\t0.37\t2.5\t; 5\' - 3\' ends\n')
+if not endtmp: cnct.write('1\t' + str(num - 1) + '\t1\t' + str(l) + '\t1\t0.33\t0.35\t0.37\t2.5\t; 5\' - 3\' ends\n')
 l += 1
 for i in range(len(scconn)):
 #    write scaffold dist.restr!
