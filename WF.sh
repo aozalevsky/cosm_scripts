@@ -75,3 +75,5 @@ then
 else
     python cosm2full.py -i $1_end.pdb -t $1/$1_t -l $2 -s $5 -o $1_end_full.pdb
 fi
+#sed -i '$ d' $1_end.pdb
+python appendcnct.py $1
