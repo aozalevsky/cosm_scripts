@@ -211,6 +211,10 @@ def pathandtype(end, s):
 def prconnect(base1, base2):
     """Print crossover restraints"""
     global l
+    template = "{0[0]:<6s}{0[1]:>5d}{0[2]:>5d}"
+    t = tuple(['CONECT', base1, base2])
+    outpdbc.append(template.format(t) + '\n')
+#    outpdb.append(['CONECT'
     cnct.write(str(base2) + '\t' + str(base1) + '\t1\t' + str(l) + '\t1\t1.7\t1.85\t1.9\t1.0\n')
     l += 1
 
@@ -497,6 +501,7 @@ def findtriples(base, coords):
 
 # ------------- .json analysis ----------------
 outpdb = []
+outpdbc = []
 ppp = 0
 file = open(args.input, 'r')
 lines = file.readlines()
@@ -685,8 +690,6 @@ Path['scaf'][end3scaf[0]][end3scaf[1]] = 'e3'
 #        if b != '-':
 #            ttt += 1
 #print ttt
-print end5scaf
-print end3scaf
 
 if args.seq and args.oligs:
     # Get sequence
@@ -999,7 +1002,6 @@ while len(done) < len(ssoligs):
 
 #pdb.close()
 #tn.close()
-
 pdb = open(args.output, 'w')
 for atom in outpdb:
 #    print atom
@@ -1015,7 +1017,6 @@ for atom in outpdb:
                         outpdb[atom[1]][3] = 'B' + outpdb[atom[1]][3][1:]
     outatom(atom)
 
-print num
 
 #for i in range(len(connst)):
 #    add.write('cross ; ' + ' '.join(map(str, connst[i])) + ' ; ' +
@@ -1043,6 +1044,13 @@ if len(connects) != len(needed):
 #                   + '\t1\t' + '2.0\t2.2\t2.4\t0.5\n')
 #        l += 1
 cnct.write('\n')
+
+template = "{0[0]:<6s}{0[1]:>5d}{0[2]:>5d}"
+for i in range(1, num):     # doesn't work for ss oligs
+    outpdbc.append(template.format(['CONECT', i, i + 1]) + '\n')
+
+for conect in outpdbc:
+    pdb.write(conect)
 
 pdb.close()
 
