@@ -1,4 +1,4 @@
-1. "small letter M" structure, with sequence
-    bash WF.sh phex h 0 seq418 phex.csv
+1. "small letter T" structure, with sequence
+    bash WF.sh tsq h 0 seq418 tsq.csv
 2. Tetrahedron, no sequence
     bash WF.sh tws h 0
