@@ -589,27 +589,21 @@ T5A   PTA   PTA   B5A     1        0.0      9.00      1
 T5A   PTA   PTA   B6A     1        0.0      9.00      1
 T6A   PTA   PTA   B6A     1        0.0      9.00      1
 
-B1A   PTA   PTA   T1A     1        0.0      9.00      1
 B1A   PTA   PTA   T2A     1        0.0      9.00      1
 B1A   PTA   PTA   T3A     1        0.0      9.00      1
 B1A   PTA   PTA   T4A     1        0.0      9.00      1
 B1A   PTA   PTA   T5A     1        0.0      9.00      1
 B1A   PTA   PTA   T6A     1        0.0      9.00      1
-B2A   PTA   PTA   T2A     1        0.0      9.00      1
 B2A   PTA   PTA   T3A     1        0.0      9.00      1
 B2A   PTA   PTA   T4A     1        0.0      9.00      1
 B2A   PTA   PTA   T5A     1        0.0      9.00      1
 B2A   PTA   PTA   T6A     1        0.0      9.00      1
-B3A   PTA   PTA   T3A     1        0.0      9.00      1
 B3A   PTA   PTA   T4A     1        0.0      9.00      1
 B3A   PTA   PTA   T5A     1        0.0      9.00      1
 B3A   PTA   PTA   T6A     1        0.0      9.00      1
-B4A   PTA   PTA   T4A     1        0.0      9.00      1
 B4A   PTA   PTA   T5A     1        0.0      9.00      1
 B4A   PTA   PTA   T6A     1        0.0      9.00      1
-B5A   PTA   PTA   T5A     1        0.0      9.00      1
 B5A   PTA   PTA   T6A     1        0.0      9.00      1
-B6A   PTA   PTA   T6A     1        0.0      9.00      1
 
 SA    TA    HA    PTA     1        0.0      9.00      1
 HA    HA    TA    SA      1        0.0      9.00      1

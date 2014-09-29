@@ -12,6 +12,37 @@
 #   replaces $1 directory!
 ############################
 
+function mkmd {
+grompp -f ${ccg}.ff/md-vacuum${1}.mdp -c em2 -p topol -o md -maxwarn 1
+
+
+mdrun -deffnm md$nt -pd -v &
+pid=$!
+trap "kill $pid 2> /dev/null" EXIT
+while kill -0 $pid 2> /dev/null; do
+    # Do stuff
+    if [[ -n $(grep 'nan ' md.log -m 1) ]]
+    then
+#    echo 'bang'
+    kill $pid
+    rm md.log
+    if [[ $1 < 5 ]]
+    then
+        mkmd $(($1+1))
+    else
+        echo 'no more md.mdp'
+        exit 1
+    fi
+#    exit 1
+#    else 
+#    echo "ok $1"
+    fi
+    sleep 5
+done
+
+trap - EXIT
+}
+
 set -e
 
 if [ -d "$1" ]; then
@@ -63,8 +94,9 @@ grompp -f ${ccg}.ff/minl.mdp -c beg -p topol -o em
 mdrun -deffnm em -v
 grompp -f ${ccg}.ff/min-implicit.mdp -c em -p topol -o em2
 mdrun -deffnm em2 -pd$nt -v
-grompp -f ${ccg}.ff/md-vacuum.mdp -c em2 -p topol -o md
-mdrun -deffnm md$nt -pd -v
+
+mkmd 0
+
 echo 1 | trjconv -f md -s md -o $1_end.pdb -conect -b 20000
 echo 1 | trjconv -f md -s md -o $1_md.pdb -conect -skip 500
 cd ../
@@ -75,5 +107,4 @@ then
 else
     python cosm2full.py -i $1_end.pdb -t $1/$1_t -l $2 -s $5 -o $1_end_full.pdb
 fi
-#sed -i '$ d' $1_end.pdb
 python appendcnct.py $1
