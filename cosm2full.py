@@ -63,7 +63,7 @@ count = {'T1': 1, 'T2': 2, 'T3': 3, 'T4': 4, 'T5': 5,
 term = ['T', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'TT', 'T1T', 'T2T',
         'T3T', 'T4T', 'T5T', 'T6T', 'T7T', 'T7',
         'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7',
-        'B1T', 'B2T', 'B3T', 'B4T', 'B5T', 'B6T', 'B7T', 'BT']
+        'B1T', 'B2T', 'B3T', 'B4T', 'B5T', 'B6T', 'B7T', 'BT', 'B']
 if SQ:
     count['PT'] = 8
     count['T'] = 8
@@ -370,7 +370,6 @@ with open(args.input, 'r') as f:
     d = 0
     s = 1
     beg = 0
-#    mmm = 0
     for i, line in enumerate(f):
         if line[0:4] == 'ATOM':
             name = line[16:21].strip()
@@ -378,12 +377,18 @@ with open(args.input, 'r') as f:
                       float(line[46:54])]
             c = count[name]
             num = int(line[6:11])
-#            mmm += c
+#            print num, name, beg
             if name in ['S', 'ST', 'NT', 'N']:
+                if name[0] == 'S' and beg:
+                    beg = 0
+                    scaffold.append(begin)
+                    atoms[pnum] = 1
+                    ascaf[(pnum, 0)] = s - 1
+                    s += 1
                 scaffold.append(coords)
-                s += 1
                 atoms[num] = 1
                 ascaf[(num, 0)] = s - 1
+                s += 1
             elif name in term and not beg:
                 begin = coords
                 csum = c
@@ -431,6 +436,7 @@ e5 = []
 cross = []
 scaf = {}
 seq = ''
+#print atoms
 print '\t"Topology" file reading...'
 
 with open(args.top, 'r') as a:
