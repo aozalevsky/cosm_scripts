@@ -12,7 +12,7 @@
 #   replaces $1 directory!
 ############################
 
-BASE=/home/$USER/work/cosm-web
+BASE=/home/domain/$USER/work/cosm-web
 export GMXLIB=${BASE}/static/gromacs
 export PATH=${BASE}:${PATH}
 export TEMPLATE_PATH=${BASE}/static/templates
