@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ############################
 # Required: json file only; creates separate directory for the structure
 #           cosm.ff and cosm8.ff in home directory
@@ -17,9 +19,9 @@ export GMXLIB=${BASE}/static/gromacs
 export PATH=${BASE}:${PATH}
 export TEMPLATE_PATH=${BASE}/static/templates
 
+
 function mkmd {
 grompp -f ${GMXLIB}/${ccg}.ff/md-vacuum${1}.mdp -c em2 -p topol -o md -maxwarn 1
-
 
 mdrun -deffnm md$nt -pd -v &
 pid=$!
@@ -48,6 +50,8 @@ done
 trap - EXIT
 }
 
+job=${1%.json}
+
 set -e
 
 if [ $# != 3 ]
@@ -60,10 +64,10 @@ then
     cp $4 $seq
     oligs=$(basename $5)
     cp $5 $oligs
-    json2cosm.py -i $1.json -o $1.pdb -r $1_r -t $1_t -l $2 --seq $seq --oligs $oligs
+    json2cosm.py -i ${job}.json -o ${job}.pdb -r ${job}_r -t ${job}_t -l $2 --seq $seq --oligs $oligs
     fi
 else
-json2cosm.py -i $1.json -o $1.pdb -r $1_r -t $1_t -l $2
+json2cosm.py -i ${job}.json -o ${job}.pdb -r ${job}_r -t ${job}_t -l $2
 fi
 
 ### Step 2
@@ -82,8 +86,8 @@ nt=" -nt $3"
 fi
 
 
-pdb2gmx -f $1.pdb -o beg.gro -merge all -ff ${ccg} -water none
-awk -v name=$1 '/; Include Position restraint file/{print "#include \"" name "_r\""}1' topol.top > topol_tmp
+pdb2gmx -f ${job}.pdb -o beg.gro -merge all -ff ${ccg} -water none
+awk -v name=${job} '/; Include Position restraint file/{print "#include \"" name "_r\""}1' topol.top > topol_tmp
 mv topol_tmp topol.top 
 grompp -f ${GMXLIB}/${ccg}.ff/minl.mdp -c beg -p topol -o em
 mdrun -deffnm em -v
@@ -92,14 +96,13 @@ mdrun -deffnm em2 -pd$nt -v
 
 mkmd 0
 
-echo 1 | trjconv -f md -s md -o $1_end.pdb -conect -b 20000
-echo 1 | trjconv -f md -s md -o $1_md.pdb -conect -skip 500
-cd ../
-cp $1/$1_end.pdb .
+echo 1 | trjconv -f md -s md -o ${job}_end.pdb -conect -b 20000
+echo 1 | trjconv -f md -s md -o ${job}_md.pdb -conect -skip 500
+
 if [ $# == 3 ]
 then
-    cosm2full.py -i $1_end.pdb -t $1/$1_t -l $2 -p 50 -o $1_end_full.pdb
+    cosm2full.py -i ${job}_end.pdb -t ${job}_t -l $2 -p 50 -o ${job}_end_full.pdb
 else
-    cosm2full.py -i $1_end.pdb -t $1/$1_t -l $2 -s $5 -o $1_end_full.pdb
+    cosm2full.py -i ${job}_end.pdb -t ${job}_t -l $2 -s $5 -o ${job}_end_full.pdb
 fi
-python appendcnct.py $1
+appendcnct.py ${job}
