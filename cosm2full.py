@@ -2,10 +2,12 @@
 # encoding: utf-8
 
 from __future__ import division
-from math import atan2, atan, hypot, pi, sin, cos, acos, sqrt
+#from math import atan2, atan, hypot, pi, sin, cos, acos, sqrt
 import numpy as np
 import argparse
 from random import random, choice
+import os
+import os.path as osp
 
 #############################################################
 #   DOES NOT WORK FOR SINGLE-STRANDED OLIGS (BUT REQUIRES)
@@ -46,20 +48,21 @@ if not args.cgprob:
     if args.seqoligs:
         SEQ = True
     else:
-        raise Exeption("Choose CG ratio or oligs.csv")
+        raise Exception("Choose CG ratio or oligs.csv")
 else:
     if args.seqoligs:
-        raise Exeption("Remove CG ratio or oligs.csv")
+        raise Exception("Remove CG ratio or oligs.csv")
     else:
         SEQ = False
 
 count = {'T1': 1, 'T2': 2, 'T3': 3, 'T4': 4, 'T5': 5,
          'T6': 6, 'H': 7, 'T7': 7, 'T': 7, 'PT': 7, 'S': 1,
-        'TT': 7, 'T1T': 1, 'T2T': 2, 'T3T': 3, 'T4T': 4,
-        'T5T': 5, 'T6T': 6, 'T7T': 7, 'O': 1, 'OT': 1, 'N': 1,
-        'B1' : 1, 'B2': 2, 'B3': 3, 'B4': 4, 'B5': 5, 'B6': 6,
-        'B7' : 7, 'B1T': 1, 'B2T' : 2, 'B3T' : 3, 'B4T' : 4,
-        'B5T' : 5, 'B6T': 6, 'B7T' : 7, 'B': 7, 'ST': 1}
+         'TT': 7, 'T1T': 1, 'T2T': 2, 'T3T': 3, 'T4T': 4,
+         'T5T': 5, 'T6T': 6, 'T7T': 7, 'O': 1, 'OT': 1, 'N': 1,
+         'B1': 1, 'B2': 2, 'B3': 3, 'B4': 4, 'B5': 5, 'B6': 6,
+         'B7': 7, 'B1T': 1, 'B2T': 2, 'B3T': 3, 'B4T': 4,
+         'B5T': 5, 'B6T': 6, 'B7T': 7, 'B': 7, 'ST': 1}
+
 term = ['T', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'TT', 'T1T', 'T2T',
         'T3T', 'T4T', 'T5T', 'T6T', 'T7T', 'T7',
         'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7',
@@ -82,12 +85,20 @@ else:
 
 print '\tLoad templates...'
 
+# template_path_key
+tpk = 'TEMPLATE_PATH'
+# template_path
+tp = ''
+
+if tpk in os.environ:
+    tp = os.environ[tpk]
+
 ncl_a = {}
 ncl_c = {}
 
 for template in ['at', 'ta', 'gc', 'cg']:
     res = ''
-    with open(template + '.pdb', 'r') as tmp:
+    with open(osp.join(tp, template + '.pdb'), 'r') as tmp:
         for line in tmp:
             line = line.split()
             if line[0] == 'ATOM':
@@ -164,6 +175,7 @@ def carts(atom):
     return [x, y, z]
 '''
 
+
 def normal(i, source):
     '''#Angles between normal (i-1, i+1) and common normal y,x=0'''
     if source == scaffold:
@@ -187,7 +199,7 @@ def normal(i, source):
 #    print norm
     if ny == 0:
         ny = 0.0001
-    x =[1, (- nx - nz) / ny, 1]
+    x = [1, (- nx - nz) / ny, 1]
 #    if x[1] < 0:
 #        x[1] = -1 * x[1]
     x = x / np.linalg.norm(x)
@@ -204,11 +216,12 @@ def normal(i, source):
 #    print C, 'CCCCCC'
 #    print C[0][0]**2 + C[1][0]**2 + C[2][0]**2
 #    print '--------------'
-    O = np.array([[0, 0, -1],[1, 0, 0],[0, 1, 0]])
+    O = np.array([[0, 0, -1], [1, 0, 0], [0, 1, 0]])
 #    print rnum, A, np.dot(A,O)*-1
     return np.dot(C, O)
 
 # center --> base
+
 
 def create_base(base, btype, i, norm):
     '''Move and rotate avery atom in the base'''
@@ -353,8 +366,6 @@ def rd():
 
 bases = {'AA': 'DA', 'AB': 'DA', 'TA': 'DT', 'TB': 'DT', 'CA': 'DC',
          'CB': 'DC', 'GA': 'DG', 'GB': 'DG'}
-
-
 
 cart_coords = {}
 
