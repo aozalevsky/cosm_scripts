@@ -1,0 +1,20 @@
+;[ moleculetype ]
+; molname nrexcl
+;KW   1
+;[ atoms ]
+; id    at type res nr  residu name     at name  cg nr  charge   mass
+;1 KW  1  KW  KW  1  1.0  147.10
+
+;[ moleculetype ]
+; molname nrexcl
+;NaW   1
+;[ atoms ]
+; id    at type res nr  residu name     at name  cg nr  charge   mass
+;1 NaW  1  NaW  NaW  1  1.0  130.99
+
+;[ moleculetype ]
+; molname nrexcl
+;ClW   1
+;[ atoms ]
+; id    at type res nr  residu name     at name  cg nr  charge   mass
+;1 ClW  1  ClW  ClW  1  -1.0  143.45

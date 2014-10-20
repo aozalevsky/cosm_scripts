@@ -1,0 +1,92 @@
+integrator          =  md
+dt                  =  0.01 ; ps !
+nsteps              =  2000000 ; total 1 ns.
+
+; continuation        =  yes
+
+nstxout             =  100
+nstvout             =  1000
+nstfout             =  1000
+nstlist             =  0 ;10
+nstlog              =  1000
+; table-extension     =  20
+
+; morse               =  yes
+
+rlist               =  15;30 ;8; 10; 0 ;30
+rvdw                =  15;30 ;8; 10 ; 0 ;30
+rcoulomb		= 15;30 ;8; 10 ; 0 ;30 
+coulombtype		= cut-off
+vdwtype			= cut-off
+;rcoulomb-switch     =  0
+;rvdw-switch         =  0
+;fourierspacing      =  0.16
+;pme_order           =  4
+;cutoff-scheme = Verlet
+
+
+; bd_fric             =  0
+; ld_seed             =  -1
+pbc                 =  no
+ns_type             =  simple
+constraints         =  none ; all-bonds
+;lincs_order         = 4
+;lincs_iter          = 2
+;lincs-warnangle     = 90
+
+Tcoupl              = v-rescale
+tau_t               = 1.0
+tc-grps             =  DNA
+ref_t               =  350
+
+Pcoupl              =  no ;berendsen
+Pcoupltype          =  isotropic
+tau_p               =  10
+compressibility     =  4.5e-5 ; 4.5e-5 4.5e-5 0 0 0
+ref_p               =  1.0 ;1.0 1.0 1.0 1.0 1.0
+refcoord_scaling    =  all
+
+gen_vel             =  yes
+gen_temp            =  350
+gen_seed            =  173529
+;http://www.mail-archive.com/gmx-users@gromacs.org/msg20866.html
+
+;mine addition
+comm-mode	=  angular
+nstcomm		= 10
+
+disre              =  simple
+disre-fc           =  1000
+
+;annealing          =  periodic ;single
+;annealing-npoints   =  4 
+;annealing-time     =  0 5 10 15
+;annealing-temp     =  277 290 300 290
+
+
+
+; IMPLICIT SOLVENT ALGORITHM
+;implicit_solvent         = gbsa
+
+; GENERALIZED BORN ELECTROSTATICS
+; Algorithm for calculating Born radii
+;gb_algorithm             = OBC ;Still
+; Frequency of calculating the Born radii inside rlist
+;nstgbradii               = 1
+; Cutoff for Born radii calculation; the contribution from atoms
+; between rlist and rgbradii is updated every nstlist steps
+;rgbradii                 = 2
+; Dielectric coefficient of the implicit solvent
+;gb_epsilon_solvent       = 80
+; Salt concentration in M for Generalized Born models
+;gb_saltconc              = 0.14
+; Scaling factors used in the OBC GB model. Default values are OBC(II)
+;gb_obc_alpha             = 1
+;gb_obc_beta              = 0.8
+;gb_obc_gamma             = 4.85
+;gb_dielectric_offset     = 0.009
+;sa_algorithm             = Ace-approximation
+; Surface tension (kJ/mol/nm^2) for the SA (nonpolar surface) part of GBSA
+; The value -1 will set default value for Still/HCT/OBC GB-models.
+;sa_surface_tension       = -1
+
