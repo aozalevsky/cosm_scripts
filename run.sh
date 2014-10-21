@@ -54,7 +54,7 @@ job=${1%.json}
 
 set -e
 
-if [ $# != 3 ]
+if [ $# != 4 ]
 then
    if [ $# != 5 ]
     then
@@ -99,9 +99,9 @@ mkmd 0
 echo 1 | trjconv -f md -s md -o ${job}_end.pdb -conect -b 20000
 echo 1 | trjconv -f md -s md -o ${job}_md.pdb -conect -skip 500
 
-if [ $# == 3 ]
+if [ $# == 4 ]
 then
-    cosm2full.py -i ${job}_end.pdb -t ${job}_t -l $2 -p 50 -o ${job}_end_full.pdb
+    cosm2full.py -i ${job}_end.pdb -t ${job}_t -l $2 -p $4 -o ${job}_end_full.pdb
 else
     cosm2full.py -i ${job}_end.pdb -t ${job}_t -l $2 -s $5 -o ${job}_end_full.pdb
 fi
