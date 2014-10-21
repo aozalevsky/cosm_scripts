@@ -4,7 +4,6 @@ import re
 def val_staples(csv):
     for line in csv:
         line = line.split(',')
-        print line
         for i in [0,1]:
             if not point.match(line[i]):
                 return False
