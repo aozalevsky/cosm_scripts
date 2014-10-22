@@ -14,7 +14,7 @@
 #   replaces $1 directory!
 ############################
 
-BASE=/home/domain/$USER/work/cosm-web
+BASE=/home/domain/silwer/work/cosmo-web/applications/test/private/cosm-web
 export GMXLIB=${BASE}/static/gromacs
 export PATH=${BASE}:${PATH}
 export TEMPLATE_PATH=${BASE}/static/templates
@@ -60,11 +60,11 @@ then
     then
         exit 1
     else
-    seq=$(basename $4)
-    cp $4 $seq
-    oligs=$(basename $5)
-    cp $5 $oligs
-    json2cosm.py -i ${job}.json -o ${job}.pdb -r ${job}_r -t ${job}_t -l $2 --seq $seq --oligs $oligs
+    #seq=$(basename $4)
+    #cp $4 $seq
+    #oligs=$(basename $5)
+    #cp $5 $oligs
+    json2cosm.py -i ${job}.json -o ${job}.pdb -r ${job}_r -t ${job}_t -l $2 --seq $4 --oligs $5
     fi
 else
 json2cosm.py -i ${job}.json -o ${job}.pdb -r ${job}_r -t ${job}_t -l $2
