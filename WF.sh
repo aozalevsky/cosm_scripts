@@ -90,10 +90,10 @@ fi
 pdb2gmx -f $1.pdb -o beg.gro -merge all -ff ${ccg} -water none
 awk -v name=$1 '/; Include Position restraint file/{print "#include \"" name "_r\""}1' topol.top > topol_tmp
 mv topol_tmp topol.top 
-grompp -f ${ccg}.ff/minl.mdp -c beg -p topol -o em
-mdrun -deffnm em -v
-grompp -f ${ccg}.ff/min-implicit.mdp -c em -p topol -o em2
-mdrun -deffnm em2 -pd$nt -v
+grompp -f ${ccg}.ff/minl.mdp -c beg -p topol -o em -maxwarn 1
+mdrun -deffnm em -v 
+grompp -f ${ccg}.ff/min-implicit.mdp -c em -p topol -o em2 -maxwarn 1
+mdrun -deffnm em2 -pd$nt -v 
 
 mkmd 0
 
