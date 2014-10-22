@@ -888,7 +888,6 @@ cnct.write('[ distance_restraints ]\n')
 cnct.write('; staple crossovers\n')
 #cnct.write('; Scaffold-ssolig bonds\n')
 for a, part in enumerate(scheme):
-    print part
     if part[0] == 'd':
         if a == 0:
             if part[2][0]:
