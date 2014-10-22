@@ -1,4 +1,4 @@
 1. "small letter T" structure, with sequence
-    bash WF.sh tsq h 0 seq418 tsq.csv
+    bash WF.sh tsq s 0 seq418 tsq.csv
 2. Tetrahedron, no sequence
     bash WF.sh tws h 0

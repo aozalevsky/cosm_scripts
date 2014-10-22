@@ -14,7 +14,7 @@
 #   replaces $1 directory!
 ############################
 
-BASE=/home/domain/silwer/work/cosmo-web/applications/test/private/cosm-web
+BASE=/home/domain/silwer/work/cosmo-web/applications/cosm/private/cosm-web
 export GMXLIB=${BASE}/static/gromacs
 export PATH=${BASE}:${PATH}
 export TEMPLATE_PATH=${BASE}/static/templates

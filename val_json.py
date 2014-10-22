@@ -1,15 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-#import __main__
-#__main__.pymol_argv = ['pymol', '-qc']
-#import pymol
-import json
-import sys
-
-# ------------- .json analysis ----------------
 
 def val_json(file):
+# ------------- .json analysis ----------------
+    import json
     lines = file.readlines()
     stringl = ""
     try:
@@ -17,7 +12,6 @@ def val_json(file):
             stringl += line
         obj = json.loads(stringl)
         strands = obj["vstrands"]
-        name = obj["name"]
 
 # create dictionaries (keyed by virtual helix #) of
 # row/col, scaf array, stap array
@@ -29,8 +23,6 @@ def val_json(file):
         Cols = {}
         trans = []
         trans_sc = []
-        end5scaf = None
-        end3scaf = None
         for strand in strands:
             num = strand["num"]
             vhNums.append(num)
@@ -41,15 +33,10 @@ def val_json(file):
             vhToScaf[num] = scaf
             vhToStap[num] = stap
 
-        scaf5 = []
-        scaf3 = []
-        coords = []
-
         Path = {'scaf': {}, 'stap': {}}
         ends5 = []
         ends3 = []
         allPath = {}
-        seqPath = {}
 
         for vh in vhNums:
             scafPath = []
@@ -72,10 +59,8 @@ def val_json(file):
                     scafPath.append('-')
                 if (base[0] == -1) & (base[2] == vh):
                     scafPath.append('e5')
-                    end5scaf = [vh, i]
                 if (base[2] == -1) & (base[0] == vh):
                     scafPath.append('e3')
-                    end3scaf = [vh, i]
 
             Path['scaf'][vh] = scafPath
 
@@ -133,5 +118,7 @@ def val_json(file):
     except:
         return False
 
-with open(sys.argv[1], 'r') as file:
-    print val_json(file)
+if __name__ == '__main__':
+    import sys
+    with open(sys.argv[1], 'r') as file:
+        print val_json(file)

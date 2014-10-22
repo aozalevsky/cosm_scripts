@@ -24,9 +24,6 @@ parser.add_argument('-t' '--top', required=True,
 parser.add_argument('-l' '--lattice', required=True,
                     action='store', dest='lattice',
                     help='lattice type (hexagonal / square)')
-#parser.add_argument('-f' '--force', required=True, type=boolean,
-#                    action='store', dest='force',
-#                    help='force sequence')
 parser.add_argument('--seq',
                     action='store', dest='seq',
                     help='scaffold sequence')
@@ -312,7 +309,9 @@ def checkreg(pair):
     c = -1
     ok1 = False
     ok2 = False
-    end = ['-', 'e5', 'e3']
+    end = ['-']
+    if endtmp:
+        end += ['e5', 'e3']
     while Path['scaf'][vh1][b1 + c] not in end and Path['scaf'][vh2][b2 + c] not in end and c > lim * -1:
         if Path['stap'][vh1][b1 + c] == vh2:
             ok1 = True
@@ -795,7 +794,7 @@ for part in scheme:
     if part[0] == 'd':      # duplexes
         beg = part[2][0] - part[2][0] % HC + HC * (k + 1) / 2 * bool(part[2][0] % HC)
         end = part[2][1] - part[2][1] % HC - HC * (k - 1) / 2 * bool(part[2][1] % HC)
-        if (end - beg) * k >= 0:
+        if (end - beg) * k >= 0 and abs(part[2][0] - part[2][1]) >= HC:
             part[2] = [(part[2][0], (beg - part[2][0]) * k), range(beg, end + HC * k, HC * k),
                        (part[2][1], (part[2][1] - end) * k)]
             if not part[2][0][1]:
@@ -889,7 +888,7 @@ cnct.write('[ distance_restraints ]\n')
 cnct.write('; staple crossovers\n')
 #cnct.write('; Scaffold-ssolig bonds\n')
 for a, part in enumerate(scheme):
-#    print part
+    print part
     if part[0] == 'd':
         if a == 0:
             if part[2][0]:
