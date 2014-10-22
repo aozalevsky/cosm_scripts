@@ -3,6 +3,8 @@ syntax: glob
 **.log
 **.swp
 **.swo
+**.swn
+**.swi
 **.c
 **.so
 **.o
