@@ -12,9 +12,9 @@ def val_lattice(file):
     obj = json.loads(stringl)
     numBases = len(obj['vstrands'][0]['scaf'])
     if numBases % 32 == 0:
-        return 'sq'
+        return 's'
     elif numBases % 21 == 0:
-        return 'hon'
+        return 'h'
     else:
         return None
 
