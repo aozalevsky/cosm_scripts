@@ -141,7 +141,7 @@ def checkseq(vh, base):
     # !!!!!!!!!!!!!
     while ([vh, base] != beg or not i) and Path['scaf'][vh][base] != 'e3':
         if seqPath[vh][base] != '-':  #in ['A', 'T', 'G', 'C']:
-            print vh, base, seq[i].upper() , seqPath[vh][base]
+#            print vh, base, seq[i].upper() , seqPath[vh][base]
             if seq[i].upper() != compl[seqPath[vh][base]]:
 #                print 'fail'
                 return False
@@ -525,6 +525,7 @@ end5scaf = None
 end3scaf = None
 for strand in strands:
     num = strand["num"]
+    if num in vhNums: raise Exception("Double strand names")
     vhNums.append(num)
     Rows[num] = strand["row"]
     Cols[num] = strand["col"]
@@ -622,6 +623,8 @@ for vh in vhNums:
 
 # ------------ lattice ------------
 
+
+
 if args.lattice in ['h', 'hex', 'hexagonal']:
     SQ = False
 elif args.lattice in ['s', 'sq', 'square']:
@@ -650,7 +653,7 @@ if not end5scaf:
         dl = 36
     else:
         dl = 21     # length of duplex needed
-    k = 0
+    k = min(vhNums)
     end = 0
     endtmp = False
     while not end and k in allPath:
@@ -671,15 +674,27 @@ if not end5scaf:
                 k += 1
         else:
             k += 1
+        end5scaf = [k, end - revers(k, 1)]
+        end3scaf = [k, end]
     if not end:
-        raise Exception("10bp duplex not found, define scaffold 5'-end mannually")
-    end5scaf = [k, end - revers(k, 1)]
-    end3scaf = [k, end]
+        p = min(vhNums)
+        while not end and p in allPath:
+            b = 1
+            while not end and b < len(Path['scaf'][p]):
+                if allPath[p][b-1 : b+2] == ['d']*3:
+                    end = True
+                    end5scaf = [p, b]
+                    end3scaf = [p, b + revers(p, 1)]
+                b += 1
+            p += 1
+        if not end:
+            raise Exception("10bp duplex not found, define scaffold 5'-end mannually")
 #end5scaf = [1, 13]
 #end3scaf = [1, 14]
 #[end5scaf, end3scaf] = [end3scaf, end5scaf]
 Path['scaf'][end5scaf[0]][end5scaf[1]] = 'e5'
 Path['scaf'][end3scaf[0]][end3scaf[1]] = 'e3'
+
 
 # ------------- sequence analysis/generation -------------
 #print Path['scaf']
@@ -776,7 +791,6 @@ while end[0] != 'end':
     [hm, s] = pathandtype(end, s)
     end = hm[1]
     scheme.append(hm[0])
-
 if SQ:
     dp = 0
 else:
