@@ -175,15 +175,17 @@ def normal(i, source):
     norm = norm / np.linalg.norm(norm)
     [nx, ny, nz] = norm
     if ny == 0:
-        if nx * nz > 0:
-            ny = 0.0001
-        else:
-            ny = 0.0001
+#        if nx * nz > 0:
+#            ny = 0.0001
+#        else:
+        ny = 0.0001
 #    if ny < 0:
 #        [nx, ny] = [-nx, -ny]
     x =[1, (- nx - nz) / ny, 1]
     if ny < 0:
         x[1] = x[1] * -1
+        x[0] = -1
+        x[2] = -1
     x = x / np.linalg.norm(x)
     y = np.cross(x, norm)
     y = y / np.linalg.norm(y)
