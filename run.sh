@@ -14,7 +14,13 @@
 #   replaces $1 directory!
 ############################
 
-BASE=/home/domain/silwer/work/cosmo-web/applications/cosm/private/cosm-web
+if [$(hostname) == 'cosm']
+then
+    BASE=/home/www-data/web2py/applications/cosm/private/cosm-web
+else
+    BASE=$HOME/work/cosmo-web/applications/cosm/private/cosm-web
+fi
+echo $BASE
 export GMXLIB=${BASE}/static/gromacs
 export PATH=${BASE}:${PATH}
 export TEMPLATE_PATH=${BASE}/static/templates
@@ -50,6 +56,8 @@ done
 trap - EXIT
 }
 
+echo 'Stage 1'
+
 job=${1%.json}
 
 set -e
@@ -72,6 +80,8 @@ fi
 
 ### Step 2
 
+echo 'Stage 2'
+
 if [ "${2::1}" = "h" ]
 then 
 ccg="cosm002"
@@ -89,16 +99,24 @@ fi
 pdb2gmx -f ${job}.pdb -o beg.gro -merge all -ff ${ccg} -water none
 awk -v name=${job} '/; Include Position restraint file/{print "#include \"" name "_r\""}1' topol.top > topol_tmp
 mv topol_tmp topol.top 
+
+echo 'Stage 3'
 grompp -f ${GMXLIB}/${ccg}.ff/minl.mdp -c beg -p topol -o em
 mdrun -deffnm em -v
+
+
+echo 'Stage 4'
 grompp -f ${GMXLIB}/${ccg}.ff/min-implicit.mdp -c em -p topol -o em2
 mdrun -deffnm em2 -pd$nt -v
 
+echo 'Stage 5'
 mkmd 0
 
-echo 1 | trjconv -f md -s md -o ${job}_end.pdb -conect -b 20000
+echo 'Stage 6'
+echo 1 | trjconv -f md.gro -s md -o ${job}_end.pdb -conect
 echo 1 | trjconv -f md -s md -o ${job}_md.pdb -conect -skip 500
 
+echo 'Stage 7'
 if [ $# == 4 ]
 then
     cosm2full.py -i ${job}_end.pdb -t ${job}_t -l $2 -p $4 -o ${job}_end_full.pdb
@@ -106,3 +124,5 @@ else
     cosm2full.py -i ${job}_end.pdb -t ${job}_t -l $2 -s $5 -o ${job}_end_full.pdb
 fi
 appendcnct.py ${job}
+
+exit $?
