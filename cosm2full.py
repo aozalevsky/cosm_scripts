@@ -112,8 +112,6 @@ for name in ncl_c:
         for i, c in enumerate(a):
             c[2] += 3.4 * i
 
-#print len(ncl_a['AA']), ncl_a['AA']
-#print len(ncl_c['TB']), ncl_c['TB']
 
 # -------- load pdb ---------
 
@@ -169,31 +167,26 @@ def normal(i, source):
     if source == scaffold:
         prev = source[i - 1]
         next = source[i + 1]
-#        print i-1, i+1, 'xxx'
     else:
         prev = source[i - 1][0]
         next = source[i + 1][0]
-#    print '------'
-#    print prev
-#    print source[i]
-#    print next
     norm = np.array([a - b for a, b in zip(next, prev)])
-#    print i
-#    print prev
-#   print next
-#    print norm
+#    print i, norm
     norm = norm / np.linalg.norm(norm)
     [nx, ny, nz] = norm
-#    print norm
     if ny == 0:
-        ny = 0.0001
+        if nx * nz > 0:
+            ny = 0.0001
+        else:
+            ny = 0.0001
+#    if ny < 0:
+#        [nx, ny] = [-nx, -ny]
     x =[1, (- nx - nz) / ny, 1]
-#    if x[1] < 0:
-#        x[1] = -1 * x[1]
+    if ny < 0:
+        x[1] = x[1] * -1
     x = x / np.linalg.norm(x)
     y = np.cross(x, norm)
     y = y / np.linalg.norm(y)
-#    A = np.array([norm, x, y]).T
     A = np.array([norm, x, y])
     B = np.linalg.inv(A).T
     [bx, by, bz] = B
@@ -201,11 +194,8 @@ def normal(i, source):
     by = by / np.linalg.norm(by)
     bz = bz / np.linalg.norm(bz)
     C = np.array([bx, by, bz]).T
-#    print C, 'CCCCCC'
-#    print C[0][0]**2 + C[1][0]**2 + C[2][0]**2
-#    print '--------------'
     O = np.array([[0, 0, -1],[1, 0, 0],[0, 1, 0]])
-#    print rnum, A, np.dot(A,O)*-1
+#    print i, C
     return np.dot(C, O)
 
 # center --> base
@@ -214,18 +204,11 @@ def create_base(base, btype, i, norm):
     '''Move and rotate avery atom in the base'''
     res = []
     k = i % 10
-#    k = 0
     for n in range(len(ncl_c[btype])):
         natom = ncl_c[btype][n][k]
-#        natom = atom
-#        natom = cylindr(atom)
-#        natom[2] += ang
-#        natom = cartc(natom)
-#        print atom
         natom = np.array(natom).T
         natom = np.dot(norm, natom)
         natom = natom.tolist()
-#        print natom
         natom = [a + b for a, b in zip(natom, base)]
         res.append(natom)
     return res
@@ -256,7 +239,6 @@ def print_base(baseatoms, btype, end):
     rnum += 1
     if rnum == 10000:
         rnum = 1
-
 
 def stpath(end):
     [number, add] = end
@@ -328,7 +310,6 @@ def fdelta(n1, n2):
 
 def stcoords(s):
     res = []
-#    print s
     s = s.split('/')
     for part in s:
         part = part.split('---')
@@ -377,7 +358,6 @@ with open(args.input, 'r') as f:
                       float(line[46:54])]
             c = count[name]
             num = int(line[6:11])
-#            print num, name, beg
             if name in ['S', 'ST', 'NT', 'N']:
                 if name[0] == 'S' and beg:
                     beg = 0
@@ -429,14 +409,11 @@ with open(args.input, 'r') as f:
                 ascaf[(num, 0)] = s - 1
                 s += 1
                 scaffold.append(coords)
-#print len(scaffold)
-#print mmm
 e3 = []
 e5 = []
 cross = []
 scaf = {}
 seq = ''
-#print atoms
 print '\t"Topology" file reading...'
 
 with open(args.top, 'r') as a:
@@ -454,25 +431,14 @@ with open(args.top, 'r') as a:
             tseq = line[1]
 if SEQ and not tseq:
     raise Exception("No sequence in topology file")
-#            scaf[int(line[4])] = int(line[2])
-#print atoms
 for end in e3:
     staple = stpath(end)
-#    print staple
     staple.reverse()
     staples.append(staple)
 # make ends!
-#staples.reverse()
-#ocnct = {}
-#with open(args.connects, 'r') as c:
-#    for line in c:
-#        line = line.split()
-#        ocnct[int(line[0])] = int(line[1])
 
 comp = {'AA': 'TB', 'TA': 'AB', 'CA': 'GB', 'GA': 'CB'}
 pdb = open(args.output, 'w')
-
-#angles = {}
 
 NORM = {}
 anum = 1
@@ -482,7 +448,6 @@ cur_st = False
 seq = {}
 for i, base in enumerate(scaffold[:scafres + 1]):
     end = None
-#    print i, 'ooo'
     if i == 0:
         end = 5
         A = normal(1, scaffold)
@@ -492,10 +457,6 @@ for i, base in enumerate(scaffold[:scafres + 1]):
     else:
         A = normal(i, scaffold)
     NORM[i] = A
-#    print A
-#    ang = angle(i, 1)
-#    angles[i] = i % 10
-#    print i
     if SEQ:
         seq[i] = tseq[i].upper() + 'A'
     else:
@@ -520,11 +481,6 @@ for staple in staples:
                 A = normal(i, staple)
         if base[1] in NORM:
             A = NORM[base[1]]
-#        # why i? check
-#        if base[1] in angles:
-#            ang = angles[base[1]]
-#        else:
-#            ang = angles[0]
         if len(seq) - 1 >= base[1]:
             s = comp[seq[base[1]]]
         else:

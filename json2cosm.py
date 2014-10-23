@@ -212,7 +212,7 @@ def prconnect(base1, base2):
     t = tuple(['CONECT', base1, base2])
     outpdbc.append(template.format(t) + '\n')
 #    outpdb.append(['CONECT'
-    cnct.write(str(base2) + '\t' + str(base1) + '\t1\t' + str(l) + '\t1\t1.7\t1.85\t1.9\t1.0\n')
+    cnct.write(str(base2) + '\t' + str(base1) + '\t1\t' + str(l) + '\t1\t1.8\t1.85\t1.9\t1.0\n')
     l += 1
 
 
@@ -228,6 +228,7 @@ def findconnects(vh, j, number, length, end):
     seq += range(j + k, j + k * length, k)
     ind = []
     for i in seq:
+        #print number, '|', vh, i, Path['stap'][vh][i], '|', k
         dif = (i - j) * k
         if Path['stap'][vh][i] not in [vh, 'e5', 'e3', '-']:
             if [vh, i] in needst:
@@ -237,7 +238,10 @@ def findconnects(vh, j, number, length, end):
                     add.write('cross ; ' + str(number) + ' 0 ' + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
                 elif i % HC == HC - 1:
                     needst[n] = (number, dif)
-                    add.write('cross ; ' + str(number) + ' ' + str(length - 1) + ' '  + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
+                    if k == -1:
+                        add.write('cross ; ' + str(number) + ' ' + str(1) + ' '  + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
+                    else:
+                        add.write('cross ; ' + str(number) + ' ' + str(length - 1) + ' '  + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
                 else:
                     needst[n] = (number + dif, 0)
                     add.write('cross ; ' + str(number + dif) + ' 0 ' + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
@@ -274,7 +278,10 @@ def findconnects(vh, j, number, length, end):
                                 connects.append(number)
                                 needed.append([pair[0][1], pair[1][1]])
                         elif i % HC == HC - 1:
-                            connst.append((number, dif))
+                            if k == -1:
+                                connst.append((number, 1))
+                            else:
+                                connst.append((number, length - 1))
                             if [vh, i + 1] not in needed:
                                 if k == 1:
                                     if number + 1 not in connects + needed:
