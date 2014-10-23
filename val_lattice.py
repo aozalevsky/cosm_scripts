@@ -6,9 +6,9 @@ def val_lattice(f):
     import json
     obj = json.load(f)
     numBases = len(obj['vstrands'][0]['scaf'])
-    if numBases % 32 == 0:
+    if numBases % 32 == 0 and numBases % 21 != 0:
         return 's'
-    elif numBases % 21 == 0:
+    elif numBases % 21 == 0 and numBases % 32 != 0:
         return 'h'
     else:
         return None
