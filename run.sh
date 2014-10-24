@@ -14,7 +14,7 @@
 #   replaces $1 directory!
 ############################
 
-if [$(hostname) == 'cosm']
+if [[ $(hostname) == 'cosm' ]]
 then
     BASE=/home/www-data/web2py/applications/cosm/private/cosm-web
 else
