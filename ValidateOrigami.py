@@ -4,7 +4,7 @@
 
 def validate_json(f):
     # initiate variables
-    flag, msg, error = True, 'JSON is OK', ''
+    flag, msg, error = True, 'JSON is OK.', ''
 
 # ------------- .json analysis ----------------
     import json
@@ -117,7 +117,7 @@ def validate_json(f):
     except:
         flag = False
         msg = ''
-        error = 'JSON is invalid'
+        error = 'JSON is invalid.'
 
     return (flag, msg, error)
 
@@ -141,7 +141,7 @@ def validate_lattice(f):
             msg = 'h'
         else:
             flag = False
-            error = 'Unable to detect lattice type'
+            error = 'Unable to detect lattice type.'
 
     return (flag, msg, error)
 
@@ -152,13 +152,13 @@ def validate_staples(f):
 
     import pyparsing as pg
     # example coordinate: 1[23]
-    coord = pg.Regex('\d+\[\d+\],').setName('coordinate in format XX[YY]')
+    coord = pg.Regex('\d+\[\d+\],').setName('coordinates in format XX[YY].')
     # example sequence: AGGTTAGATCG
-    seq = pg.Regex("[ATGC]+,").setName('DNA sequence composed of ATGC')
+    seq = pg.Regex("[ATGC]+,").setName('DNA sequence composed of ATGC.')
     # example length: 8
-    length = pg.Regex('\d+,').setName('integer staple length')
+    length = pg.Regex('\d+,').setName('integer staple length.')
     # example color: #54aa8d
-    color = pg.Regex('#[0-9A-z]{6}').setName('color in format #AABBCC')
+    color = pg.Regex('#[0-9A-z]{6}').setName('color in format #AABBCC.')
 
     # example line
     # 0[116],1[107],TGTCTCAGCTGCATCGCAAGACATCATCAAAGG,33,#170fde
@@ -168,7 +168,7 @@ def validate_staples(f):
         try:
             validLine.parseString(line)
         except pg.ParseException, pe:
-            flag, msg, error = False, pe.msg, pe.markInputline('?')
+            flag, msg, error = False, pe.markInputline('?'), 'Invalid staples. ' + pe.msg
             break
 
     return (flag, msg, error)
@@ -179,7 +179,7 @@ def validate_sequence(f):
 
     import pyparsing as pg
     # example coordinate: 1[23]
-    seq = pg.Regex("[ATGC]+").setName('DNA sequence composed of ATGC')
+    seq = pg.Regex("[ATGC]+").setName('DNA sequence composed of ATGC.')
 
     validLine = seq + pg.LineEnd()
 
@@ -188,8 +188,8 @@ def validate_sequence(f):
             validLine.parseString(line.upper())
         except pg.ParseException, pe:
             flag = False
-            msg = 'Illegal symbols in DNA sequence'
-            error = pe.markInputline('?')
+            error = 'Illegal symbols in DNA sequence.'
+            msg = pe.markInputline('?')
 
     return (flag, msg, error)
 
