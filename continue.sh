@@ -5,7 +5,12 @@
 # -cpi - use checkpoint
 # -v - be verbose
 
-BASE=/home/domain/silwer/work/cosmo-web/applications/test/private/cosm-web
+if [[ $(hostname) == 'cosm' ]]
+then
+    BASE=/home/www-data/web2py/applications/cosm/private/cosm-web
+else
+    BASE=$HOME/work/cosmo-web/applications/cosm/private/cosm-web
+fi
 export GMXLIB=${BASE}/static/gromacs
 export PATH=${BASE}:${PATH}
 export TEMPLATE_PATH=${BASE}/static/templates
