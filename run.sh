@@ -26,6 +26,12 @@ export PATH=${BASE}:${PATH}
 export TEMPLATE_PATH=${BASE}/static/templates
 
 
+function error_exit {
+  echo $1
+  exit 1
+}
+
+
 function mkmd {
 grompp -f ${GMXLIB}/${ccg}.ff/md-vacuum${1}.mdp -c em2 -p topol -o md -maxwarn 1
 
@@ -56,11 +62,11 @@ done
 trap - EXIT
 }
 
-echo 'Stage 1'
+#set -e
+
+echo '<STAGE: 1>'
 
 job=${1%.json}
-
-set -e
 
 if [ $# != 4 ]
 then
@@ -72,15 +78,16 @@ then
     #cp $4 $seq
     #oligs=$(basename $5)
     #cp $5 $oligs
-    json2cosm.py -i ${job}.json -o ${job}.pdb -r ${job}_r -t ${job}_t -l $2 --seq $4 --oligs $5
+    json2cosm.py -i ${job}.json -o ${job}.pdb -r ${job}_r -t ${job}_t -l $2 --seq $4 --oligs $5 || error_exit "<ERROR: Unable to convert structure>"
     fi
 else
-json2cosm.py -i ${job}.json -o ${job}.pdb -r ${job}_r -t ${job}_t -l $2
+json2cosm.py -i ${job}.json -o ${job}.pdb -r ${job}_r -t ${job}_t -l $2 || error_exit "<ERROR: Unable to convert structure>"
 fi
+
 
 ### Step 2
 
-echo 'Stage 2'
+echo '<STAGE: 2>'
 
 if [ "${2::1}" = "h" ]
 then 
@@ -96,33 +103,36 @@ nt=" -nt $3"
 fi
 
 
-pdb2gmx -f ${job}.pdb -o beg.gro -merge all -ff ${ccg} -water none
-awk -v name=${job} '/; Include Position restraint file/{print "#include \"" name "_r\""}1' topol.top > topol_tmp
+pdb2gmx -f ${job}.pdb -o beg.gro -merge all -ff ${ccg} -water none || error_exit  "<ERROR: Unable to create topology file>"
+awk -v name=${job} '/; Include Position restraint file/{print "#include \"" name "_r\""}1' topol.top > topol_tmp 
 mv topol_tmp topol.top 
 
-echo 'Stage 3'
-grompp -f ${GMXLIB}/${ccg}.ff/minl.mdp -c beg -p topol -o em
-mdrun -deffnm em -v
+
+echo '<STAGE: 3>'
+grompp -f ${GMXLIB}/${ccg}.ff/minl.mdp -c beg -p topol -o em || error_exit "<ERROR: Unable to perform energy minimization (run 1)>"
+mdrun -deffnm em -v || error_exit "<ERROR: Unable to perform energy minimization (run 1)>"
 
 
-echo 'Stage 4'
-grompp -f ${GMXLIB}/${ccg}.ff/min-implicit.mdp -c em -p topol -o em2
-mdrun -deffnm em2 -pd$nt -v
+echo '<STAGE: 4>'
+grompp -f ${GMXLIB}/${ccg}.ff/min-implicit.mdp -c em -p topol -o em2 || error_exit "<ERROR: Unable to perform energy minimization (run 2)>"
+mdrun -deffnm em2 -pd$nt -v || error_exit "<ERROR: Unable to perform energy minimization (run 2)>"
 
-echo 'Stage 5'
-mkmd 0
 
-echo 'Stage 6'
-echo 1 | trjconv -f md.gro -s md -o ${job}_end.pdb -conect
-echo 1 | trjconv -f md -s md -o ${job}_md.pdb -conect -skip 500
+echo '<STAGE: 5>'
+mkmd 0 || error_exit "<ERROR: Unable to perform MD>"
 
-echo 'Stage 7'
+echo '<STAGE: 6>'
+echo 1 | trjconv -f md.gro -s md -o ${job}_end.pdb -conect | error_exit "<ERROR: Unable to prepare output files>"
+echo 1 | trjconv -f md -s md -o ${job}_md.pdb -conect -skip 500 | error_exit "<ERROR: Unable to prepare output files>"
+
+
+echo '<STAGE: 7>'
 if [ $# == 4 ]
 then
-    cosm2full.py -i ${job}_end.pdb -t ${job}_t -l $2 -p $4 -o ${job}_end_full.pdb
+    cosm2full.py -i ${job}_end.pdb -t ${job}_t -l $2 -p $4 -o ${job}_end_full.pdb || echo "<ERROR: Unable to convert full atom structure>"
 else
-    cosm2full.py -i ${job}_end.pdb -t ${job}_t -l $2 -s $5 -o ${job}_end_full.pdb
+    cosm2full.py -i ${job}_end.pdb -t ${job}_t -l $2 -s $5 -o ${job}_end_full.pdb || echo "<ERROR: Unable to convert full atom structure>"
 fi
-appendcnct.py ${job}
+appendcnct.py ${job} || echo "<ERROR: Unable to convert full atom structure>"
 
 exit $?
