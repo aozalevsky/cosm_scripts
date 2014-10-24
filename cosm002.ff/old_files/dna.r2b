@@ -1,8 +1,0 @@
-; rtp residue to rtp building block table
-;CCG   Force-field
-;      main     5'end   3'end
-;DAX    DAX	AX5	AX3	-
-;DGX    DGX	GX5	GX3	-
-;DCX    DCX	CX5	CX3	-
-;DTX    DTX	TX5	TX3	-
-OA      OA  OAT OAT -

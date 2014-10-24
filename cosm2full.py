@@ -2,10 +2,12 @@
 # encoding: utf-8
 
 from __future__ import division
-from math import atan2, atan, hypot, pi, sin, cos, acos, sqrt
+#from math import atan2, atan, hypot, pi, sin, cos, acos, sqrt
 import numpy as np
 import argparse
 from random import random, choice
+import os
+import os.path as osp
 
 #############################################################
 #   DOES NOT WORK FOR SINGLE-STRANDED OLIGS (BUT REQUIRES)
@@ -46,20 +48,21 @@ if not args.cgprob:
     if args.seqoligs:
         SEQ = True
     else:
-        raise Exeption("Choose CG ratio or oligs.csv")
+        raise Exception("Choose CG ratio or oligs.csv")
 else:
     if args.seqoligs:
-        raise Exeption("Remove CG ratio or oligs.csv")
+        raise Exception("Remove CG ratio or oligs.csv")
     else:
         SEQ = False
 
 count = {'T1': 1, 'T2': 2, 'T3': 3, 'T4': 4, 'T5': 5,
          'T6': 6, 'H': 7, 'T7': 7, 'T': 7, 'PT': 7, 'S': 1,
-        'TT': 7, 'T1T': 1, 'T2T': 2, 'T3T': 3, 'T4T': 4,
-        'T5T': 5, 'T6T': 6, 'T7T': 7, 'O': 1, 'OT': 1, 'N': 1,
-        'B1' : 1, 'B2': 2, 'B3': 3, 'B4': 4, 'B5': 5, 'B6': 6,
-        'B7' : 7, 'B1T': 1, 'B2T' : 2, 'B3T' : 3, 'B4T' : 4,
-        'B5T' : 5, 'B6T': 6, 'B7T' : 7, 'B': 7, 'ST': 1}
+         'TT': 7, 'T1T': 1, 'T2T': 2, 'T3T': 3, 'T4T': 4,
+         'T5T': 5, 'T6T': 6, 'T7T': 7, 'O': 1, 'OT': 1, 'N': 1,
+         'B1': 1, 'B2': 2, 'B3': 3, 'B4': 4, 'B5': 5, 'B6': 6,
+         'B7': 7, 'B1T': 1, 'B2T': 2, 'B3T': 3, 'B4T': 4,
+         'B5T': 5, 'B6T': 6, 'B7T': 7, 'B': 7, 'ST': 1}
+
 term = ['T', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'TT', 'T1T', 'T2T',
         'T3T', 'T4T', 'T5T', 'T6T', 'T7T', 'T7',
         'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7',
@@ -82,12 +85,20 @@ else:
 
 print '\tLoad templates...'
 
+# template_path_key
+tpk = 'TEMPLATE_PATH'
+# template_path
+tp = ''
+
+if tpk in os.environ:
+    tp = os.environ[tpk]
+
 ncl_a = {}
 ncl_c = {}
 
 for template in ['at', 'ta', 'gc', 'cg']:
     res = ''
-    with open(template + '.pdb', 'r') as tmp:
+    with open(osp.join(tp, template + '.pdb'), 'r') as tmp:
         for line in tmp:
             line = line.split()
             if line[0] == 'ATOM':
@@ -112,6 +123,8 @@ for name in ncl_c:
         for i, c in enumerate(a):
             c[2] += 3.4 * i
 
+#print len(ncl_a['AA']), ncl_a['AA']
+#print len(ncl_c['TB']), ncl_c['TB']
 
 # -------- load pdb ---------
 
@@ -162,33 +175,37 @@ def carts(atom):
     return [x, y, z]
 '''
 
+
 def normal(i, source):
     '''#Angles between normal (i-1, i+1) and common normal y,x=0'''
     if source == scaffold:
         prev = source[i - 1]
         next = source[i + 1]
+#        print i-1, i+1, 'xxx'
     else:
         prev = source[i - 1][0]
         next = source[i + 1][0]
+#    print '------'
+#    print prev
+#    print source[i]
+#    print next
     norm = np.array([a - b for a, b in zip(next, prev)])
-#    print i, norm
+#    print i
+#    print prev
+#   print next
+#    print norm
     norm = norm / np.linalg.norm(norm)
     [nx, ny, nz] = norm
+#    print norm
     if ny == 0:
-#        if nx * nz > 0:
-#            ny = 0.0001
-#        else:
         ny = 0.0001
-#    if ny < 0:
-#        [nx, ny] = [-nx, -ny]
-    x =[1, (- nx - nz) / ny, 1]
-    if ny < 0:
-        x[1] = x[1] * -1
-        x[0] = -1
-        x[2] = -1
+    x = [1, (- nx - nz) / ny, 1]
+#    if x[1] < 0:
+#        x[1] = -1 * x[1]
     x = x / np.linalg.norm(x)
     y = np.cross(x, norm)
     y = y / np.linalg.norm(y)
+#    A = np.array([norm, x, y]).T
     A = np.array([norm, x, y])
     B = np.linalg.inv(A).T
     [bx, by, bz] = B
@@ -196,21 +213,32 @@ def normal(i, source):
     by = by / np.linalg.norm(by)
     bz = bz / np.linalg.norm(bz)
     C = np.array([bx, by, bz]).T
-    O = np.array([[0, 0, -1],[1, 0, 0],[0, 1, 0]])
-#    print i, C
+#    print C, 'CCCCCC'
+#    print C[0][0]**2 + C[1][0]**2 + C[2][0]**2
+#    print '--------------'
+    O = np.array([[0, 0, -1], [1, 0, 0], [0, 1, 0]])
+#    print rnum, A, np.dot(A,O)*-1
     return np.dot(C, O)
 
 # center --> base
+
 
 def create_base(base, btype, i, norm):
     '''Move and rotate avery atom in the base'''
     res = []
     k = i % 10
+#    k = 0
     for n in range(len(ncl_c[btype])):
         natom = ncl_c[btype][n][k]
+#        natom = atom
+#        natom = cylindr(atom)
+#        natom[2] += ang
+#        natom = cartc(natom)
+#        print atom
         natom = np.array(natom).T
         natom = np.dot(norm, natom)
         natom = natom.tolist()
+#        print natom
         natom = [a + b for a, b in zip(natom, base)]
         res.append(natom)
     return res
@@ -241,6 +269,7 @@ def print_base(baseatoms, btype, end):
     rnum += 1
     if rnum == 10000:
         rnum = 1
+
 
 def stpath(end):
     [number, add] = end
@@ -312,6 +341,7 @@ def fdelta(n1, n2):
 
 def stcoords(s):
     res = []
+#    print s
     s = s.split('/')
     for part in s:
         part = part.split('---')
@@ -337,8 +367,6 @@ def rd():
 bases = {'AA': 'DA', 'AB': 'DA', 'TA': 'DT', 'TB': 'DT', 'CA': 'DC',
          'CB': 'DC', 'GA': 'DG', 'GB': 'DG'}
 
-
-
 cart_coords = {}
 
 scaffold = []
@@ -360,6 +388,7 @@ with open(args.input, 'r') as f:
                       float(line[46:54])]
             c = count[name]
             num = int(line[6:11])
+#            print num, name, beg
             if name in ['S', 'ST', 'NT', 'N']:
                 if name[0] == 'S' and beg:
                     beg = 0
@@ -411,11 +440,14 @@ with open(args.input, 'r') as f:
                 ascaf[(num, 0)] = s - 1
                 s += 1
                 scaffold.append(coords)
+#print len(scaffold)
+#print mmm
 e3 = []
 e5 = []
 cross = []
 scaf = {}
 seq = ''
+#print atoms
 print '\t"Topology" file reading...'
 
 with open(args.top, 'r') as a:
@@ -433,14 +465,25 @@ with open(args.top, 'r') as a:
             tseq = line[1]
 if SEQ and not tseq:
     raise Exception("No sequence in topology file")
+#            scaf[int(line[4])] = int(line[2])
+#print atoms
 for end in e3:
     staple = stpath(end)
+#    print staple
     staple.reverse()
     staples.append(staple)
 # make ends!
+#staples.reverse()
+#ocnct = {}
+#with open(args.connects, 'r') as c:
+#    for line in c:
+#        line = line.split()
+#        ocnct[int(line[0])] = int(line[1])
 
 comp = {'AA': 'TB', 'TA': 'AB', 'CA': 'GB', 'GA': 'CB'}
 pdb = open(args.output, 'w')
+
+#angles = {}
 
 NORM = {}
 anum = 1
@@ -450,6 +493,7 @@ cur_st = False
 seq = {}
 for i, base in enumerate(scaffold[:scafres + 1]):
     end = None
+#    print i, 'ooo'
     if i == 0:
         end = 5
         A = normal(1, scaffold)
@@ -459,6 +503,10 @@ for i, base in enumerate(scaffold[:scafres + 1]):
     else:
         A = normal(i, scaffold)
     NORM[i] = A
+#    print A
+#    ang = angle(i, 1)
+#    angles[i] = i % 10
+#    print i
     if SEQ:
         seq[i] = tseq[i].upper() + 'A'
     else:
@@ -483,6 +531,11 @@ for staple in staples:
                 A = normal(i, staple)
         if base[1] in NORM:
             A = NORM[base[1]]
+#        # why i? check
+#        if base[1] in angles:
+#            ang = angles[base[1]]
+#        else:
+#            ang = angles[0]
         if len(seq) - 1 >= base[1]:
             s = comp[seq[base[1]]]
         else:

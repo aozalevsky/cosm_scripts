@@ -1,0 +1,12 @@
+syntax: glob
+**.pyc
+**.log
+**.swp
+**.swo
+**.swn
+**.swi
+**.c
+**.so
+**.o
+**.nfs
+Example/tsq
