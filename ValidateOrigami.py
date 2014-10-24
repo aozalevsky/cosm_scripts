@@ -106,13 +106,13 @@ def validate_json(f):
 #        Path['scaf'][vh][5] = 'a'
         for base in allPath[vh]:
             if base not in ['-', 's', 'd', 'o']:
-                return False
+                raise RuntimeError
         for base in Path['scaf'][vh]:
             if base not in (range(0, 10) + ['-', 'e5', 'e3']):
-                return False
+                raise RuntimeError
         for base in Path['stap'][vh]:
             if base not in (range(0, 10) + ['-', 'e5', 'e3']):
-                return False
+                raise RuntimeError
 
     except:
         flag = False
@@ -135,9 +135,9 @@ def validate_lattice(f):
         obj = json.load(f)
         numBases = len(obj['vstrands'][0]['scaf'])
 
-        if numBases % 32 == 0:
+        if numBases % 32 == 0 and numBases % 21 != 0:
             msg = 's'
-        elif numBases % 21 == 0:
+        elif numBases % 21 == 0 and numBases % 32 != 0:
             msg = 'h'
         else:
             flag = False
@@ -194,7 +194,7 @@ def validate_sequence(f):
     return (flag, msg, error)
 
 
-def pretty(t, flag, msg, error):
+def pretty(t, flag, msg=None, error=None):
     print '-' * 80
     print 'TYPE:', t
     print 'MSG:', msg
@@ -218,6 +218,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.json:
+#	print validate_json(args.json)
         pretty('JSON', *validate_json(args.json))
         args.json.close()
     if args.lattice:
