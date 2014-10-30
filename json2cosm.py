@@ -416,7 +416,7 @@ def addtoout(aname, tname, nlname, ox, oy, z, chain, length):
 #    ppp += length
 #    print tname, length
     if tname:
-        t = ['ATOM'] + [a_sc] + [aname] + [tname] + [nlname] + [a_sc] + [ox, oy] + [z * 3.5] + [1.00, 0.00] + [aname]
+        t = ['ATOM'] + [a_sc] + [aname] + [tname] + [nlname] + [a_sc] + [ox, oy] + [z * 3.4] + [1.00, 0.00] + [aname]
         outpdb.append(t)
         staplesends(chain, z, a_sc, length)
         scaffoldcross(chain, z, a_sc)
