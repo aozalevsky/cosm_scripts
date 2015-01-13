@@ -1,1 +1,0 @@
-../cosm2full.py

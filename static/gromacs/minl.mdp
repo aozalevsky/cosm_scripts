@@ -2,7 +2,7 @@ title               =  alanine dipeptide
 cpp                 =  /lib/cpp -traditional  						; prepocessor of the current machine
 define              =  -DFLEXIBLE						; -DPOSRES, -DPOSRES_IONS ;DFLEX_SPC; FLEXible SPC and POSition REStraints
 
-integrator          =  steep    						; steepest descent algorithm
+integrator          =  l-bfgs ;steep    						; steepest descent algorithm
 dt                  =  0.1   						; time step in ps
 nsteps              =  500000      						; number of steps
 
@@ -25,11 +25,11 @@ nstxtcout           =  100    ; frequency for writing coords to xtc traj
 ;xtc_grps            =  system ; group(s) whose coords are to be written in xtc traj
 ;energygrps          =  system ; group(s) whose energy is to be written in energy file
 pbc                 =  no    ; use pbc
-rlist               =  0 ;5 ;1.4    ; cutoff (nm)
+rlist               =  15;0 ;5 ;1.4    ; cutoff (nm)
 coulombtype         =  cut-off ; truncation for minimisation, with large cutoff
-rcoulomb            =  0 ;5 ;1.4
+rcoulomb            =  15;0 ;5 ;1.4
 vdwtype             =  cut-off  ; truncation for minimisation, with large cutoff
-rvdw                =  0 ;5 ;1.4
+rvdw                =  15;0 ;5 ;1.4
 ; nstcomm             =  0  ; number of steps for centre of mass motion removal (in vacuo only!)
 Tcoupl              =  no
 Pcoupl              =  no
