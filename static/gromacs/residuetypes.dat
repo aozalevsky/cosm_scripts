@@ -39,8 +39,7 @@ N       DNA
 NT      DNA
 
 ;; sq special part
-T7      DNA
-T7T     DNA
-
 B7      DNA
 B7T     DNA
+T7      DNA
+T7T     DNA

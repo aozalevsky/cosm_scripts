@@ -8,104 +8,75 @@ Required input data:
 
 Optional input:
 
-    staple sequences (e.q. 'oligs.csv', cadnano export format)
-    scaffold sequence (e.q. 'seq.txt')
+    staple sequences (e.q. 'staples.csv', cadnano export format)
+    AND scaffold sequence (e.q. 'seq.txt')
+
+Output:
+
+    2D-map ('origami_map.pdf')
+    3D-map ('origami_cosm.pdb')
+    em multiframe ('origami_multi.pdb')
+    em relaxed structure ('origami_end.pdb')
+    fullatom relaxed structure ('origami_end_full.pdb')
+    pictures
+
+    optional:
+        md multiframe ('origami_mdmulti.pdb')
 
 Required software:
     python 2.7,
     gromacs,
-    COSM force field
+    COSM force fields (honeycomb and square)
+    pymol (for pics)
+
+# can be some problems with connects in pdb, if atom number > 99999
+
+################################################
+
+Usage:
+
+ - random sequence
+        bash run.sh NAME NT CGRATIO
+ - or custom sequence
+        bash run.sh NAME NT SEQ.TXT STAPLES.CSV
 
 #################################################
 
+Examples:
+
+1. origami.json, cgratio=50, nt=0, random sequence
+
+    bash run.sh origami 0 50
+
+2. origami.json, nt=0, scaffold sequence = seq.txt, staple list = staples.csv
+    
+    bash run.sh origami 0 seq.txt staples.csv
+
+!!!
+
+if lattice is not recognizable automatically,
+user has to choose (square/honeycomb) (run.sh, ${lattice} = 'u')
+
+!!!
+
+################################################
+
 General workflow:
 
-1. Converting json cadnano file to COSM pdb structure ('json2cosm.py')
+1. Converting json cadnano file to COSM pdb structure ('json2cosm.py'), 2D-map generation
 
-2. Energy minimisation and molecular dynamics
+2. Energy minimisation
 
-3. Converting final structure to fullatom ('cosm2full.py') -- in progress
+3. Converting final structure to fullatom ('cosm2full.py') 
+
+---- 'continue' button
+
+4. MD
 
 ##################################################
 
-Example bash script with workflow: 'Examples/WF.sh'
-Examples of input,intermediate and output formats: 'Examples/*'
+Errors:
+
+'error_exit' and 'topol_error' functions in run.sh
 
 ##################################################
-Detailed description.
-
-########
-1. 'json2cosm.py'
-
-Converting json to COSM pdb. 
-No pymol required 
-
-###
-
-    Usage:
-        python json2cosm.py -i JSON -o PDB -t TOPOLOGY -r RESTRAINTS -l LATTICE [--seq SCAFFOLD --oligs STAPLES]
-
-    Arguments:
-        -i, --input 
-                    input cadnano structure
-        -o, --output
-                    output COSM pdb
-        -t, --top
-                    output 'topology' file, is required for fullatom conversion
-        -r, --restr
-                    output file with distance/angle restraints, is required for simulation
-        -l, --lattice
-                    hexagonal or square
-        --seq
-                    input text file with scaffold sequenes; requires --oligs
-        --oligs
-                    input csv file with staple sequences; requires --seq
-        
-    Usage examples: 
-
-    Convert origami.json to COSM cosm.pdb without define sequence, hexagonal lattice:
-        python json2cosm.py -i origami.json -o cosm.pdb -t origami_t -r origami_r -l hex
-    Convert origami.json to COSM cosm.pdb with define sequence, square lattice:
-        python json2cosm.py -i origami.json -o cosm.pdb -t origami_t -r origami_r -l sq --seq seq.txt --oligs oligs.csv
-
-########
-2. Energy minimisation and molecular dynamics
-
-cosm.ff/cosm8.ff with minl.mdp and min-implicit.mdp required
-for hexagonal lattice use cosm.ff, for square - cosm8.ff
-
-Input:
-
-    COSM pdb (e.q. cosm.pdb)
-    restraints file (generated in the first step, e.q. origami_r)
-
-Example (hexagonal lattice):
-
-    pdb2gmx -f cosm.pdb -o beg.gro -merge all -ff cosm -water none
-    awk '/; Include Position restraint file/{print "#include  \"origami_t\"}' topol.top > topol_tmp
-    mv topol_tmp topol.top
-    grompp -i cosm.ff/minl.mdp -c beg -o em -p topol
-    mdrun -deffnm em -v
-    grompp -i cosm.ff/min-implicit.mdp -c em -o em2 -p topol
-    mdrun -deffnm em2 -v -pd
-    grompp -f cosm.ff/md-vacuum.mdp -c em2 -o md -p topol
-    mdrun -deffnm md -v
-
-Default md: 
-    20 ns, step 0.02 ps
-
-#########
-
-4. 'cosm2full.py'
-Converting cosm to fullatom structure.
-
-###
-
-Usage:
-    python cosm2full.py -i COSM -o FULL -a TOPOLOGY -l LATTICE -p CG RATIO
-
-[sequence]
-
---- testing in progress ---
-
-######################################
