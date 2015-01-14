@@ -45,3 +45,7 @@ Single-strande staple:
 Cicular staple:
 
     bash run.sh circ_fail 0 50
+
+* Unrecognizable lattice type (not error!)
+
+    bash run.sh unknlattice 0 50
