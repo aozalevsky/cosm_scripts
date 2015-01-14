@@ -101,7 +101,7 @@ def get_scaffold_path(end):
 
 def nextbase(vh, base, seq):
     """ Get next base after """
-    ### works two times in sequnce search:
+    ### works two times in sequence search:
     ### 1st iteration for next sequence negin point
     ### 2nd iterantion for sequence checking
     global last1, last2
@@ -132,14 +132,13 @@ def checkseq(vh, base):
     beg = [vh, base]
     k = revers(vh, 0)
     i = 0
-
-    while ([vh, base] != beg or not i) and Path['scaf'][vh][base] != 'e3':
+    while [vh, base] != beg or not i: #and Path['scaf'][vh][base] != 'e3':
         if seqPath[vh][base] != '-':  #in ['A', 'T', 'G', 'C']:
             if seq[i].upper() != compl[seqPath[vh][base]]:
                 return False
         [vh, base] = nextbase(vh, base, True)
         i += 1
-    return beg
+    return True
 
 
 def findnextnot(end, pat):
@@ -954,14 +953,15 @@ if args.seq and args.oligs:
         [vh, base] = end5scaf
         i = 0
 
-        while not seq_end:
+        while [vh, base] != end3scaf:
             seq_end = checkseq(vh, base)
-            if [vh, base] == end3scaf and not seq_end:
-                raise Exception('USER: Sequence does not match staple list')
-                seq_end = '-'
-            else:
-                [vh, base] = nextbase(vh, base, False)
+            [vh, base] = nextbase(vh, base, False)
+            if seq_end:
+                break
             i += 1
+        if not seq_end:
+            raise Exception('USER: Sequence does not match staple list')
+            seq_end = '-'
         i = len(seq) - i
         add.write('seq: ' + seq[i:] + seq[:i] + '\n')
 elif args.seq or args.oligs:
@@ -1259,7 +1259,7 @@ for a, part in enumerate(scheme):
         if len(part[2]) <= 2:
             for atom in part[2]:
                 if atom in part[4]:
-                    raise Exception('USER: Deletion at terminal particle')
+                    raise Exception('USER: Deletion at terminal base pair')
                 if atom in part[3]:
                     createatom(atom, part[1], 'T', 1, 0, (1, 0))
                 else:
