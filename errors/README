@@ -1,0 +1,34 @@
+    User errors
+--------------------
+
+You need all input files in this directory to reproduce errors 
+
+Error in input json file
+    bash run.sh input_fail 0 50
+    # also when no such json file
+
+More than one base inserted in one place
+    bash run.sh multins_fail 0 50
+
+Error in sequence input file
+    bash run.sh phex 0 seq_fail phex.csv
+    # also when no such seq file 
+
+Error in staple csv file
+    bash run.sh phex 0 seq phex_fail.csv
+    # also when no such staple file
+
+Sequence does not match staple list
+    bash run.sh phex 0 seq_notmatch phex.csv
+    
+More than one scaffold chain
+    bash run.sh addscaf_fail 0 50
+
+Insertion or deletion in single-stranded region
+    bash run.sh ssdelet_fail 0 50
+
+Single-strande staple
+    bash run.sh ssolig_fail 0 50
+
+Cicular staple
+    bash run.sh circ_fail 0 50
