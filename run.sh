@@ -131,9 +131,9 @@ stage 2
 
 if [[ "${2::1}" = "h" ]]
 then 
-ccg="cosm002"
+ccg="calori"
 else
-ccg="cosm002sq"
+ccg="calori_sq"
 fi
 if [[ "$2" == "0" ]]
 then

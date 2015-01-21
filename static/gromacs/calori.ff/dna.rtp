@@ -14,7 +14,7 @@
 
 [ PT ]
  [ atoms ]
-     D   PTA -0.175   0
+     D   PTA -0.155   0
 
  [ bonds ]
     -D     D
@@ -27,7 +27,7 @@
 
 [ PTT ]
  [ atoms ]
-     D   PTA -0.162   0
+     D   PTA -0.144   0
 
  [ bonds ]
 
@@ -39,7 +39,7 @@
 
 [ N ]
  [ atoms ]
-     D   NA -0.025 0  
+     D   NA -0.022 0  
 
  [ bonds ]
     -D     D
@@ -52,7 +52,7 @@
 
 [ NT ]
  [ atoms ]
-     D   NA -0.012 0
+     D   NA -0.011 0
 
  [ bonds ]
 
@@ -64,7 +64,7 @@
 
 [ T1 ]
  [ atoms ]
-     D   T1A   -0.025 0
+     D   T1A   -0.022 0
 
  [ bonds ]
     -D     D
@@ -77,7 +77,7 @@
 
 [ T1T ]
  [ atoms ]
-     D   T1A -0.012 0
+     D   T1A -0.011 0
 
  [ bonds ]
 
@@ -89,7 +89,7 @@
 
 [ B1 ]
  [ atoms ]
-     D   B1A   -0.025 0
+     D   B1A   -0.022 0
 
  [ bonds ]
     -D     D
@@ -102,7 +102,7 @@
 
 [ B1T ]
  [ atoms ]
-     D   B1A -0.012 0
+     D   B1A -0.011 0
 
  [ bonds ]
 
@@ -114,7 +114,7 @@
 
 [ T2 ]
  [ atoms ]
-     D   T2A   -0.050 0
+     D   T2A   -0.044 0
 
  [ bonds ]
     -D     D
@@ -127,7 +127,7 @@
 
 [ T2T ]
  [ atoms ]
-     D   T2A  -0.037 0
+     D   T2A  -0.033 0
 
  [ bonds ]
 
@@ -139,7 +139,7 @@
 
 [ B2 ]
  [ atoms ]
-     D   B2A   -0.050 0
+     D   B2A   -0.044 0
      
  [ bonds ]
     -D     D
@@ -152,7 +152,7 @@
  
 [ B2T ]
  [ atoms ]
-     D   B2A  -0.037 0
+     D   B2A  -0.033 0
      
  [ bonds ]
  
@@ -164,7 +164,7 @@
 
 [ T3 ]
  [ atoms ]
-     D   T3A   -0.075  0
+     D   T3A   -0.067  0
 
  [ bonds ]
     -D     D
@@ -177,7 +177,7 @@
 
 [ T3T ]
  [ atoms ]
-     D   T3A  -0.062  0
+     D   T3A  -0.055  0
 
  [ bonds ]
 
@@ -189,7 +189,7 @@
 
 [ B3 ]
  [ atoms ]
-     D   B3A   -0.075  0
+     D   B3A   -0.067  0
      
  [ bonds ]
     -D     D
@@ -202,7 +202,7 @@
 
 [ B3T ]
  [ atoms ]
-     D   B3A  -0.062  0
+     D   B3A  -0.055  0
      
  [ bonds ]
  
@@ -214,7 +214,7 @@
 
 [ T4 ]
  [ atoms ]
-     D   T4A   -0.10 0
+     D   T4A   -0.09 0
 
  [ bonds ]
     -D     D
@@ -227,7 +227,7 @@
 
 [ T4T ]
  [ atoms ]
-     D   T4A  -0.087  0
+     D   T4A  -0.077  0
 
  [ bonds ]
 
@@ -239,7 +239,7 @@
 
 [ B4 ]
  [ atoms ]
-     D   B4A   -0.10 0
+     D   B4A   -0.09 0
      
  [ bonds ]
     -D     D
@@ -252,7 +252,7 @@
 
 [ B4T ]
  [ atoms ]
-     D   B4A  -0.087  0
+     D   B4A  -0.077  0
      
  [ bonds ]
  
@@ -264,7 +264,7 @@
 
 [ T5 ]
  [ atoms ]
-     D   T5A   -0.125  0
+     D   T5A   -0.111  0
 
  [ bonds ]
     -D     D
@@ -277,7 +277,7 @@
 
 [ T5T ]
  [ atoms ]
-     D   T5A  -0.112  0
+     D   T5A  -0.100  0
 
  [ bonds ]
 
@@ -289,7 +289,7 @@
 
 [ B5 ]
  [ atoms ]
-     D   B5A   -0.125  0
+     D   B5A   -0.111  0
      
  [ bonds ]
     -D     D
@@ -302,7 +302,7 @@
 
 [ B5T ]
  [ atoms ]
-     D   B5A  -0.112  0
+     D   B5A  -0.100  0
      
  [ bonds ]
 
@@ -314,7 +314,7 @@
 
 [ T6 ]
  [ atoms ]
-     D   T6A   -0.15  0
+     D   T6A   -0.13  0
 
  [ bonds ]
     -D     D
@@ -327,7 +327,7 @@
 
 [ T6T ]
  [ atoms ]
-     D   T6A  -0.137  0
+     D   T6A  -0.122  0
 
  [ bonds ]
 
@@ -339,7 +339,7 @@
 
 [ B6 ]
  [ atoms ]
-     D   B6A   -0.15  0
+     D   B6A   -0.13  0
      
  [ bonds ]
     -D     D
@@ -352,7 +352,7 @@
 
 [ B6T ]
  [ atoms ]
-     D   B6A  -0.137  0
+     D   B6A  -0.122  0
      
  [ bonds ]
 
@@ -364,7 +364,7 @@
 
 [ H ]
  [ atoms ]
-     D   HA -0.175   0
+     D   HA -0.155   0
 
  [ bonds ]
     -D     D
@@ -377,7 +377,7 @@
 
 [ HT ]
  [ atoms ]
-     D   HA  -0.162  0
+     D   HA  -0.144  0
 
  [ bonds ]
 
@@ -389,7 +389,7 @@
 
 [ T ]
  [ atoms ]
-     D    TA -0.175   0
+     D    TA -0.155   0
 
  [ bonds ]
     -D     D
@@ -402,7 +402,7 @@
 
 [ TT ]
  [ atoms ]
-     D    TA  -0.162  0
+     D    TA  -0.144  0
 
  [ bonds ]
 
@@ -414,7 +414,7 @@
 
 [ B ]
  [ atoms ]
-     D    BA -0.175   0
+     D    BA -0.155   0
      
  [ bonds ]
     -D     D
@@ -427,7 +427,7 @@
  
 [ BT ]
  [ atoms ]
-     D    BA  -0.162  0
+     D    BA  -0.144  0
      
  [ bonds ]
  
@@ -439,7 +439,7 @@
 
 [ S ]
  [ atoms ]
-     D    SA -0.012 0
+     D    SA -0.060 0
 
  [ bonds ]
     -D     D
@@ -464,7 +464,7 @@
 
 [ O ]
  [ atoms ]
-     D    OA -0.012 0
+     D    OA -0.017 0
 
  [ bonds ]
     -D     D
