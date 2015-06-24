@@ -1,6 +1,6 @@
 integrator          =  md
 dt                  =  0.02 ; ps !
-nsteps              =  1000000 ; total 1 ns.
+nsteps              =  1500000 ; total 1 ns.
 
 ; continuation        =  yes
 
@@ -13,9 +13,9 @@ nstlog              =  1000
 
 ; morse               =  yes
 
-rlist               =  15;30 ;8; 10; 0 ;30
-rvdw                =  15;30 ;8; 10 ; 0 ;30
-rcoulomb		= 15;30 ;8; 10 ; 0 ;30 
+rlist               =  15 ;40; 15 ;8; 10; 0 ;30
+rvdw                =  15 ;40; 15 ;8; 10 ; 0 ;30
+rcoulomb		= 15 ; 40; 15 ;8; 10 ; 0 ;30 
 coulombtype		= cut-off
 vdwtype			= cut-off
 ;rcoulomb-switch     =  0
@@ -37,7 +37,7 @@ constraints         =  none ; all-bonds
 Tcoupl              = v-rescale
 tau_t               = 1.0
 tc-grps             =  DNA
-ref_t               =  400
+ref_t               =  300
 
 Pcoupl              =  no ;berendsen
 Pcoupltype          =  isotropic
@@ -56,7 +56,7 @@ comm-mode	=  angular
 nstcomm		= 10
 
 disre              =  simple
-disre-fc           =  1000
+disre-fc           =  2000
 
 ;annealing          =  periodic ;single
 ;annealing-npoints   =  4 

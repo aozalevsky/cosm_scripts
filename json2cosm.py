@@ -87,7 +87,9 @@ def get_scaffold_path(end):
 #    else:
 #        k = -1
     res = None
-    cross_base = end[1] + k * cross_base + k
+#    print Path['scaf'][3][5]
+#    print cross_base, cross_vh
+    cross_base = end[1] + k * cross_base + k#+ (k + 1)/2
     if cross_vh == 'e3':
         res = ['end', cross_base]
     else:
@@ -133,6 +135,8 @@ def checkseq(vh, base):
     k = revers(vh, 0)
     i = 0
     while [vh, base] != beg or not i: #and Path['scaf'][vh][base] != 'e3':
+        if endtmp and Path['scaf'][vh][base] == 'e3':
+            return True
         if seqPath[vh][base] != '-':  #in ['A', 'T', 'G', 'C']:
             if seq[i].upper() != compl[seqPath[vh][base]]:
                 return False
@@ -143,23 +147,28 @@ def checkseq(vh, base):
 
 def findnextnot(end, pat):
     global k
+#    print end, pat
     if k == 1:
-        path = allPath[end[0]][end[1]:]
+        path = allPath[end[0]][end[1] + 1:]
     else:
         path = allPath[end[0]][:end[1]]
         path.reverse()
     if path:
+        path = [pat] + path
         i = 0
         cross_base = None
-        while i < len(path) and not cross_base:
+        while i < len(path) - 1 and not cross_base:
+            i += 1
             if path[i] not in [pat, '-']:
                 cross_base = i
-            i += 1
+
 #    cross_vh = path[cross_base]
         if cross_base:
+#            cross_base += 1
             cross_base = end[1] + k * cross_base
-            if k == -1:
-                cross_base -= 1
+#            print cross_base
+#            if k == -1:
+#                cross_base -= 1
             return [end, [end[0], cross_base]]
         else: return None
     else:
@@ -214,13 +223,13 @@ def prconnect(base1, base2):
     outpdbc.append(template.format(t) + '\n')
     if not (isinstance(base2, int) and isinstance(base1, int)):
         raise Exception('ADMIN: PY1. Error with staple restraints')
-    cnct.write(str(base2) + '\t' + str(base1) + '\t1\t' + str(l) + '\t1\t1.8\t1.85\t1.9\t1.0\n')
-    l += 1
+#    cnct.write(str(base2) + '\t' + str(base1) + '\t1\t' + str(l) + '\t1\t1.8\t1.85\t1.9\t1.0\n')
+#    l += 1
 
 
 def findconnects(vh, j, number, length, end):
     """Find crossover restraints"""
-    global connects, needed
+    global connects, needed, add_tmp
     if end == 's':
         return None
     [x, y] = [0, 0]
@@ -235,16 +244,20 @@ def findconnects(vh, j, number, length, end):
                 n = needst.index([vh, i])
                 if i == j:
                     needst[n] = (number, 0)
-                    add.write('cross ; ' + str(number) + ' 0 ' + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
+#                    add.write('cross ; ' + str(number) + ' 0 ' + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
+                    add_tmp.append([number, 0, connst[n][0], connst[n][1]])
                 elif i % HC == HC - 1:
                     needst[n] = (number, dif)
                     if k == -1:
-                        add.write('cross ; ' + str(number) + ' ' + str(1) + ' '  + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
+#                        add.write('cross ; ' + str(number) + ' ' + str(1) + ' '  + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
+                        add_tmp.append([number, 1, connst[n][0], connst[n][1]])
                     else:
-                        add.write('cross ; ' + str(number) + ' ' + str(length - 1) + ' '  + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
+#                        add.write('cross ; ' + str(number) + ' ' + str(length - 1) + ' '  + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
+                        add_tmp.append([number, length - 1, connst[n][0], connst[n][1]])
                 else:
                     needst[n] = (number + dif, 0)
-                    add.write('cross ; ' + str(number + dif) + ' 0 ' + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
+#                    add.write('cross ; ' + str(number + dif) + ' 0 ' + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
+                    add_tmp.append([number + dif, 0, connst[n][0], connst[n][1]])
             if [vh, i] in needed:
                 n = needed.index([vh, i])
                 if i == j:
@@ -390,7 +403,7 @@ def check_circular(vh, i):
 
 def staplesends(vh, i, number, length):
     """Find staple ends through path"""
-    global needst, connst
+    global needst, connst, add_ends
     rev = (Rows[vh] + Cols[vh]) % 2
     if not isinstance(i, int): return False
     if not rev:
@@ -401,10 +414,10 @@ def staplesends(vh, i, number, length):
     while l < length:
         a = Path['stap'][vh][i]
         if a == 'e5':
-            add.write('e5 ; ' + str(number) + ' ' + str(l) + '\n')
+            add_ends.append(('e5', vh, i))
             check_circular(vh, i)
         elif a == 'e3':
-            add.write('e3 ; ' + str(number) + ' ' + str(l) + '\n')
+            add_ends.append(('e3', vh, i))
         i += k
         l += 1
 
@@ -461,7 +474,7 @@ def addtoout(aname, tname, nlname, ox, oy, z, chain, length, mod):
     global a_sc, outpdb, atomsh, anames, outmap
     if tname:
         t1 = [aname] + [tname] + [nlname]
-        t2 = [ox, oy] + [z * 3.4] + [1.00, 0.00] + [aname, chain, z]
+        t2 = [ox, oy] + [z * 3.5] + [1.00, 0.00] + [aname, chain, z]
         if mod == 'I':
             outpdb.append(['ATOM', a_sc] + t1 + [a_sc] + t2)
             outmap.append(['T', tname, a_sc, chain, z])
@@ -472,7 +485,8 @@ def addtoout(aname, tname, nlname, ox, oy, z, chain, length, mod):
             a_sc += 1
             t1[1] = 'N'
             outpdb.append(['ATOM', a_sc] + t1 + [a_sc] + t2)
-            outmap.append(['I', tname, a_sc, chain, z])
+            outmap.append(['I', 'N', a_sc, chain, z])
+#            add.write('I ; N ; ' + str(a_sc) + ' ; ' + str(chain) + ' ; ' + str(z) + '\n')
             atomsh.append((chain, z))
             anames.append('N')
             a_sc += 1
@@ -499,7 +513,9 @@ def addtoout(aname, tname, nlname, ox, oy, z, chain, length, mod):
             atomsh.append((chain, z))
             anames.append(tname)
             a_sc += 1
-        elif mod != 'D':
+        elif mod == 'D':
+            allPath[chain][z] = 'DELE'
+        else:
             raise Exception('ADMIN: PY1. Wrong modification type')
 
 
@@ -554,17 +570,14 @@ def createatom(z, chain, tname, length, end, modif):
     else:
         if dif and tname not in term:
             tname = 'PT'
-#            length = 1
         if dif and tname in term and tname[0] == 'T':
             if not inserts and not delet:
-#            print chain, z, tname, length, dif
                 tname = 'T'
             else:
                 length = int(tname[1])
                 tname = 'T'
                 savedif = True
         dif = findconnects(chain, z, a_sc, length, end)
-#        print chain, z, tname, length
         if dif:
             if tname not in term: tname = 'PT'
             if tname in term and tname[0] == 'T': tname = 'T'
@@ -574,7 +587,7 @@ def createatom(z, chain, tname, length, end, modif):
                 M = 'D'
             else:
                 M = None
-            addtoout(aname, tname, nlname, ox, oy, z, chain, 1, M)  # print untyp
+            addtoout(aname, tname, nlname, ox, oy, z, chain, 1, M)
             for i in range(1, length):
                 if z + i * k in inserts:
                     M = 'I'
@@ -584,7 +597,6 @@ def createatom(z, chain, tname, length, end, modif):
                     M = None
                 addtoout(aname, 'N', nlname, ox, oy, z + i * k, chain, 1, M)
         elif inserts or delet:
-#            print 'cc', chain, z, inserts, delet
             if not instype:
                 if tname not in term: tname = 'PT'
                 if tname in term and tname[0] == 'T': tname = 'T'
@@ -619,7 +631,6 @@ def createatom(z, chain, tname, length, end, modif):
                     MT = 'I'
                 else:
                     MT = None
-#                print chain,z, MT, inserts, delet, length
                 if instype == 't':
                     addtoout(aname, 'T', nlname, ox, oy, z, chain, length, MT)
                     for i in range(1, length):
@@ -629,10 +640,8 @@ def createatom(z, chain, tname, length, end, modif):
                         elif z + i * k in delet:
                             M = 'D'
                         addtoout(aname, 'N', nlname, ox, oy, z + i * k, chain, 1, M)
-#                tname = 'T'
                 else:
                     for i in range(1, length):
-#                        print 'cc', chain, z, z + (i-length)*k, '|', length, tname
                         M = None
                         if z + (i - length) * k in inserts:
                             M = 'I'
@@ -642,8 +651,7 @@ def createatom(z, chain, tname, length, end, modif):
                     if MT:
                         addtoout(aname, 'T', nlname, ox, oy, z, chain, length, MT + 'e')
                     else:
-#                        print 'cc', chain, z
-                        addtoout(aname, 'T', nlname, ox, oy, z, chain, length, None)
+                        addtoout(aname, 'T', nlname, ox, oy, z, chain, 1, None) # !!!
         else:
             addtoout(aname, tname, nlname, ox, oy, z, chain, length, None)  # quite normal atom
 
@@ -766,7 +774,6 @@ try:
         # staple path
 
         stap = vhToStap[vh]
-
         for i in range(len(stap)):
             base = stap[i]
             if (base[0] == -1) & (base[2] == vh):
@@ -812,8 +819,13 @@ try:
 except:
     raise Exception('USER: Error in input json file')
 
-# ------------- loop --------------
 
+for v in allPath:
+    vh = allPath[v]
+    if 'o' in vh:
+        raise Exception('USER: Single-stranded staple')
+# ------------- loop --------------
+add = open(args.top, 'w')
 insert = {}
 deletion = {}
 mapf = open(args.map, 'w')
@@ -834,6 +846,7 @@ for vh in skip:
             else:
                 deletion[(vh, i)] = -1 * n
                 mapf.write('D ' + str(i) + ':' + str(vhNums.index(vh)) + '\n')
+#                add.write('D ' + str(i) + ';' + str((vh)) + '\n')
 
 # ------------ lattice ------------
 
@@ -843,7 +856,6 @@ elif args.lattice in ['s', 'sq', 'square']:
     SQ = True
 else:
     raise Exception('ADMIN: Wrong lattice type')
-
 if SQ:
     lim = 36+7
     HC = 8
@@ -853,7 +865,6 @@ else:
 
 # ------------- output files ----------
 
-add = open(args.top, 'w')
 
 #ch = (Rows[0] + Cols[0]) % 2
 
@@ -1006,6 +1017,7 @@ while end[0] != 'end':
     end = hm[1]
     scheme.append(hm[0])
 
+
 valPath = copy.deepcopy(Path['scaf'])
 valStap = copy.deepcopy(Path['stap'])
 
@@ -1073,8 +1085,7 @@ for part in scheme:
                             ins[-1].append(l)
                 if (part[1], part[2][1][-1]) in insert:
                     ins[-1].append(part[2][1][-1])
-                else:
-                    ins.append([])
+                ins.append([])
             else:
                 if (part[1], part[2][1][0]) in insert:
                     ins.append([part[2][1][0]])
@@ -1101,8 +1112,7 @@ for part in scheme:
                             dele[-1].append(l)
                 if (part[1], part[2][1][-1]) in deletion:
                     dele[-1].append(part[2][1][-1])
-                else:
-                    dele.append([])
+                dele.append([])
             else:
                 if (part[1], part[2][1][0]) in deletion:
                     dele.append([part[2][1][0]])
@@ -1139,6 +1149,7 @@ a_sc = 1    # number of particle printed
 nl = 0
 atomsh = [None]
 anames = [None]
+add_tmp = []
 l = 1
 
 nls = string.ascii_uppercase + string.digits    # for additional chains
@@ -1208,9 +1219,10 @@ cnct = open(args.cnct, 'w')
 cnct.write('[ distance_restraints ]\n')
 cnct.write('; staple crossovers\n')
 
+add_ends = []
+
 for a, part in enumerate(scheme):
     if part[0] == 'd':
-
         # first term
 
         if part[2][0]:
@@ -1362,6 +1374,119 @@ while len(done) < len(ssoligs):
 #tn.close()
 outpdb[0][3] += 'T'
 
+for i, c in enumerate(atomsh):
+    if i:
+        allPath[c[0]][c[1]] = i
+for vh in allPath:
+    k = revers(vh, 0)
+    if k == -1:
+        allPath[vh] = allPath[vh][::-1]
+    for i, c in enumerate(allPath[vh]):
+        if c not in ['-', 'd', 's', 'DELE']:
+            ntmp = c
+            ctmp = 0
+            allPath[vh][i] = (c, 0)
+        elif c in ['d', 's']:
+            ctmp += 1
+            allPath[vh][i] = (ntmp, ctmp)
+    if k == -1:
+        allPath[vh] = allPath[vh][::-1]
+
+
+for i in add_ends:
+    p_i = allPath[i[1]][i[2]]
+    if p_i == 'DELE':
+        p_i = allPath[i[1]][i[2] - revers(i[1], 0)]
+    add.write(i[0] + ' ; ' + str(p_i[0]) + ' ' + str(p_i[1]) + '\n')
+
+def nsearch(b, a, direct):
+    # determine direct
+    i = allPath[b][a]
+    while i == 'DELE':
+        i = nsearch(b, a + direct, direct)
+    return i
+
+
+def wr_restr(i1, i2):
+    global l, R_DONE
+    if i1[1] not in [0, 1, HC - 1] or i2[1] not in [0, 1, HC - 1]:
+        raise Exception('ADMIN: PY1. Restraints error')
+    if (i1[0], i2[0]) not in R_DONE and (i2[0], i1[0]) not in R_DONE:
+#        print i1, i2, l, len(R_DONE)
+        cnct.write(str(i1[0]) + '\t' + str(i2[0]) + '\t1\t' + str(l) + '\t1\t1.8\t1.85\t1.9\t1.0\n')
+        l += 1
+        R_DONE.append((i1[0], i2[0]))
+
+
+def wr_add(i1, i2):
+    global T_DONE
+    if (i1, i2) not in T_DONE and (i1, i2) not in T_DONE:
+        add.write('cross ; ' + ' '.join(map(str, i1)) + ' ' + ' '.join(map(str, i2)) + '\n')
+        T_DONE.append((i1, i2))
+
+PAIR_DONE = []
+R_DONE = []
+T_DONE = []
+
+for pair in trans:
+    [[b1, b2], [a1, a2]] = pair
+    if not [[b2, b1], [a2, a1]] in PAIR_DONE:
+        PAIR_DONE.append(pair)
+        if not (a1 % HC or a2 % HC):
+            i1 = nsearch(b1, a1, 1)
+            i2 = nsearch(b2, a2, 1)
+            wr_add(i1, i2)
+            wr_restr(i1, i2)
+            if [[b1, b2], [a1 - 1, a2 - 1]] in trans:
+                i1 = nsearch(b1, a1 - 1, -1)
+                i2 = nsearch(b2, a2 - 1, -1)
+                wr_add(i1, i2)
+        elif a1 % HC == HC - 1 and a2 % HC == HC - 1:
+            if [[b1, b2], [a1 + 1, a2 + 1]] not in trans:
+                i1 = nsearch(b1, a1, -1)
+                i2 = nsearch(b2, a2, -1)
+                wr_add(i1, i2)
+#                k1 = (revers(b1, 1) + 1) / 2
+#                k2 = (revers(b2, 1) + 1) / 2
+#                print b1, a1, '|', b2, a2
+#                print allPath[b1][a1-2:a1+3]
+#                print i1, i2
+                wr_restr(i1, i2)
+        else:
+            i1 = nsearch(b1, a1, 1)
+            i2 = nsearch(b2, a2, 1)
+            wr_add(i1, i2)
+            wr_restr(i1, i2)
+
+#print R_DONE, len(R_DONE)
+
+#    if a1 % HC == HC - 1 and a2 % HC == HC - 1: #and not pair
+#        direct = -1
+#        i1 = nsearch(b1, a1, direct)
+#        i2 = nsearch(b2, a2, direct)
+#        print 'add', i1, i2
+
+
+#    i1 = [i for i, x in enumerate(atomsh) if x == (b1, a1)]
+#    i2 = [i for i, x in enumerate(atomsh) if x == (b2, a2)]
+#    print b1, a1, i1, '|', b2, a2, i2
+#    if not (a1 % HC or a2 % HC):
+#        print a1, a2
+#        print i1, i2
+#        i1 = nsearch(b1, a1, 1, 0)
+#        i2 = nsearch(b2, a2, 1, 0)
+#        print 'add ', i1, 0, i2, 0
+#        i3= nsearch(b1, a1 - 1, -1, -1)
+#        i4= nsearch(b2, a2 - 1, -1, -1)
+#        print 'add ', i3, 0, i4, 0
+
+
+#        print 'add ',
+
+#    elif a1 % HC == HC - 1 and a2 % HC == HC - 1:
+    # если кратное, то в add две, а в cnct одну
+    # если перед кратким, то мб и нет ее
+    # если нет, то должно находиться
 pdb = open(args.output, 'w')
 prevB = False
 for atom in outpdb:

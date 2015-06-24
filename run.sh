@@ -3,14 +3,14 @@
 # for aozalevsky:
 #   read comments!
 
-if [[ $(hostname) == 'cosm' ]]
-then
-    BASE=/home/www-data/web2py/applications/cosm/private/cosm-web
-else
-    BASE=$HOME/work/cosmo-web/applications/cosm/private/cosm-web
-fi
+#if [[ $(hostname) == 'cosm' ]]
+#then
+#    BASE=/home/www-data/web2py/applications/cosm/private/cosm-web
+#else
+#    BASE=$HOME/work/cosmo-web/applications/cosm/private/cosm-web
+#fi
 echo $BASE
-export GMXLIB=${BASE}/static/gromacs
+export GMXLIB=${BASE}./static/gromacs
 export PATH=${BASE}:${PATH}
 export TEMPLATE_PATH=${BASE}/static/templates
 
@@ -77,7 +77,7 @@ function stage {
 
 
 function mkmd {
-grompp -f ${GMXLIB}/md-vacuum${1}.mdp -c em2 -p topol -o md -maxwarn 1
+grompp -f md-vacuum${1}.mdp -c em2 -p topol -o md -maxwarn 1
 
 mdrun -deffnm md$nt -pd -v &
 pid=$!
@@ -114,6 +114,17 @@ if [[ $lattice == 'u' ]]
     exit 1
 fi
 
+rm -rf $job
+mkdir $job
+cd $job
+ln -s ../*py .
+ln -s ../static .
+cp ../$job.json .
+ln -s ../static/gromacs/* .
+ln -s ../static/templates/* .
+
+
+
 if [[ $# != 3 ]]
 then
     if [[ $# != 4 ]]
@@ -129,7 +140,7 @@ fi
 
 stage 2
 
-if [[ "${2::1}" = "h" ]]
+if [[ "$lattice" = "h" ]]
 then 
 ccg="calori"
 else
@@ -151,21 +162,21 @@ else
     sctype=linear
 fi
 
-pdb2gmx -f ${job}_cosm.pdb -o beg.gro -merge all -ff ${ccg} -water none || error_exit  "Unable to create topology file"
+pdb2gmx -f ${job}_cosm.pdb -o beg.gro -merge all -ff ${ccg} || error_exit  "Unable to create topology file"
 awk -v name=${job} '/; Include Position restraint file/{print "#include \"" name "_r\""}1' topol.top > topol_tmp 
 mv topol_tmp topol.top 
 
 stage 3
 
-topol_error "grompp -f ${GMXLIB}/minl.mdp -c beg -p topol -o em -maxwarn 1"
+topol_error "grompp -f minl.mdp -c beg -p topol -o em -maxwarn 1"
 mdrun -deffnm em -v || error_exit "Unable to perform energy minimization (run 1)"
 
 stage 4
 
 
-grompp -f ${GMXLIB}/min-implicit.mdp -c em -p topol -o em2 -maxwarn 1 || error_exit "Unable to perform energy minimization (run 2)"
+grompp -f min-implicit.mdp -c em -p topol -o em2 -maxwarn 1 || error_exit "Unable to perform energy minimization (run 2)"
 mdrun -deffnm em2 -pd${nt} -v || error_exit "Unable to perform energy minimization (run 2)"
-editconf -f em2.gro -o ${job}_end.pdb -conect
+editconf -f em2.gro -o ${job}_end.pdb #-conect !
 echo 1 | trjconv -f em -s em -o ${job}_multi.pdb -conect -skip 10 || error_exit "Unable to prepare output files"
 
 stage 5
@@ -175,7 +186,8 @@ then
 else
     python_wrapper "cosm2full.py -i ${job}_end.pdb -t ${job}_t -l ${lattice} -s ${4} -o ${job}_end_full.pdb"
 fi
-python_wrapper "python appendcnct.py ${job}"
+
+awk '{$1 == 'CONECT'; printf "CONECT%5d%5d\n", $2,$3}' ${job}_cosm.pdb >> ${job}_end.pdb
 
 # ------- continue button (MD) ------------
 
@@ -188,9 +200,13 @@ stage 7
 editconf -f md.gro -o ${job}_mdend.pdb 
 echo 1 | trjconv -f md -s md -o ${job}_mdmulti.pdb -conect -skip 500 || error_exit "Unable to prepare output files"
 
+awk '{$1 == 'CONECT'; printf "CONECT%5d%5d\n", $2,$3}' ${job}_cosm.pdb >> ${job}_mdend.pdb
+
 stage 8
 
-echo $sctype
-echo $lattice
+# output data
+
+echo $sctype    # circular or linear scaffold
+echo $lattice   # lattice (h=honeycomb, s=square)
 
 exit $?
