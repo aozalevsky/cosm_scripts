@@ -1,0 +1,7 @@
+syntax: glob
+
+**.swp
+**.pyc
+run_*
+affbio*
+*.mat*

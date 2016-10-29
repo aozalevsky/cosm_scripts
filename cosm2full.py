@@ -5,6 +5,16 @@ from __future__ import division
 import numpy as np
 import argparse
 from random import random, choice
+import os
+
+
+try:
+    TEMPLATE_PATH = os.environ['TEMPLATE_PATH']
+    print TEMPLATE_PATH
+except:
+    TEMPLATE_PATH = ''
+
+
 
 #############################################################
 #   DOES NOT WORK FOR SINGLE-STRANDED OLIGS (BUT REQUIRES)
@@ -361,7 +371,7 @@ ncl_c = {}
 try:
     for template in ['at', 'ta', 'gc', 'cg']:
         res = ''
-        with open(template + '.pdb', 'r') as tmp:
+        with open(os.path.join(TEMPLATE_PATH, template + '.pdb'), 'r') as tmp:
             for line in tmp:
                 line = line.split()
                 if line[0] == 'ATOM':

@@ -1,0 +1,54 @@
+;; Setup run mode
+
+integrator          =  md
+dt                  =  0.1 ; ps !
+nsteps              =  800000 ; total 80 ns.
+
+;; Control output
+
+nstxout             =  0 ; Do not write trr
+nstvout             =  0 ; Do not write trr
+nstfout             =  0 ; Do not write trr
+nstlog              =  1000 ; Write log every N steps
+nstenergy           =  0 ; Do not write energy 
+nstxtcout = 320 ; Write every N frame to *.xtc trajectory 
+
+;; Setup interactions
+
+rlist               =  20 
+rvdw                =  20
+rcoulomb		= 20
+coulombtype		= cut-off
+vdwtype			= cut-off
+cutoff-scheme = group
+nstlist             =  0 
+ns_type             =  simple
+
+pbc                 =  no
+constraints         =  none 
+
+disre              =  simple ; Constraints mode 
+disre-fc           =  2000 ; Constraints strength
+
+;; Temperature control
+
+Tcoupl              = v-rescale
+tau_t               = 1.0
+tc-grps             =  System
+ref_t               =  300
+
+;; Generate initial velocities
+
+gen_vel             =  yes
+gen_temp            =  300
+gen_seed            =  173529
+
+;; Pressure contol
+
+Pcoupl              =  no 
+
+
+;; Some special tricks
+
+comm-mode	=  angular ; Remove center of mass translation and rotation around the center of mass
+nstcomm		= 10 ; Do it every N steps

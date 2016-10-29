@@ -6,6 +6,7 @@ import argparse
 import string
 import sys
 import copy
+import math
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', required=True,
@@ -14,16 +15,16 @@ parser.add_argument('-i', '--input', required=True,
 parser.add_argument('-o', '--output', required=True,
                     action='store', dest='output',
                     help='output pdb file')
-parser.add_argument('-r' '--restr', required=True,
+parser.add_argument('-r', '--restr', required=True,
                     action='store', dest='cnct',
                     help='output distance/angle restraints')
-parser.add_argument('-t' '--top', required=True,
+parser.add_argument('-t', '--top', required=True,
                     action='store', dest='top',
                     help='output file for ccg --> cg / fullatom convertation')
-parser.add_argument('-l' '--lattice', required=True,
+parser.add_argument('-l', '--lattice', required=True,
                     action='store', dest='lattice',
                     help='lattice type (hexagonal / square)')
-parser.add_argument('-m' '--map', required=True,
+parser.add_argument('-m', '--map', required=True,
                     action='store', dest='map',
                     help='2d coords map file')
 parser.add_argument('--seq',
@@ -40,22 +41,24 @@ args = parser.parse_args()
 ### other constants for olig-ssnear (hexcl)
 
 
-def honeycomb(row, col):
+HELIXDIST = 22.0
+
+def honeycomb(row, col, dist=HELIXDIST):
     """Cadnano honeycomb lattice into cartesian"""
     # k = distance between helixes
-    k = 23.0 / 20.0
-    x = col * 17.32 * k
+    ANGLE = 30.0
+    x = col * dist * math.cos(math.radians(ANGLE)) 
     if (row % 2) != 0:
-        y = (row * 3 + 1 - col % 2) * 10 * k
+        y = (row * 3 + 1 - col % 2) * dist * math.sin(math.radians(ANGLE))
     else:
-        y = (row * 3 + col % 2) * 10 * k
+        y = (row * 3 + col % 2) * dist * math.sin(math.radians(ANGLE))
     return x, y
 
 
-def square(row, col):
+def square(row, col, dist=HELIXDIST):
     """Cadnano square lattice into cartesian"""
-    x = col * 23.0
-    y = row * 23.0
+    x = col * dist
+    y = row * dist
     return x, y
 
 
@@ -474,7 +477,7 @@ def addtoout(aname, tname, nlname, ox, oy, z, chain, length, mod):
     global a_sc, outpdb, atomsh, anames, outmap
     if tname:
         t1 = [aname] + [tname] + [nlname]
-        t2 = [ox, oy] + [z * 3.5] + [1.00, 0.00] + [aname, chain, z]
+        t2 = [ox, oy] + [z * 3.4] + [1.00, 0.00] + [aname, chain, z]
         if mod == 'I':
             outpdb.append(['ATOM', a_sc] + t1 + [a_sc] + t2)
             outmap.append(['T', tname, a_sc, chain, z])
@@ -1413,7 +1416,7 @@ def wr_restr(i1, i2):
         raise Exception('ADMIN: PY1. Restraints error')
     if (i1[0], i2[0]) not in R_DONE and (i2[0], i1[0]) not in R_DONE:
 #        print i1, i2, l, len(R_DONE)
-        cnct.write(str(i1[0]) + '\t' + str(i2[0]) + '\t1\t' + str(l) + '\t1\t1.8\t1.85\t1.9\t1.0\n')
+        cnct.write(str(i1[0]) + '\t' + str(i2[0]) + '\t1\t' + str(l) + '\t1\t1.8\t1.85\t1.9\t1.4\n')
         l += 1
         R_DONE.append((i1[0], i2[0]))
 
@@ -1484,9 +1487,7 @@ for pair in trans:
 #        print 'add ',
 
 #    elif a1 % HC == HC - 1 and a2 % HC == HC - 1:
-    # если кратное, то в add две, а в cnct одну
-    # если перед кратким, то мб и нет ее
-    # если нет, то должно находиться
+
 pdb = open(args.output, 'w')
 prevB = False
 for atom in outpdb:
@@ -1551,9 +1552,11 @@ mapf.close()
 name = 'H'
 
 if SQ:
-    [a, b, c] = ['4.54', '4.6', '4.63']
+#    [a, b, c] = ['4.54', '4.6', '4.63']
+    [a, b, c] = ['4.34', '4.4', '4.43']
 else:
-    [a, b, c] = ['3.68', '3.75', '3.77']
+#    [a, b, c] = ['3.68', '3.75', '3.77']
+    [a, b, c] = ['3.64', '3.81', '4.16']
 
 triples = {}
 trcoords = {}

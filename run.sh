@@ -3,12 +3,12 @@
 # for aozalevsky:
 #   read comments!
 
-#if [[ $(hostname) == 'cosm' ]]
-#then
-#    BASE=/home/www-data/web2py/applications/cosm/private/cosm-web
-#else
-#    BASE=$HOME/work/cosmo-web/applications/cosm/private/cosm-web
-#fi
+if [[ $(hostname) == 'cosm' ]]
+then
+    BASE=/home/www-data/web2py/applications/cosm/private/cosm-web
+else
+    BASE=$HOME/work/cosmo-web/applications/cosm/private/cosm-web
+fi
 echo $BASE
 export GMXLIB=${BASE}./static/gromacs
 export PATH=${BASE}:${PATH}
