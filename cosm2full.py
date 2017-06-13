@@ -92,7 +92,7 @@ import re
 from collections import Counter
 
 import sys
-sys.path.append('/home/domain/silwer/Downloads/')
+sys.path.append('/home/www-data/web2py/applications/cosm/private/origami_scripts')
 import linpol
 
 
