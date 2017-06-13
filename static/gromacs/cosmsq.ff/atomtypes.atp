@@ -19,3 +19,4 @@ B7A  4760.0  ; terminal particle for a __/ helix, 7bp. Goes after PTA
 SA    340.0  ; single-stranded scaffold particle, 1 nt
 OA    340.0  ; single-stranded oligonucleotide particle, 1nt
 NA    680.0  ; duplex crossover particle, 1bp
+DA      0.0  ; dummy atom

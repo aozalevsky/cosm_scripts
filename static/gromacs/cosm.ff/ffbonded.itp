@@ -113,7 +113,6 @@
  B5A   BA    1     0.340  1924   ;
  B6A   BA    1     0.340  1924   ;
  BA    BA    1     0.340  1924   ;
- TA    BA    1     0.680  926    ;
 
  [ angletypes ]    
 ;i     j     k     func   th0      cth
@@ -790,4 +789,5 @@
 
 
 [ dihedraltypes ]
+X HA HA X 1 0.0 6.109 1
 X X X X 1   0.0 0.0 1
