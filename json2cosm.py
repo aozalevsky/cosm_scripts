@@ -47,7 +47,7 @@ def honeycomb(row, col, dist=HELIXDIST):
     """Cadnano honeycomb lattice into cartesian"""
     # k = distance between helixes
     ANGLE = 30.0
-    x = col * dist * math.cos(math.radians(ANGLE)) 
+    x = col * dist * math.cos(math.radians(ANGLE))
     if (row % 2) != 0:
         y = (row * 3 + 1 - col % 2) * dist * math.sin(math.radians(ANGLE))
     else:
@@ -226,8 +226,6 @@ def prconnect(base1, base2):
     outpdbc.append(template.format(t) + '\n')
     if not (isinstance(base2, int) and isinstance(base1, int)):
         raise Exception('ADMIN: PY1. Error with staple restraints')
-#    cnct.write(str(base2) + '\t' + str(base1) + '\t1\t' + str(l) + '\t1\t1.8\t1.85\t1.9\t1.0\n')
-#    l += 1
 
 
 def findconnects(vh, j, number, length, end):
@@ -265,17 +263,17 @@ def findconnects(vh, j, number, length, end):
                 n = needed.index([vh, i])
                 if i == j:
                     needed[n] = number
-                    prconnect(connects[n], number)
+##                    prconnect(connects[n], number)
                 elif i % HC == HC - 1:
                     if k == 1:
                         needed[n] = number + 1
-                        prconnect(connects[n], number + 1)
+##                        prconnect(connects[n], number + 1)
                     else:
                         needed[n] = number
-                        prconnect(connects[n], number)
+##                        prconnect(connects[n], number)
                 else:
                     ind.append(dif)
-                    prconnect(connects[n], number + dif) # and here the function?
+##                    prconnect(connects[n], number + dif) # and here the function?
 #                    add.write('cross; ' + str(number + dif) + '0 ' + str(connects[n]) + ' 0\n')
                     needed[n] = number + dif
 #                    add.write('cross; ' + str(number) + ' ' + str(c - 1) + ' '  + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
@@ -351,6 +349,7 @@ def checkreg(pair):
 def crosscheck(one, two, thr):
     '''Check if crossovers in the range'''
     ok = True
+    #print one, two, thr
     for pair in [[one, two], [two, thr]]:
         ok = ok & checkreg(pair)
     return ok
@@ -1419,6 +1418,8 @@ def wr_restr(i1, i2):
         cnct.write(str(i1[0]) + '\t' + str(i2[0]) + '\t1\t' + str(l) + '\t1\t1.8\t1.85\t1.9\t1.4\n')
         l += 1
         R_DONE.append((i1[0], i2[0]))
+#        print i1[0], i2[0]
+        prconnect(i1[0], i2[0])
 
 
 def wr_add(i1, i2):
@@ -1426,6 +1427,7 @@ def wr_add(i1, i2):
     if (i1, i2) not in T_DONE and (i1, i2) not in T_DONE:
         add.write('cross ; ' + ' '.join(map(str, i1)) + ' ' + ' '.join(map(str, i2)) + '\n')
         T_DONE.append((i1, i2))
+#    prconnect(i1[0], i2[0])
 
 PAIR_DONE = []
 R_DONE = []
@@ -1449,8 +1451,6 @@ for pair in trans:
                 i1 = nsearch(b1, a1, -1)
                 i2 = nsearch(b2, a2, -1)
                 wr_add(i1, i2)
-#                k1 = (revers(b1, 1) + 1) / 2
-#                k2 = (revers(b2, 1) + 1) / 2
 #                print b1, a1, '|', b2, a2
 #                print allPath[b1][a1-2:a1+3]
 #                print i1, i2
@@ -1552,10 +1552,8 @@ mapf.close()
 name = 'H'
 
 if SQ:
-#    [a, b, c] = ['4.54', '4.6', '4.63']
     [a, b, c] = ['4.34', '4.4', '4.43']
 else:
-#    [a, b, c] = ['3.68', '3.75', '3.77']
     [a, b, c] = ['3.64', '3.81', '4.16']
 
 triples = {}
