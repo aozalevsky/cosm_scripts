@@ -114,13 +114,13 @@ def get_cg_struct(path):
 
 struct, bck, scross = get_cg_struct(st)
 coords = struct.getCoords()
-print scross
+# print scross
 
 
 # In[75]:
 
 rlabels = np.array([r.getResname() for r in struct.iterResidues()])
-print rlabels
+#  print rlabels
 
 
 # In[76]:
@@ -190,7 +190,7 @@ def read_cgtop(fname):
     top.seq = seq
     rmap = dict()
 
-    print e5, e3, cross, junctions, cross
+    # print e5, e3, cross, junctions, cross
     return top
 
 
@@ -254,7 +254,7 @@ for e in scross:
 
 cgtop.ccross = ncross
 cgtop.scross = scross
-print cgtop.cross
+# print cgtop.cross
 
 
 
@@ -272,8 +272,8 @@ while N < len(struct):
         if len(ds) > 0:
             DS.append(ds)
 
-            print '-' * 20
-            print ds
+            # print '-' * 20
+            # print ds
 
             ds = list()
     else:
@@ -348,9 +348,9 @@ for n in range(len(junctions) - 1):
             except IndexError, e:
                 pass
 cgtop.lattice = lattice
-for e in  sorted(set(lattice)):
-    i, j = e
-    print i + 1, j + 1
+# for e in  sorted(set(lattice)):
+#    i, j = e
+    # print i + 1, j + 1
 
 
 
