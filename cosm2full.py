@@ -612,7 +612,7 @@ def gen_duplex(l, s=None, single=False):
     # call = ['/home/domain/silwer/prog/x3dna-v2.1/bin/fiber']
     # call.append('-b') # bform dna
     # call.append('-seq=%s' % ''.join(s)) # sequence
-    call = ['/tmp/build_dna.sh']
+    call = ['/home/www-data/web2py/applications/cosm/private/origami_scripts/build_dna.sh']
     call.append('%s' % ''.join(s)) # sequence
     call.append(tf) #file
     # environ = os.environ
