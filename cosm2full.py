@@ -166,11 +166,11 @@ def get_cg_struct(path):
     return (struct, bck, cross)
 
 struct, bck, cross = get_cg_struct(st)
-cross
+# cross
 # http://stackoverflow.com/questions/952914/making-a-flat-list-out-of-list-of-lists-in-python
-junctions = np.array(sorted([item for sublist in cross for item in sublist]))
-print junctions
-print cross
+# junctions = np.array(sorted([item for sublist in cross for item in sublist]))
+#print junctions
+#print cross
 fcoords = struct.getCoords()
 fcoords += np.random.normal(0, 0.5, fcoords.shape) / 1000
 
@@ -178,13 +178,13 @@ fcoords += np.random.normal(0, 0.5, fcoords.shape) / 1000
 # In[633]:
 
 rlabels = np.array([r.getResname() for r in struct.iterResidues()])
-print rlabels
+#print rlabels
 
 
 # In[634]:
 
 rcount = np.array([x for x in map(lambda x: count[x], rlabels)])
-print sum(rcount)
+#print sum(rcount)
 
 
 # In[635]:
@@ -201,20 +201,17 @@ for i in range(1, len(rcount)):
         rcount[i - 1] = count[rlabels[i]]
     else:
         rcount[i] = count[rlabels[i]]
-NR = sum(rcount)
-print NR
+for i in range(len(rcount)):
+    if rcount[i] == 0:
+        rcount[i] = 1
 
+NR = sum(rcount)
 
 # In[636]:
 
-get_ipython().magic('matplotlib nbagg')
 X = np.array(map(lambda x: x[0], fcoords))
 Y = np.array(map(lambda x: x[1], fcoords))
 Z = np.array(map(lambda x: x[2], fcoords))
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.plot(X, Y, Z)
-
 
 # In[748]:
 
@@ -239,7 +236,7 @@ for i in nodes:
             ia += 1
             ib -= 1
     topologyd[i] = td
-
+print topologyd
 
 # In[750]:
 
@@ -250,8 +247,10 @@ N = 0
 DS = list()
 ds = list()
 while N < len(topologyd):
+    print N
     n = N
     l = topologyd[n]
+    print l
     if len(l[0]) == 1:
 
         if len(ds) > 0:
@@ -274,17 +273,6 @@ while N < len(topologyd):
         ds.append(n)
     N += 1
 nfcoords = np.array(nfcoords)
-
-
-# In[640]:
-
-get_ipython().magic('matplotlib nbagg')
-nX = np.array(map(lambda x: x[0], nfcoords))
-nY = np.array(map(lambda x: x[1], nfcoords))
-nZ = np.array(map(lambda x: x[2], nfcoords))
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.plot(nX, nY, nZ)
 
 
 # In[641]:
@@ -740,7 +728,7 @@ def merge_particles(parray):
     NR = len(np.nonzero(map(lambda x: not x.is_single(), parray))[0])
     ca = 1
     cb = NR
-    print cb
+    # print cb
 
     tff = parray[0].struct.copy()
 
