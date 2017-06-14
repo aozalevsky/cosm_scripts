@@ -266,6 +266,7 @@ ss_bck = list()
 N = 0
 DS = list()
 ds = list()
+
 while N < len(struct):
     n = N
     if n in ssdna:
@@ -280,6 +281,8 @@ while N < len(struct):
         ds.append(n)
     N += 1
 
+if len(ds) > 0:
+    DS.append(ds)
 
 # In[120]:
 
@@ -344,9 +347,10 @@ for n in range(len(junctions) - 1):
 
                 if (cplane[0] == cplane[1] == cplane[2]) and lplane:
                     lattice.append((iin, jjn))
-                p += 1
             except IndexError, e:
                 pass
+            p += 1
+
 cgtop.lattice = lattice
 # for e in  sorted(set(lattice)):
 #    i, j = e
