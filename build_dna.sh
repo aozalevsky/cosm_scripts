@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export X3DNA=/home/www-data/web2py/applications/cosm/private/x3dna-v2.1
+export X3DNA=/home/www-data/web2py/applications/cosm/private/x3dna-v2.3
 export PATH=${PATH}:${X3DNA}/bin
 T="/tmp/$(uuidgen).pdb"
 fiber -b -seq=${1} ${T}
