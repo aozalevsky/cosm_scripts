@@ -15,9 +15,9 @@ nstxtcout = 320 ; Write every N frame to *.xtc trajectory
 
 ;; Setup interactions
 
-rlist               =  20 
-rvdw                =  20
-rcoulomb		= 20
+rlist               =  15 
+rvdw                =  15
+rcoulomb		= 15
 coulombtype		= cut-off
 vdwtype			= cut-off
 cutoff-scheme = group
