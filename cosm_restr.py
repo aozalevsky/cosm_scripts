@@ -51,15 +51,15 @@ from collections import Counter
 
 # In[108]:
 
-SQ = True
-LR = [3.68, 3.75, 3.77, 0.1]
-SR = [0.33, 0.34, 0.37, 1.0]
 CR = [2.004, 2.145, 2.286, 1.0]
-CCR = [3.111, 3.204, 3.300, 0.1]
+SR = [0.33, 0.34, 0.37, 1.0]
+
+LR = [3.68, 3.75, 3.77, 0.1]
+CCR = [3.111, 3.204, 3.300, 0.2]
 
 if SQ:
-    CCR = [3.378, 3.464, 3.553, 0.1]
     LR = [4.80, 5.2, 5.23, 0.1]
+    CCR = [3.378, 3.464, 3.553, 0.2]
 
 
 
@@ -285,77 +285,89 @@ if len(ds) > 0:
     DS.append(ds)
 
 # In[120]:
-
 # http://stackoverflow.com/questions/952914/making-a-flat-list-out-of-list-of-lists-in-python
 junctions = np.array(sorted([item for sublist in scross for item in sublist]))
 # print junctions
 LAT = ['H', 'PT', 'T']
 lattice = list()
-for n in range(len(junctions) - 1):
+for n in range(len(junctions) - 2):
     i = junctions[n]
-    j = junctions[n + 1]
-    paired = False
-    if abs(j - i) <= 2:
-        for ds in DS:
-            if (i in ds) and (j in ds):
-                paired = True
-                D1 = ds
+    for k in range(n + 1, n + 3):
+        j = junctions[k]
+        paired = False
+        if abs(j - i) <= 2:
+            for ds in DS:
+                if (i in ds) and (j in ds):
+                    if (coords[i][:2] == coords[j][:2]).all():
+                        paired = True
+                        D1 = ds
+
+        
+            if not paired:
+                continue
+
+            for c in scross:
+                if (i in c) and (j not in c):
+                    if i == c[0]:
+                        ii = c[1]
+                    elif i == c[1]:
+                        ii = c[0]
+                if (i not in c) and (j in c):
+                    if j == c[0]:
+                        jj = c[1]
+                    elif j == c[1]:
+                        jj = c[0]
+
+            for ds in DS:
+                if ii in ds:
+                    D2 = ds
+                if jj in ds:
+                    D3 = ds
+
+            # print i, j, ii, jj
+            delta = j - i
+
+            check = True
+            R = 3
+            p = - R
+
+            while (p < (delta + R + 1)) and check:
+                # check backward
+                try:
+
+                    iin = ii - p
+                    jjn = jj + delta - p
+                    # print i, iin, jjn
+                    lplane = ((rlabels[i + p] in LAT) and 
+                        (rlabels[iin] in LAT) and
+                        (rlabels[jjn] in LAT)
+                              )
+
+                    zline = ((coords[i + p][2]), coords[iin][2], coords[jjn][2])
+                    xline = ((coords[i + p][0]), coords[iin][0], coords[jjn][0])
+                    yline = ((coords[i + p][1]), coords[iin][1], coords[jjn][1])
+                    # print lplane, cplane
+
+                    restr = False
+                    if (zline[0] == zline[1] == zline[2]) and lplane:
+                        if SQ:
+                            if ((xline[0] == xline[1] == xline[2]) or 
+                                (yline[0] == yline[1] == yline[2])):
+                                restr = True
+                        else:
+                            restr = True
 
 
-        if not paired:
-            continue
+                    if restr:
+                        l = (iin, jjn)
+                        rl = (jjn, iin)
+                        if l not in lattice and rl not in lattice:
+                            lattice.append(l)
+                except IndexError, e:
+                    pass
+                p += 1
 
-        for c in scross:
-            if (i in c) and (j not in c):
-                if i == c[0]:
-                    ii = c[1]
-                elif i == c[1]:
-                    ii = c[0]
-            if (i not in c) and (j in c):
-                if j == c[0]:
-                    jj = c[1]
-                elif j == c[1]:
-                    jj = c[0]
-
-        for ds in DS:
-            if ii in ds:
-                D2 = ds
-            if jj in ds:
-                D3 = ds
-
-        # print i, j, ii, jj
-        delta = j - i
-
-        check = True
-        R = 3
-        p = - R
-
-        while (p < (delta + R + 1)) and check:
-            # check backward
-            try:
-
-                iin = ii - p
-                jjn = jj + delta - p
-                # print i, iin, jjn
-                lplane = ((rlabels[i + p] in LAT) and
-                    (rlabels[iin] in LAT) and
-                    (rlabels[jjn] in LAT)
-                          )
-
-                cplane = ((coords[i + p][2]), coords[iin][2], coords[jjn][2])
-                # print lplane, cplane
-
-                if (cplane[0] == cplane[1] == cplane[2]) and lplane:
-                    lattice.append((iin, jjn))
-            except IndexError, e:
-                pass
-            p += 1
-
-cgtop.lattice = lattice
-# for e in  sorted(set(lattice)):
-#    i, j = e
-    # print i + 1, j + 1
-
+cgtop.lattice = sorted(set(lattice))
 
 
 # In[129]:
@@ -412,9 +424,4 @@ def write_fullatom_pdb(fname, top):
 
 fname = args.output
 write_fullatom_pdb(fname, cgtop)
-
-
-# In[ ]:
-
-
 
