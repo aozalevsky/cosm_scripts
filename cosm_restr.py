@@ -176,7 +176,7 @@ def read_cgtop(fname):
                          (int(line[4]) - 1, int(line[5])))
                     )
                 elif line[0] == 'scaf':
-                    scaf[int(line[2])] = int(line[4])
+                    scaf[int(line[2]) - 1] = int(line[4]) - 1
                 elif line[0] == 'seq:':
                     seq = line[1]
 
@@ -203,7 +203,8 @@ cgtop = read_cgtop(tfile)
 
 # Check circle backbone
 circle = (0, len(struct) - 1)
-if circle in scross:
+rcircle = (len(struct) - 1, 0)
+if circle in scross or rcircle in scross:
     cgtop.scaf.append((0, len(struct)))
 
 ncross = list()
@@ -323,6 +324,11 @@ for n in range(len(junctions) - 2):
                     D2 = ds
                 if jj in ds:
                     D3 = ds
+
+	    if D1 != D2 != D3:
+                pass
+            else:
+                continue
 
             # print i, j, ii, jj
             delta = j - i
