@@ -117,8 +117,8 @@
  [ angletypes ]    
 ;i     j     k     func   th0      cth
 
-  HA    HA    HA   1      180.0    55.2    ;
-  HA    HA   PTA   1      180.0    55.2    ;
+  HA    HA    HA   1      180.0    38.3 ;55.2    ;
+  HA    HA   PTA   1      180.0    38.3 ;55.2    ;
   HA   PTA   T1A   1      180.0    96.6    ;
   HA   PTA   T2A   1      180.0    85.9    ;
   HA   PTA   T3A   1      180.0    77.3    ;
