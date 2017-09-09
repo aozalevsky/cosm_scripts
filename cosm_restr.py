@@ -4,12 +4,12 @@
 from __future__ import division
 import numpy as np
 import argparse
-from random import random, choice
-import os
+import prody
+import re
 
-#############################################################
+#
 #   DOES NOT WORK FOR SINGLE-STRANDED OLIGS (BUT REQUIRES)
-#############################################################
+#
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', required=True,
@@ -39,15 +39,6 @@ else:
 
 # In[626]:
 
-import numpy as np
-import prody
-import subprocess
-import os
-import networkx as nx
-from transforms3d.axangles import axangle2mat
-import copy
-import re
-from collections import Counter
 
 # In[108]:
 
@@ -62,7 +53,6 @@ if SQ:
     CCR = [3.378, 3.464, 3.553, 0.2]
 
 
-
 # In[72]:
 
 st = args.input
@@ -70,12 +60,14 @@ tfile = args.top
 
 # In[73]:
 
+
 def is_bck(e):
     i, j = e
     if abs(i - j) == 1:
         return True
     else:
         return False
+
 
 def remove_period(a, mult=2):
     per = mult * np.pi
@@ -95,7 +87,7 @@ def get_cg_struct(path):
         if re.match('CONECT', s):
             ts = s.split()
             # fix pdb to python indexing
-            i, j  = int(ts[1]) - 1, int(ts[2]) - 1
+            i, j = int(ts[1]) - 1, int(ts[2]) - 1
             if (-1 < i < totA) and (-1 < j < totA):
                 ni = min(i, j)
                 nj = max(i, j)
@@ -134,7 +126,7 @@ dsdna = np.where((rlabels != 'S') & (rlabels != 'ST'))[0]
 # In[77]:
 
 class Topology(object):
-    nodemap=None
+    nodemap = None
     rmap = None
 
     cross = None
@@ -146,9 +138,9 @@ class Topology(object):
     e3 = None
     e5 = None
 
-
     def __init__(self):
         pass
+
 
 def read_cgtop(fname):
     # mapping is name of file which ends in _t
@@ -180,7 +172,7 @@ def read_cgtop(fname):
                 elif line[0] == 'seq:':
                     seq = line[1]
 
-    except Exception, e:
+    except Exception as e:
         raise Exception('ADMIN: PY2. Error in topology file.' + str(e))
 
     top.e3 = e3
@@ -188,7 +180,6 @@ def read_cgtop(fname):
     top.cross = cross
     top.scaf = scaf
     top.seq = seq
-    rmap = dict()
 
     # print e5, e3, cross, junctions, cross
     return top
@@ -258,7 +249,6 @@ cgtop.scross = scross
 # print cgtop.cross
 
 
-
 # In[119]:
 
 ds_bck = list()
@@ -303,7 +293,6 @@ for n in range(len(junctions) - 2):
                         paired = True
                         D1 = ds
 
-        
             if not paired:
                 continue
 
@@ -325,7 +314,7 @@ for n in range(len(junctions) - 2):
                 if jj in ds:
                     D3 = ds
 
-	    if D1 != D2 != D3:
+            if D1 != D2 != D3:
                 pass
             else:
                 continue
@@ -344,51 +333,81 @@ for n in range(len(junctions) - 2):
                     iin = ii - p
                     jjn = jj + delta - p
                     # print i, iin, jjn
-                    lplane = ((rlabels[i + p] in LAT) and 
-                        (rlabels[iin] in LAT) and
-                        (rlabels[jjn] in LAT)
+                    lplane = ((rlabels[i + p] in LAT) and
+                              (rlabels[iin] in LAT) and
+                              (rlabels[jjn] in LAT)
                               )
 
-                    zline = ((coords[i + p][2]), coords[iin][2], coords[jjn][2])
-                    xline = ((coords[i + p][0]), coords[iin][0], coords[jjn][0])
-                    yline = ((coords[i + p][1]), coords[iin][1], coords[jjn][1])
+                    zline = (
+                        (coords[i + p][2]), coords[iin][2], coords[jjn][2])
+                    xline = (
+                        (coords[i + p][0]), coords[iin][0], coords[jjn][0])
+                    yline = (
+                        (coords[i + p][1]), coords[iin][1], coords[jjn][1])
                     # print lplane, cplane
 
                     restr = False
                     if (zline[0] == zline[1] == zline[2]) and lplane:
                         if SQ:
-                            if ((xline[0] == xline[1] == xline[2]) or 
-                                (yline[0] == yline[1] == yline[2])):
+                            if ((xline[0] == xline[1] == xline[2]) or
+                                    (yline[0] == yline[1] == yline[2])):
                                 restr = True
                         else:
                             restr = True
-
 
                     if restr:
                         l = (iin, jjn)
                         rl = (jjn, iin)
                         if l not in lattice and rl not in lattice:
                             lattice.append(l)
-                except IndexError, e:
+                except IndexError as e:
                     pass
                 p += 1
 
 cgtop.lattice = sorted(set(lattice))
 
+# Torsions
+
+torsions = list()
+for ds_i in DS:
+    for ds_j in DS:
+        t_s, t_e = None, None
+
+        for s in scross:
+            i_, j_ = s
+
+            if i_ in ds_i and j_ in ds_j:
+                pass
+            else:
+                continue
+
+            if not t_s or i_ < t_s[0]:
+                t_s = s
+            elif not t_e or j_ > t_e[0]:
+                t_e = s
+
+        torsions.append((
+            t_s[1], t_s[0],
+            t_e[1], t_e[0],
+        ))
+
+print(torsions)
 
 # In[129]:
+
 
 def prepare_atom(a, c):
     PDBF = "%-6s%5s %4s%1s%3s %1s%4d    %8.3f%8.3f%8.3f%6.2f%6.2f%10s%2s  \n"
     coords = a.getCoords() + np.random.normal(0, 0.5, (3, )) / 10
     s = PDBF % (
-        'ATOM', c, a.getName(), '', # altloc empty
+        'ATOM', c, a.getName(), '',  # altloc empty
         a.getResname(), a.getChid(), a.getResnum(),
         coords[0], coords[1], coords[2],
         1.0, 0.0, '',
         a.getElement()
-        )
+    )
     return s
+
 
 def write_fullatom_pdb(fname, top):
     RF = '%d %d 1 %d 1 '
@@ -425,9 +444,7 @@ def write_fullatom_pdb(fname, top):
             N += 1
 
 
-
 # In[130]:
 
 fname = args.output
 write_fullatom_pdb(fname, cgtop)
-
