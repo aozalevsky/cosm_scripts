@@ -337,11 +337,18 @@ for n in range(len(junctions) - 2):
                     elif j == c[1]:
                         jj = c[0]
 
+            D2, D3 = None, None
+
             for ds in DS:
                 if ii in ds:
                     D2 = ds
                 if jj in ds:
                     D3 = ds
+
+            if D1 and D2 and D3:
+                pass
+            else:
+                continue
 
             if D1 != D2 != D3:
                 pass
@@ -362,6 +369,9 @@ for n in range(len(junctions) - 2):
                     iin = ii - p
                     jjn = jj + delta - p
                     # print i, iin, jjn
+                    if i < 0 or  iin < 0 or jjn < 0:
+                        raise IndexError
+
                     lplane = ((rlabels[i + p] in LAT) and
                               (rlabels[iin] in LAT) and
                               (rlabels[jjn] in LAT)
