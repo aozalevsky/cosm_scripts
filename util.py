@@ -23,11 +23,11 @@ def check_json_version(obj):
     support = True
 
     if "format" in obj:
-        if int(obj['format']) > 2.0:
+        if float(obj['format']) > 2.0:
             support = False
 
     if support is False:
-        raise('USER: Unsupported cadnano json version')
+        raise Exception('USER: Unsupported cadnano json version')
 
 
 def val_lattice(f):
