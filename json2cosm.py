@@ -1084,16 +1084,17 @@ for vh in valPath:
             raise Exception('USER: More than one scaffold chain')
 # ---------------------------------------------------------
 
-if SQ:
-    dp = 0
-else:
-    dp = 0
-for i, part in enumerate(scheme):
-    scheme[i][2] = [part[2][0] + dp, part[2][1] + dp]
-for vh in allPath:
-    allPath[vh] = ['-'] * dp + allPath[vh]
-    Path['scaf'][vh] = ['-'] * dp + Path['scaf'][vh]
-    Path['stap'][vh] = ['-'] * dp + Path['stap'][vh]
+# Seems useless
+# if SQ:
+#     dp = 0
+# else:
+#     dp = 0
+# for i, part in enumerate(scheme):
+#     scheme[i][2] = [part[2][0] + dp, part[2][1] + dp]
+# for vh in allPath:
+#     allPath[vh] = ['-'] * dp + allPath[vh]
+#     Path['scaf'][vh] = ['-'] * dp + Path['scaf'][vh]
+#     Path['stap'][vh] = ['-'] * dp + Path['stap'][vh]
 
 # ---------------- find H, begin and end for scaffold -------------
 
