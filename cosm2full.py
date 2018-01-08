@@ -2,10 +2,19 @@
 # encoding: utf-8
 
 from __future__ import division
-from math import atan2, atan, hypot, pi, sin, cos, acos, sqrt
 import numpy as np
 import argparse
 from random import random, choice
+import os
+
+
+try:
+    TEMPLATE_PATH = os.environ['TEMPLATE_PATH']
+    print TEMPLATE_PATH
+except:
+    TEMPLATE_PATH = ''
+
+
 
 #############################################################
 #   DOES NOT WORK FOR SINGLE-STRANDED OLIGS (BUT REQUIRES)
@@ -35,132 +44,6 @@ parser.add_argument('-s', '--seq', default=None,
 
 args = parser.parse_args()
 
-if args.lattice in ['h', 'hex', 'hexagonal']:
-    SQ = False
-elif args.lattice in ['s', 'sq', 'square']:
-    SQ = True
-else:
-    raise Exception("Choose lattice (hexagonal / square)")
-
-if not args.cgprob:
-    if args.seqoligs:
-        SEQ = True
-    else:
-        raise Exeption("Choose CG ratio or oligs.csv")
-else:
-    if args.seqoligs:
-        raise Exeption("Remove CG ratio or oligs.csv")
-    else:
-        SEQ = False
-
-count = {'T1': 1, 'T2': 2, 'T3': 3, 'T4': 4, 'T5': 5,
-         'T6': 6, 'H': 7, 'T7': 7, 'T': 7, 'PT': 7, 'S': 1,
-        'TT': 7, 'T1T': 1, 'T2T': 2, 'T3T': 3, 'T4T': 4,
-        'T5T': 5, 'T6T': 6, 'T7T': 7, 'O': 1, 'OT': 1, 'N': 1,
-        'B1' : 1, 'B2': 2, 'B3': 3, 'B4': 4, 'B5': 5, 'B6': 6,
-        'B7' : 7, 'B1T': 1, 'B2T' : 2, 'B3T' : 3, 'B4T' : 4,
-        'B5T' : 5, 'B6T': 6, 'B7T' : 7, 'B': 7, 'ST': 1}
-term = ['T', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'TT', 'T1T', 'T2T',
-        'T3T', 'T4T', 'T5T', 'T6T', 'T7T', 'T7',
-        'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7',
-        'B1T', 'B2T', 'B3T', 'B4T', 'B5T', 'B6T', 'B7T', 'BT', 'B']
-if SQ:
-    count['PT'] = 8
-    count['T'] = 8
-    count['B'] = 8
-    count['H'] = 8
-    count['TT'] = 8
-
-if args.cgprob > 1:
-    cgprob = args.cgprob / 100.0
-else:
-    cgprob = args.cgprob
-
-#rgs()
-
-# -------- load templates -------
-
-print '\tLoad templates...'
-
-ncl_a = {}
-ncl_c = {}
-
-for template in ['at', 'ta', 'gc', 'cg']:
-    res = ''
-    with open(template + '.pdb', 'r') as tmp:
-        for line in tmp:
-            line = line.split()
-            if line[0] == 'ATOM':
-                ncl_name = line[3] + line[4]
-                ncl_a[ncl_name] = ncl_a.get(ncl_name, [])
-                ncl_c[ncl_name] = ncl_c.get(ncl_name, [])
-                if line[5] != res:
-                    i = 0
-                    res = line[5]
-                if line[2] not in ncl_a[ncl_name]:
-                    ncl_a[ncl_name].append(line[2])
-                    ncl_c[ncl_name].append([])
-                coords = [float(c) for c in line[6:]]
-                ncl_c[ncl_name][i] += [coords]
-                i += 1
-
-for name in ncl_c:
-    if name[1] == 'B':
-        for k, a in enumerate(ncl_c[name]):
-            ncl_c[name][k] = a[::-1]
-    for k, a in enumerate(ncl_c[name]):
-        for i, c in enumerate(a):
-            c[2] += 3.4 * i
-
-
-# -------- load pdb ---------
-
-print '\tLoad structure...'
-
-
-'''
-def angle(sbase, nbase):
-    """Get angle of base pair for each coord"""
-    angle = ((3.508 * sbase) % pi)
-#    if sq:
-#        angle = ((270 * sbase / 8) % 360) * pi / 180
-#    else:
-#        angle = ((720 * sbase / 21) % 360) * pi / 180
-    print angle
-    return angle
-
-
-def sphere(coords):
-    [x, y, z] = coords
-    # phi - 2pi, tetha - pi. normally pi/2
-    r = sqrt(x ** 2 + y ** 2 + z ** 2)
-    phi = atan2(y, x)
-    tetha = acos(z / r)
-#    print x, y, z, r, phi, tetha
-    return [r, phi, tetha]
-
-
-def cylindr(coords):
-    [x, y, z] = coords
-    r = hypot(x, y)
-    phi = atan2(x, y)
-    return [z, r, phi]
-
-
-def cartc(atom):
-    [h, r, phi] = atom
-    x = r * sin(phi)
-    y = r * cos(phi)
-    return [x, y, h]
-
-
-def carts(atom):
-    [r, phi, tetha] = atom
-    x = r * sin(tetha) * cos(phi)
-    y = r * sin(tetha) * sin(phi)
-    z = r * cos(tetha)
-    return [x, y, z]
-'''
 
 def normal(i, source):
     '''#Angles between normal (i-1, i+1) and common normal y,x=0'''
@@ -171,7 +54,8 @@ def normal(i, source):
         prev = source[i - 1][0]
         next = source[i + 1][0]
     norm = np.array([a - b for a, b in zip(next, prev)])
-#    print i, norm
+    if not norm.any():
+        return normal(i + 1, source)
     norm = norm / np.linalg.norm(norm)
     [nx, ny, nz] = norm
     if ny == 0:
@@ -197,10 +81,10 @@ def normal(i, source):
     bz = bz / np.linalg.norm(bz)
     C = np.array([bx, by, bz]).T
     O = np.array([[0, 0, -1],[1, 0, 0],[0, 1, 0]])
-#    print i, C
     return np.dot(C, O)
 
 # center --> base
+
 
 def create_base(base, btype, i, norm):
     '''Move and rotate avery atom in the base'''
@@ -242,6 +126,7 @@ def print_base(baseatoms, btype, end):
     if rnum == 10000:
         rnum = 1
 
+
 def stpath(end):
     [number, add] = end
     s = str(number) + '+' + str(add) + '---'
@@ -266,15 +151,24 @@ def stpath(end):
                     f = 1
                     cross.remove(pair)
         if not f:
-            add += 1
             if add == atoms[number]:
                 add = 0
                 if number not in scaf:
                     number += 1
-                    if number > num:
+                    if number > len(atoms):
                         number = 1
                 else:
                     number = scaf[number]
+            else:
+                add += 1
+                if add == atoms[number]:
+                    add = 0
+                    if number not in scaf:
+                        number += 1
+                        if number > num:
+                            number = 1
+                    else:
+                        number = scaf[number]
     return stcoords(s)
 
 
@@ -284,12 +178,12 @@ def fdelta(n1, n2):
     [bnum2, add2] = n2
     if bnum1 == bnum2:
         for i in range(add1, add2 + 1):
-            res.append([scaffold[ascaf[(bnum1, i)]], ascaf[(bnum1, i)]])
+            res.append([scaffold[ascaf[(bnum1, i)] - 1], ascaf[(bnum1, i)]])
     else:
         base = bnum1
         c = atoms[base]
         for i in range(add1, c):
-            res.append([scaffold[ascaf[(base, i)]], ascaf[(base, i)]])
+            res.append([scaffold[ascaf[(base, i)] - 1], ascaf[(base, i)]])
         if base in scaf:
             base = scaf[base]
         else:
@@ -298,7 +192,7 @@ def fdelta(n1, n2):
                 base = 1
         while base != bnum2:
             for i in range(atoms[base]):
-                res.append([scaffold[ascaf[(base, i)]], ascaf[(base, i)]])
+                res.append([scaffold[ascaf[(base, i)] - 1], ascaf[(base, i)]])
             if base in scaf:
                 base = scaf[base]
             else:
@@ -306,7 +200,7 @@ def fdelta(n1, n2):
                 if base > num:
                     base = 1
         for i in range(add2 + 1):
-            res.append([scaffold[ascaf[(base, i)]], ascaf[(base, i)]])
+            res.append([scaffold[ascaf[(base, i)] - 1], ascaf[(base, i)]])
     return res
 
 
@@ -334,10 +228,183 @@ def rd():
     return k
 
 
+def parse_int(names, coords, nums):
+    global rnum_tmp
+    if len(names) == 1:
+        scaffold.append(coords[0])
+        atoms[nums[0]] = 1 # number -> count
+        ascaf[(nums[0], 0)] = len(scaffold) # number+add -> full_number
+    else:
+        scaffold.append(coords[0])
+        ascaf[(nums[0], 0)] = len(scaffold)
+        if len(names) == 2:
+            if names[0] in ['T', 'TT']:
+                c = count[names[1]]
+            else:
+                c = count[names[0]]
+            atoms[nums[0]] = c
+            atoms[nums[1]] = 1
+            delta = [(a - b) / c for a, b in zip(coords[1], coords[0])]
+            for n in range(1, c):
+                origin = [a + b * n for a, b in zip(coords[0], delta)]
+                scaffold.append(origin)
+                ascaf[(nums[0], n)] = len(scaffold)
+            scaffold.append(coords[1])
+            ascaf[(nums[1], 0)] = len(scaffold)
+        else:
+            if names[1] in ['H', 'PT']:
+                c = count[names[0]]
+                atoms[nums[0]] = c
+                delta = [(a - b) / c for a, b in zip(coords[1], coords[0])]
+                for n in range(1, c):
+                    origin = [a + b * n for a, b in zip(coords[0], delta)]
+                    scaffold.append(origin)
+                    ascaf[(nums[0], n)] = len(scaffold)
+                scaffold.append(coords[1])
+                ascaf[(nums[1], 0)] = len(scaffold)
+            else:
+                atoms[nums[0]] = 1
+                scaffold.append(coords[1])
+                ascaf[(nums[1], 0)] = len(scaffold)
+            if len(names) == 3:
+                if names[1] in ['H', 'PT']:
+                    c = count[names[2]]
+                    atoms[nums[1]] = c
+                    atoms[nums[2]] = 1
+                    delta = [(a - b) / c for a, b in zip(coords[2], coords[1])]
+                    for n in range(1, c):
+                        origin = [a + b * n for a, b in zip(coords[1], delta)]
+                        scaffold.append(origin)
+                        ascaf[(nums[1], n)] = len(scaffold)
+                    scaffold.append(coords[2])
+                    ascaf[(nums[2], 0)] = len(scaffold)
+                else:
+                    atoms[nums[1]] = 1
+                    atoms[nums[2]] = 1
+                    scaffold.append(coords[2])
+                    ascaf[(nums[2], 0)] = len(scaffold)
+
+            else:
+#                print names, nums
+                for i in range(2, len(names) - 1):
+                    if names[i] not in 'N':
+                        c = count[names[i - 1]]
+                        atoms[nums[i - 1]] = c
+                        delta = [(a - b) / c for a, b in zip(coords[i], coords[i - 1])]
+                        for n in range(1, c):
+                            origin = [a + b * n for a, b in zip(coords[i - 1], delta)]
+                            scaffold.append(origin)
+                            ascaf[(nums[i - 1], n)] = len(scaffold)
+                        scaffold.append(coords[i])
+                        ascaf[(nums[i], 0)] = len(scaffold)
+                    else:
+                        atoms[nums[i - 1]] = 1
+                        scaffold.append(coords[i])
+                        ascaf[(nums[i], 0)] = len(scaffold)
+                if names[-2] in ['H', 'PT']:
+                    c = count[names[-1]]
+                    atoms[nums[-2]] = c
+                    atoms[nums[-1]] = 1
+                    delta = [(a - b) / c for a, b in zip(coords[-1], coords[-2])]
+                    for n in range(1, c):
+                        origin = [a + b * n for a, b in zip(coords[-2], delta)]
+                        scaffold.append(origin)
+                        ascaf[(nums[-2], n)] = len(scaffold)
+                    scaffold.append(coords[-1])
+                    ascaf[(nums[-1], 0)] = len(scaffold)
+                else:
+                    atoms[nums[-2]] = 1
+                    atoms[nums[-1]] = 1
+                    scaffold.append(coords[-1])
+                    ascaf[(nums[-1], 0)] = len(scaffold)
+
+
+# ------------- parameters -----------------
+
+if args.lattice in ['h', 'hex', 'hexagonal']:
+    SQ = False
+elif args.lattice in ['s', 'sq', 'square']:
+    SQ = True
+else:
+    raise Exception("ADMIN: Wrong lattice type")
+
+if not args.cgprob:
+    if args.seqoligs:
+        SEQ = True
+    else:
+        raise Exception("ADMIN: Choose CG ratio or oligs.csv")
+else:
+    if args.seqoligs:
+        raise Exception("ADMIN: Remove CG ratio or oligs.csv")
+    else:
+        SEQ = False
+
+count = {'T1': 1, 'T2': 2, 'T3': 3, 'T4': 4, 'T5': 5,
+         'T6': 6, 'H': 7, 'T7': 7, 'T': 7, 'PT': 7, 'S': 1,
+        'TT': 7, 'T1T': 1, 'T2T': 2, 'T3T': 3, 'T4T': 4,
+        'T5T': 5, 'T6T': 6, 'T7T': 7, 'O': 1, 'OT': 1, 'N': 1,
+        'B1' : 1, 'B2': 2, 'B3': 3, 'B4': 4, 'B5': 5, 'B6': 6,
+        'B7' : 7, 'B1T': 1, 'B2T' : 2, 'B3T' : 3, 'B4T' : 4,
+        'B5T' : 5, 'B6T': 6, 'B7T' : 7, 'B': 7, 'ST': 1}
+term = ['T', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'TT', 'T1T', 'T2T',
+        'T3T', 'T4T', 'T5T', 'T6T', 'T7T', 'T7',
+        'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7',
+        'B1T', 'B2T', 'B3T', 'B4T', 'B5T', 'B6T', 'B7T', 'BT', 'B']
+if SQ:
+    count['PT'] = 8
+    count['T'] = 8
+    count['B'] = 8
+    count['H'] = 8
+    count['TT'] = 8
+
+#if args.cgprob > 1:
+#    cgprob = args.cgprob / 100.0
+#else:
+cgprob = args.cgprob
+
+# -------- load templates -------
+
+
+ncl_a = {}
+ncl_c = {}
+
+try:
+    for template in ['at', 'ta', 'gc', 'cg']:
+        res = ''
+        with open(os.path.join(TEMPLATE_PATH, template + '.pdb'), 'r') as tmp:
+            for line in tmp:
+                line = line.split()
+                if line[0] == 'ATOM':
+                    ncl_name = line[3] + line[4]
+                    ncl_a[ncl_name] = ncl_a.get(ncl_name, [])
+                    ncl_c[ncl_name] = ncl_c.get(ncl_name, [])
+                    if line[5] != res:
+                        i = 0
+                        res = line[5]
+                    if line[2] not in ncl_a[ncl_name]:
+                        ncl_a[ncl_name].append(line[2])
+                        ncl_c[ncl_name].append([])
+                    coords = [float(c) for c in line[6:]]
+                    ncl_c[ncl_name][i] += [coords]
+                    i += 1
+
+    for name in ncl_c:
+        if name[1] == 'B':
+            for k, a in enumerate(ncl_c[name]):
+                ncl_c[name][k] = a[::-1]
+        for k, a in enumerate(ncl_c[name]):
+            for i, c in enumerate(a):
+                c[2] += 3.4 * i
+
+except:
+    raise Exception('ADMIN: Error in bases templates files')
+
+# -------- load pdb ---------
+
+#print '\tLoad structure...'
+
 bases = {'AA': 'DA', 'AB': 'DA', 'TA': 'DT', 'TB': 'DT', 'CA': 'DC',
          'CB': 'DC', 'GA': 'DG', 'GB': 'DG'}
-
-
 
 cart_coords = {}
 
@@ -348,91 +415,65 @@ staples = []
 atoms = {}
 sccross = []
 scafres = None
-print '\tCreating base\'s coords...'
-with open(args.input, 'r') as f:
-    d = 0
-    s = 1
-    beg = 0
-    for i, line in enumerate(f):
-        if line[0:4] == 'ATOM':
-            name = line[16:21].strip()
-            coords = [float(line[30:38]), float(line[38:46]),
+#print '\tCreating base\'s coords...'
+#try:
+if True:
+    with open(args.input, 'r') as f:
+        d = 0
+        s = 1
+        beg = 0
+        int_name = []
+        int_coords = []
+        int_num = []
+        for i, line in enumerate(f):
+            if line[0:4] == 'ATOM':
+                name = line[16:21].strip()
+                coords = [float(line[30:38]), float(line[38:46]),
                       float(line[46:54])]
-            c = count[name]
-            num = int(line[6:11])
-            if name in ['S', 'ST', 'NT', 'N']:
-                if name[0] == 'S' and beg:
-                    beg = 0
-                    scaffold.append(begin)
-                    atoms[pnum] = 1
-                    ascaf[(pnum, 0)] = s - 1
-                    s += 1
-                scaffold.append(coords)
-                atoms[num] = 1
-                ascaf[(num, 0)] = s - 1
-                s += 1
-            elif name in term and not beg:
-                begin = coords
-                csum = c
-                pnum = num
-                beg = 1
-            elif name in term and beg:
-                end = coords
-                csum = c
-                delta = [(a - b) / csum for a, b in zip(end, begin)]
-                for n in range(0, csum):
-                    origin = [a + b * n for a, b in zip(begin, delta)]
-                    scaffold.append(origin)
-                    ascaf[(pnum, n)] = s - 1
-                    atoms[pnum] = c
-                    s += 1
-                scaffold.append(end)
-                ascaf[(num, 0)] = s - 1
-                s += 1
-                atoms[num] = 1
-                beg = 0
-                scafres = s - 1
-            elif name not in ['O', 'OT']:
-                end = coords
-                delta = [(a - b) / csum for a, b in zip(end, begin)]
-                for n in range(csum):
-                    origin = [a + b * n for a, b in zip(begin, delta)]
-                    scaffold.append(origin)
-                    ascaf[(pnum, n)] = s - 1
-                    s += 1
-                atoms[pnum] = csum
-                begin = coords
-                csum = c
-                pnum = num
-            else:
-#                if not scafres:
-#                    scafres = s - 1
-                atoms[num] = 1
-                ascaf[(num, 0)] = s - 1
-                s += 1
-                scaffold.append(coords)
+                num = int(line[6:11])
+                if name in ['S', 'ST']:#, 'NT', 'N']:
+                    parse_int([name], [coords], [num])
+                    beg = 0 # really wrong
+                else:
+                    int_name.append(name)
+                    int_coords.append(coords)
+                    int_num.append(num)
+                    if name in term and not beg:
+                        beg = 1
+                    elif name in term and beg:
+                        parse_int(int_name, int_coords, int_num)
+                        beg = 0
+                        int_name = []
+                        int_coords = []
+                        int_num = []
+
+#print ascaf[(9,0)]
+#print scaffold[51]
 e3 = []
 e5 = []
 cross = []
 scaf = {}
 seq = ''
-print '\t"Topology" file reading...'
+try:
+    with open(args.top, 'r') as a:
+        for line in a:
+            line = line.split()
+            if line[0] == 'e5':
+                e5.append([int(line[2]), int(line[3])])
+            elif line[0] == 'e3':
+                e3.append([int(line[2]), int(line[3])])
+            elif line[0] == 'cross':
+                cross.append([[int(line[2]), int(line[3])], [int(line[4]), int(line[5])]])
+            elif line[0] == 'scaf':
+                scaf[int(line[2])] = int(line[4])
+            elif line[0] == 'seq:':
+                tseq = line[1]
+except:
+    raise Exception('ADMIN: PY2. Error in topology file')
 
-with open(args.top, 'r') as a:
-    for line in a:
-        line = line.split()
-        if line[0] == 'e5':
-            e5.append([int(line[2]), int(line[3])])
-        elif line[0] == 'e3':
-            e3.append([int(line[2]), int(line[3])])
-        elif line[0] == 'cross':
-            cross.append([[int(line[2]), int(line[3])], [int(line[4]), int(line[5])]])
-        elif line[0] == 'scaf':
-            scaf[int(line[2])] = int(line[4])
-        elif line[0] == 'seq:':
-            tseq = line[1]
 if SEQ and not tseq:
-    raise Exception("No sequence in topology file")
+    raise Exception("ADMIN: No sequence in topology file, choose -p instead of -s")
+#print e3
 for end in e3:
     staple = stpath(end)
     staple.reverse()
@@ -445,10 +486,9 @@ pdb = open(args.output, 'w')
 NORM = {}
 anum = 1
 rnum = 1
-print '\tCalculate fullatom ...'
 cur_st = False
 seq = {}
-for i, base in enumerate(scaffold[:scafres + 1]):
+for i, base in enumerate(scaffold):
     end = None
     if i == 0:
         end = 5
@@ -468,27 +508,29 @@ for i, base in enumerate(scaffold[:scafres + 1]):
 
 cur_st = True
 pdb.write('TER\n')
-
 for staple in staples:
+#    print staple
     for i, base in enumerate(staple):
         end = None
-        if True:
-            if i == 0:
-                end = 5
-                A = normal(1, staple)
-            elif i == len(staple) - 1:
-                end = 3
-                A = normal(i - 1, staple)
-            else:
-                A = normal(i, staple)
-        if base[1] in NORM:
-            A = NORM[base[1]]
-        if len(seq) - 1 >= base[1]:
-            s = comp[seq[base[1]]]
+#        if False:
+#            if i == 0:
+#                end = 5
+#                A = normal(1, staple)
+#            elif i == len(staple) - 1:
+#                end = 3
+#                A = normal(i - 1, staple)
+#            else:
+#                A = normal(i, staple)
+        if base[1] - 1 in NORM:
+            A = NORM[base[1] - 1]
         else:
+            raise Exception('ADMIN: PY2. Single-stranded olig\'s normal error')
+        if len(seq) >= base[1]:
+            s = comp[seq[base[1] - 1]]
+        else:
+            raise Exception('ADMIN: PY2. Single-stranded olig\'s sequence error')
             s = rd()
         nbase = create_base(base[0], s, base[1], A)
         print_base(nbase, s, end)
     pdb.write('TER\n')
 pdb.close()
-print '\t\tDone'

@@ -1,0 +1,31 @@
+;; Setup run mode
+
+define              =  -DFLEXIBLE                                               
+integrator          =  steep
+nsteps              =  500000
+
+emtol               =  0.0   							; convergence criterion
+emstep              =  0.01     						; intial step size
+
+;; Control output
+nstxout             =  1000 ; Write coordinates every N steps
+nstvout             =  0 ; Do not write velocities
+nstfout             =  0 ; Do not write forces
+nstlog              =  1000 ; Write log every N steps
+nstenergy	    =  0 ; Do not write energy
+
+;; Setup interactions
+
+rlist               =  23 
+rvdw                =  23
+rcoulomb		= 23
+coulombtype		= cut-off
+vdwtype			= cut-off
+nstlist             =  0 
+ns_type             =  simple
+
+pbc                 =  no
+constraints         =  none 
+
+disre              =  simple ; Constraints mode 
+disre-fc           =  2000 ; Constraints strength

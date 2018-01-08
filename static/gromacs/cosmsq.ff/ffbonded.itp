@@ -1,0 +1,982 @@
+; Dx S Dx angles!
+
+[ bondtypes ]
+;i     j     func  b0     kb
+;DNA
+ PTA  T1A    1     0.340  1924     ;
+ PTA  B1A    1     0.340  1924 
+ NA    NA    1     0.340  1924     ;
+ PTA   NA    1     0.340  1924     ;
+ TA    NA    1     0.340  1924     ;
+ BA    NA    1     0.340  1924 
+ PTA  T2A    1     0.680  962     ;
+ PTA  T3A    1     1.020  641     ;
+ PTA  T4A    1     1.360  481     ;
+ PTA  T5A    1     1.700  384     ;
+ PTA  T6A    1     2.040  321     ;
+ PTA  T7A    1     2.380  275 
+ PTA  B2A    1     0.680  962     ;
+ PTA  B3A    1     1.020  641     ;
+ PTA  B4A    1     1.360  481     ;
+ PTA  B5A    1     1.700  384     ;
+ PTA  B6A    1     2.040  321     ;
+ PTA  B7A    1     2.380  275 
+ PTA   HA    1     2.720  240     ;
+  HA   HA    1     2.720  240     ;
+  HA   TA    1     2.720  240     ;
+  HA   BA    1     2.720  240 
+ PTA   TA    1     2.720  240     ;
+ PTA   BA    1     2.720  240 
+ PTA  PTA    1     2.720  240     ;
+  TA   SA    1     0.340  1924     ;
+ T1A   SA    1     0.340  1924     ;
+ T2A   SA    1     0.340  1924     ;
+ T3A   SA    1     0.340  1924     ;
+ T4A   SA    1     0.340  1924     ;
+ T5A   SA    1     0.340  1924     ;
+ T6A   SA    1     0.340  1924     ;
+ T7A   SA    1     0.340  1924     ;
+  BA   SA    1     0.340  1924     ;
+ B1A   SA    1     0.340  1924     ;
+ B2A   SA    1     0.340  1924     ;
+ B3A   SA    1     0.340  1924     ;
+ B4A   SA    1     0.340  1924     ;
+ B5A   SA    1     0.340  1924     ;
+ B6A   SA    1     0.340  1924     ;
+ B7A   SA    1     0.340  1924     ;
+  SA   SA    1     0.630  765      ;
+  OA   OA    1     0.630  765      ;
+ T1A  T1A    1     2.600  297     ;
+ T1A  T2A    1     2.600  297     ;
+ T1A  T3A    1     2.600  297     ;
+ T1A  T4A    1     2.600  297     ;
+ T1A  T5A    1     2.600  297     ;
+ T1A  T6A    1     2.600  297     ;
+ T1A  T7A    1     2.600  297     ;
+ T2A  T2A    1     2.600  297     ;
+ T2A  T3A    1     2.600  297     ;
+ T2A  T4A    1     2.600  297     ;
+ T2A  T5A    1     2.600  297     ;
+ T2A  T6A    1     2.600  297     ;
+ T2A  T7A    1     2.600  297     ;
+ T3A  T3A    1     2.600  297     ;
+ T3A  T4A    1     2.600  297     ;
+ T3A  T5A    1     2.600  297     ;
+ T3A  T6A    1     2.600  297     ;
+ T3A  T7A    1     2.600  297     ;
+ T4A  T4A    1     2.600  297     ;
+ T4A  T5A    1     2.600  297     ;
+ T4A  T6A    1     2.600  297     ;
+ T7A  T7A    1     2.600  297     ;
+ T5A  T5A    1     2.600  297     ;
+ T5A  T6A    1     2.600  297     ;
+ T5A  T7A    1     2.600  297     ;
+ T6A  T6A    1     2.600  297     ;
+ T6A  T7A    1     2.600  297     ;
+ T1A   TA    1     0.340  1924 ;2.200  297     ;
+ T2A   TA    1     0.680  962  ;2.200  297     ;
+ T3A   TA    1     1.020  641  ;2.200  297     ;
+ T4A   TA    1     1.360  481  ;2.200  297     ;
+ T5A   TA    1     1.700  384  ;2.200  297     ;
+ T6A   TA    1     2.040  321  ;2.200  297     ;
+ T7A   TA    1     2.380  275  ;2.200  297     ;
+ B1A   TA    1     0.340  1924     ; !
+ B2A   TA    1     0.680  962     ; !
+ B3A   TA    1     1.020  641     ; !
+ B4A   TA    1     1.360  481     ; !
+ B5A   TA    1     1.700  384     ; !
+ B6A   TA    1     2.040  321     ; !
+ B7A   TA    1     2.380  275     ; !
+ T1A   BA    1     0.340  1924     ; !
+ T2A   BA    1     0.680  962     ; !
+ T3A   BA    1     1.020  641     ; !
+ T4A   BA    1     1.360  481     ; !
+ T5A   BA    1     1.700  384     ; !
+ T6A   BA    1     2.040  321     ; !
+ T7A   BA    1     2.380  275     ; !
+ TA    TA    1     2.200  297     ; !
+ BA    TA    1     2.720  240     ; !
+ B1A  B1A    1     0.340  1924     ;
+ B1A  B2A    1     0.340  1924     ;
+ B1A  B3A    1     0.340  1924     ;
+ B1A  B4A    1     0.340  1924     ;
+ B1A  B5A    1     0.340  1924     ;
+ B1A  B6A    1     0.340  1924     ;
+ B1A  B7A    1     0.340  1924     ;
+ B2A  B2A    1     0.340  1924     ;
+ B2A  B3A    1     0.340  1924     ;
+ B2A  B4A    1     0.340  1924     ;
+ B2A  B5A    1     0.340  1924     ;
+ B2A  B6A    1     0.340  1924     ;
+ B2A  B7A    1     0.340  1924     ;
+ B3A  B3A    1     0.340  1924     ;
+ B3A  B4A    1     0.340  1924     ;
+ B3A  B5A    1     0.340  1924     ;
+ B3A  B6A    1     0.340  1924     ;
+ B3A  B7A    1     0.340  1924     ;
+ B4A  B4A    1     0.340  1924     ;
+ B4A  B5A    1     0.340  1924     ;
+ B4A  B6A    1     0.340  1924     ;
+ B4A  B7A    1     0.340  1924     ;
+ B5A  B5A    1     0.340  1924     ;
+ B5A  B6A    1     0.340  1924     ;
+ B5A  B7A    1     0.340  1924     ;
+ B6A  B6A    1     0.340  1924     ;
+ B6A  B7A    1     0.340  1924     ;
+ B7A  B7A    1     0.340  1924     ;
+ B1A   BA    1     0.340  1924     ;
+ B2A   BA    1     0.340  1924     ;
+ B3A   BA    1     0.340  1924     ;
+ B4A   BA    1     0.340  1924     ;
+ B5A   BA    1     0.340  1924     ;
+ B6A   BA    1     0.340  1924     ;
+ B7A   BA    1     0.340  1924     ;
+ BA    BA    1     0.340  1924     ;
+ [ angletypes ]
+;i     j     k     func   th0      cth
+  HA    HA    HA   1      180.0    34.6 ;48.3    ;
+  HA    HA   PTA   1      180.0    34.6 ;48.3    ;
+  HA   PTA   T1A   1      180.0    85.9    ;
+  HA   PTA   T2A   1      180.0    77.3    ;
+  HA   PTA   T3A   1      180.0    70.3    ;
+  HA   PTA   T4A   1      180.0    64.4    ;
+  HA   PTA   T5A   1      180.0    59.4    ;
+  HA   PTA   T6A   1      180.0    55.2    ;
+  HA   PTA   T7A   1      180.0    51.5    ;
+  HA   PTA   B1A   1      180.0    85.9    ;
+  HA   PTA   B2A   1      180.0    77.3    ;
+  HA   PTA   B3A   1      180.0    70.3    ;
+  HA   PTA   B4A   1      180.0    64.4    ;
+  HA   PTA   B5A   1      180.0    59.4    ;
+  HA   PTA   B6A   1      180.0    55.2    ;
+  HA   PTA   B7A   1      180.0    51.5
+  HA   PTA    NA   1      180.0    85.9    ;
+  PTA   NA    NA   1      180.0   386.4    ;
+  T1A   NA    NA   1      180.0   386.4    ;
+  T2A   NA    NA   1      180.0   257.6    ;
+  T3A   NA    NA   1      180.0   193.2    ;
+  T4A   NA    NA   1      180.0   154.6    ;
+  T5A   NA    NA   1      180.0   128.8    ;
+  T6A   NA    NA   1      180.0   110.4    ;
+  T7A   NA    NA   1      180.0    96.6
+  B1A   NA    NA   1      180.0   386.4    ;
+  B2A   NA    NA   1      180.0   257.6    ;
+  B3A   NA    NA   1      180.0   193.2    ;
+  B4A   NA    NA   1      180.0   154.6    ;
+  B5A   NA    NA   1      180.0   128.8    ;
+  B6A   NA    NA   1      180.0   110.4    ;
+  B7A   NA    NA   1      180.0    96.6
+  NA    NA    NA   1      180.0   386.4    ;
+  NA    PTA   NA   1      180.0   386.4    ;
+  PTA   PTA   NA   1      180.0    85.9    ;
+  T1A   PTA   NA   1      180.0   386.4    ;
+  T2A   PTA   NA   1      180.0   257.6    ;
+  T3A   PTA   NA   1      180.0   193.2    ;
+  T4A   PTA   NA   1      180.0   154.6    ;
+  T5A   PTA   NA   1      180.0   128.8    ;
+  T6A   PTA   NA   1      180.0   110.4    ;
+  T7A   PTA   NA   1      180.0    96.6
+  TA    PTA   NA   1      180.0    85.9    ;
+  TA    NA    NA   1      180.0   386.4    ;
+  TA    NA    TA   1      180.0   386.4    ;
+  PTA   NA    TA   1      180.0   386.4    ;
+  B1A   PTA   NA   1      180.0   386.4    ;
+  B2A   PTA   NA   1      180.0   257.6    ;
+  B3A   PTA   NA   1      180.0   193.2    ;
+  B4A   PTA   NA   1      180.0   154.6    ;
+  B5A   PTA   NA   1      180.0   128.8    ;
+  B6A   PTA   NA   1      180.0   110.4    ;
+  B7A   PTA   NA   1      180.0    96.6
+  BA    PTA   NA   1      180.0    85.9    ;
+  BA    NA    NA   1      180.0   386.4    ;
+  BA    NA    BA   1      180.0   386.4    ;
+  PTA   NA    BA   1      180.0   386.4    ;
+  HA    HA    TA   1      180.0    48.3    ;
+  HA    HA    BA   1      180.0    48.3
+  TA    HA    TA   1      180.0    48.3
+  TA    HA    BA   1      180.0    48.3
+  BA    HA    BA   1      180.0    48.3
+  PTA   T1A   SA   1      180.0    10.6    ;
+  PTA   T2A   SA   1      180.0    10.6    ; 
+  PTA   T3A   SA   1      180.0    10.6    ; 
+  PTA   T4A   SA   1      180.0    10.6    ; 
+  PTA   T5A   SA   1      180.0    10.6    ; 
+  PTA   T6A   SA   1      180.0    10.6    ; 
+  PTA   T7A   SA   1      180.0    10.6    ;
+  PTA   B1A   SA   1      180.0    10.6    ; 
+  PTA   B2A   SA   1      180.0    10.6    ; 
+  PTA   B3A   SA   1      180.0    10.6    ; 
+  PTA   B4A   SA   1      180.0    10.6    ; 
+  PTA   B5A   SA   1      180.0    10.6    ; 
+  PTA   B6A   SA   1      180.0    10.6    ; 
+  PTA   B7A   SA   1      180.0    10.6    ;
+  HA    TA    SA   1      180.0    10.6    ; 
+  TA    TA    SA   1      180.0    10.6    ;
+  NA    TA    SA   1      180.0    10.6    ; 
+  T1A   SA    SA   1      150.0    10.6    ;
+  TA    SA    SA   1      150.0    10.6    ;
+  T2A   SA    SA   1      150.0    10.6    ;
+  T3A   SA    SA   1      150.0    10.6    ;
+  T4A   SA    SA   1      150.0    10.6    ;
+  T5A   SA    SA   1      150.0    10.6    ;
+  T6A   SA    SA   1      150.0    10.6    ;
+  T7A   SA    SA   1      150.0    10.6
+  T1A   SA    T1A  1      180.0    10.6    ;
+  T1A   SA    T2A  1      180.0    10.6    ;
+  T1A   SA    T3A  1      180.0    10.6    ;
+  T1A   SA    T4A  1      180.0    10.6    ;
+  T1A   SA    T5A  1      180.0    10.6    ;
+  T1A   SA    T6A  1      180.0    10.6    ;
+  T1A   SA    T7A  1      180.0    10.6    ;
+  T1A   SA    TA   1      180.0    10.6    ;
+  T2A   SA    T2A  1      180.0    10.6    ;
+  T2A   SA    T3A  1      180.0    10.6    ;
+  T2A   SA    T4A  1      180.0    10.6    ;
+  T2A   SA    T5A  1      180.0    10.6    ;
+  T2A   SA    T6A  1      180.0    10.6    ;
+  T2A   SA    T7A  1      180.0    10.6    ;
+  T2A   SA    TA   1      180.0    10.6    ;
+  T3A   SA    T3A  1      180.0    10.6    ;
+  T3A   SA    T4A  1      180.0    10.6    ;
+  T3A   SA    T5A  1      180.0    10.6    ;
+  T3A   SA    T6A  1      180.0    10.6    ;
+  T3A   SA    T7A  1      180.0    10.6    ;
+  T3A   SA    TA   1      180.0    10.6    ;
+  T4A   SA    T4A  1      180.0    10.6    ;
+  T4A   SA    T5A  1      180.0    10.6    ;
+  T4A   SA    T6A  1      180.0    10.6    ;
+  T4A   SA    T7A  1      180.0    10.6    ;
+  T4A   SA    TA   1      180.0    10.6    ;
+  T5A   SA    T5A  1      180.0    10.6    ;
+  T5A   SA    T6A  1      180.0    10.6    ;
+  T5A   SA    T7A  1      180.0    10.6    ;
+  T5A   SA    TA   1      180.0    10.6    ;
+  T6A   SA    T6A  1      180.0    10.6    ;
+  T6A   SA    T7A  1      180.0    10.6    ;
+  T6A   SA    TA   1      180.0    10.6    ;
+  T7A   SA    T7A  1      180.0    10.6    ;
+  T7A   SA    TA   1      180.0    10.6    ;
+  B1A   SA    B1A  1      180.0    10.6    ;
+  B1A   SA    B2A  1      180.0    10.6    ;
+  B1A   SA    B3A  1      180.0    10.6    ;
+  B1A   SA    B4A  1      180.0    10.6    ;
+  B1A   SA    B5A  1      180.0    10.6    ;
+  B1A   SA    B6A  1      180.0    10.6    ;
+  B1A   SA    B7A  1      180.0    10.6    ;
+  B1A   SA    BA   1      180.0    10.6    ;
+  B2A   SA    B2A  1      180.0    10.6    ;
+  B2A   SA    B3A  1      180.0    10.6    ;
+  B2A   SA    B4A  1      180.0    10.6    ;
+  B2A   SA    B5A  1      180.0    10.6    ;
+  B2A   SA    B6A  1      180.0    10.6    ;
+  B2A   SA    B7A  1      180.0    10.6    ;
+  B2A   SA    BA   1      180.0    10.6    ;
+  B3A   SA    B3A  1      180.0    10.6    ;
+  B3A   SA    B4A  1      180.0    10.6    ;
+  B3A   SA    B5A  1      180.0    10.6    ;
+  B3A   SA    B6A  1      180.0    10.6    ;
+  B3A   SA    B7A  1      180.0    10.6    ;
+  B3A   SA    BA   1      180.0    10.6    ;
+  B4A   SA    B4A  1      180.0    10.6    ;
+  B4A   SA    B5A  1      180.0    10.6    ;
+  B4A   SA    B6A  1      180.0    10.6    ;
+  B4A   SA    B7A  1      180.0    10.6    ;
+  B4A   SA    BA   1      180.0    10.6    ;
+  B5A   SA    B5A  1      180.0    10.6    ;
+  B5A   SA    B6A  1      180.0    10.6    ;
+  B5A   SA    B7A  1      180.0    10.6    ;
+  B5A   SA    BA   1      180.0    10.6    ;
+  B6A   SA    B6A  1      180.0    10.6    ;
+  B6A   SA    B7A  1      180.0    10.6    ;
+  B6A   SA    BA   1      180.0    10.6    ;
+  B7A   SA    B7A  1      180.0    10.6    ;
+  B7A   SA    BA   1      180.0    10.6    ;
+  B1A   SA    T1A  1      180.0    10.6    ;
+  B1A   SA    T2A  1      180.0    10.6    ;
+  B1A   SA    T3A  1      180.0    10.6    ;
+  B1A   SA    T4A  1      180.0    10.6    ;
+  B1A   SA    T5A  1      180.0    10.6    ;
+  B1A   SA    T6A  1      180.0    10.6    ;
+  B1A   SA    T7A  1      180.0    10.6    ;
+  B1A   SA    TA   1      180.0    10.6    ;
+  B2A   SA    T1A  1      180.0    10.6    ;
+  B2A   SA    T2A  1      180.0    10.6    ;
+  B2A   SA    T3A  1      180.0    10.6    ;
+  B2A   SA    T4A  1      180.0    10.6    ;
+  B2A   SA    T5A  1      180.0    10.6    ;
+  B2A   SA    T6A  1      180.0    10.6    ;
+  B2A   SA    T7A  1      180.0    10.6    ;
+  B2A   SA    TA   1      180.0    10.6    ;
+  B3A   SA    T1A  1      180.0    10.6    ;
+  B3A   SA    T2A  1      180.0    10.6    ;
+  B3A   SA    T3A  1      180.0    10.6    ;
+  B3A   SA    T4A  1      180.0    10.6    ;
+  B3A   SA    T5A  1      180.0    10.6    ;
+  B3A   SA    T6A  1      180.0    10.6    ;
+  B3A   SA    T7A  1      180.0    10.6    ;
+  B3A   SA    TA   1      180.0    10.6    ;
+  B4A   SA    T1A  1      180.0    10.6    ;
+  B4A   SA    T2A  1      180.0    10.6    ;
+  B4A   SA    T3A  1      180.0    10.6    ;
+  B4A   SA    T4A  1      180.0    10.6    ;
+  B4A   SA    T5A  1      180.0    10.6    ;
+  B4A   SA    T6A  1      180.0    10.6    ;
+  B4A   SA    T7A  1      180.0    10.6    ;
+  B4A   SA    TA   1      180.0    10.6    ;
+  B5A   SA    T1A  1      180.0    10.6    ;
+  B5A   SA    T2A  1      180.0    10.6    ;
+  B5A   SA    T3A  1      180.0    10.6    ;
+  B5A   SA    T4A  1      180.0    10.6    ;
+  B5A   SA    T5A  1      180.0    10.6    ;
+  B5A   SA    T6A  1      180.0    10.6    ;
+  B5A   SA    T7A  1      180.0    10.6    ;
+  B5A   SA    TA   1      180.0    10.6    ;
+  B6A   SA    T1A  1      180.0    10.6    ;
+  B6A   SA    T2A  1      180.0    10.6    ;
+  B6A   SA    T3A  1      180.0    10.6    ;
+  B6A   SA    T4A  1      180.0    10.6    ;
+  B6A   SA    T5A  1      180.0    10.6    ;
+  B6A   SA    T6A  1      180.0    10.6    ;
+  B6A   SA    T7A  1      180.0    10.6    ;
+  B6A   SA    TA   1      180.0    10.6    ;
+  B7A   SA    T1A  1      180.0    10.6    ;
+  B7A   SA    T2A  1      180.0    10.6    ;
+  B7A   SA    T3A  1      180.0    10.6    ;
+  B7A   SA    T4A  1      180.0    10.6    ;
+  B7A   SA    T5A  1      180.0    10.6    ;
+  B7A   SA    T6A  1      180.0    10.6    ;
+  B7A   SA    T7A  1      180.0    10.6    ;
+  B7A   SA    TA   1      180.0    10.6    ;
+  HA    BA    SA   1      180.0    10.6    ;  
+  BA    BA    SA   1      180.0    10.6    ; 
+  NA    BA    SA   1      180.0    10.6    ;
+  B1A   SA    SA   1      150.0    10.6    ;
+  BA    SA    SA   1      150.0    10.6    ;
+  B2A   SA    SA   1      150.0    10.6    ;
+  B3A   SA    SA   1      150.0    10.6    ;
+  B4A   SA    SA   1      150.0    10.6    ;
+  B5A   SA    SA   1      150.0    10.6    ;
+  B6A   SA    SA   1      150.0    10.6    ;
+  B7A   SA    SA   1      150.0    10.6
+  SA    SA    SA   1      150.0    10.6    ;
+  OA    OA    OA   1      150.0    10.6    ;
+  PTA   T1A   T1A  1       90.0    48.9    ;
+  PTA   T1A   T2A  1       90.0    48.9    ;
+  PTA   T1A   T3A  1       90.0    48.9    ;
+  PTA   T1A   T4A  1       90.0    48.9    ;
+  PTA   T1A   T5A  1       90.0    48.9    ;
+  PTA   T1A   T6A  1       90.0    48.9    ;
+  PTA   T1A   T7A  1       90.0    48.9
+  PTA   T1A   TA   1       90.0    48.9    ;
+  PTA   T2A   T1A  1       90.0    42.9    ;
+  PTA   T2A   T2A  1       90.0    42.9    ;
+  PTA   T2A   T3A  1       90.0    42.9    ;
+  PTA   T2A   T4A  1       90.0    42.9    ;
+  PTA   T2A   T5A  1       90.0    42.9    ;
+  PTA   T2A   T6A  1       90.0    42.9    ;
+  PTA   T2A   T7A  1       90.0    42.9
+  PTA   T2A   TA   1       90.0    42.9    ;
+  PTA   T3A   T1A  1       90.0    38.3    ;
+  PTA   T3A   T2A  1       90.0    38.3    ;
+  PTA   T3A   T3A  1       90.0    38.3    ;
+  PTA   T3A   T4A  1       90.0    38.3    ;
+  PTA   T3A   T5A  1       90.0    38.3    ;
+  PTA   T3A   T6A  1       90.0    38.3    ;
+  PTA   T3A   T7A  1       90.0    38.3
+  PTA   T3A   TA   1       90.0    38.3    ;
+  PTA   T4A   T1A  1       90.0    34.6    ;
+  PTA   T4A   T2A  1       90.0    34.6    ;
+  PTA   T4A   T3A  1       90.0    34.6    ;
+  PTA   T4A   T4A  1       90.0    34.6    ;
+  PTA   T4A   T5A  1       90.0    34.6    ;
+  PTA   T4A   T6A  1       90.0    34.6    ;
+  PTA   T4A   T7A  1       90.0    34.6
+  PTA   T4A   TA   1       90.0    34.6    ;
+  PTA   T5A   T1A  1       90.0    31.5    ;
+  PTA   T5A   T2A  1       90.0    31.5    ;
+  PTA   T5A   T3A  1       90.0    31.5    ;
+  PTA   T5A   T4A  1       90.0    31.5    ;
+  PTA   T5A   T5A  1       90.0    31.5    ;
+  PTA   T5A   T6A  1       90.0    31.5    ;
+  PTA   T5A   T7A  1       90.0    31.5
+  PTA   T5A   TA   1       90.0    31.5    ;
+  PTA   T6A   T1A  1       90.0    28.9    ;
+  PTA   T6A   T2A  1       90.0    28.9    ;
+  PTA   T6A   T3A  1       90.0    28.9    ;
+  PTA   T6A   T4A  1       90.0    28.9    ;
+  PTA   T6A   T5A  1       90.0    28.9    ;
+  PTA   T6A   T6A  1       90.0    28.9    ;
+  PTA   T6A   T7A  1       90.0    28.9
+  PTA   T6A   TA   1       90.0    28.9    ;
+  PTA   T7A   T1A  1       90.0    26.8    ;
+  PTA   T7A   T2A  1       90.0    26.8    ;
+  PTA   T7A   T3A  1       90.0    26.8    ;
+  PTA   T7A   T4A  1       90.0    26.8    ;
+  PTA   T7A   T5A  1       90.0    26.8    ;
+  PTA   T7A   T6A  1       90.0    26.8    ;
+  PTA   T7A   T7A  1       90.0    26.8
+  PTA   T7A   TA   1       90.0    26.8    ;
+  PTA   TA    TA   1       90.0    26.8    ;
+  HA    TA    TA   1       90.0    25.3    ;
+  TA    NA    BA   1      180.0   386.4    ;
+;  NA    BA    BA   1       90.0    48.9    ;
+  PTA   B1A   B1A  1      180.0   386.4    ;
+  PTA   B1A   B2A  1      180.0   386.4    ;
+  PTA   B1A   B3A  1      180.0   386.4    ;
+  PTA   B1A   B4A  1      180.0   386.4    ;
+  PTA   B1A   B5A  1      180.0   386.4    ;
+  PTA   B1A   B6A  1      180.0   386.4    ;
+  PTA   B1A   B7A  1      180.0   386.4
+  PTA   B1A   BA   1      180.0   386.4    ;
+  PTA   B2A   B1A  1      180.0   257.6    ;
+  PTA   B2A   B2A  1      180.0   257.6    ;
+  PTA   B2A   B3A  1      180.0   257.6    ;
+  PTA   B2A   B4A  1      180.0   257.6    ;
+  PTA   B2A   B5A  1      180.0   257.6    ;
+  PTA   B2A   B6A  1      180.0   257.6    ;
+  PTA   B2A   B7A  1      180.0   257.6
+  PTA   B2A   BA   1      180.0   257.6    ;
+  PTA   B3A   B1A  1      180.0   193.2    ;
+  PTA   B3A   B2A  1      180.0   193.2    ;
+  PTA   B3A   B3A  1      180.0   193.2    ;
+  PTA   B3A   B4A  1      180.0   193.2    ;
+  PTA   B3A   B5A  1      180.0   193.2    ;
+  PTA   B3A   B6A  1      180.0   193.2    ;
+  PTA   B3A   B7A  1      180.0   193.2
+  PTA   B3A   BA   1      180.0   193.2    ;
+  PTA   B4A   B1A  1      180.0   154.6    ;
+  PTA   B4A   B2A  1      180.0   154.6    ;
+  PTA   B4A   B3A  1      180.0   154.6    ;
+  PTA   B4A   B4A  1      180.0   154.6    ;
+  PTA   B4A   B5A  1      180.0   154.6    ;
+  PTA   B4A   B6A  1      180.0   154.6    ;
+  PTA   B4A   B7A  1      180.0   154.6
+  PTA   B4A   BA   1      180.0   154.6    ;
+  PTA   B5A   B1A  1      180.0   128.8    ;
+  PTA   B5A   B2A  1      180.0   128.8    ;
+  PTA   B5A   B3A  1      180.0   128.8    ;
+  PTA   B5A   B4A  1      180.0   128.8    ;
+  PTA   B5A   B5A  1      180.0   128.8    ;
+  PTA   B5A   B6A  1      180.0   128.8    ;
+  PTA   B5A   B7A  1      180.0   128.8
+  PTA   B5A   BA   1      180.0   128.8    ;
+  PTA   B6A   B1A  1      180.0   110.4    ;
+  PTA   B6A   B2A  1      180.0   110.4    ;
+  PTA   B6A   B3A  1      180.0   110.4    ;
+  PTA   B6A   B4A  1      180.0   110.4    ;
+  PTA   B6A   B5A  1      180.0   110.4    ;
+  PTA   B6A   B6A  1      180.0   110.4    ;
+  PTA   B6A   B7A  1      180.0   110.4
+  PTA   B6A   BA   1      180.0   110.4    ;
+  PTA   B7A   B1A  1      180.0    96.6    ;
+  PTA   B7A   B2A  1      180.0    96.6    ;
+  PTA   B7A   B3A  1      180.0    96.6    ;
+  PTA   B7A   B4A  1      180.0    96.6    ;
+  PTA   B7A   B5A  1      180.0    96.6    ;
+  PTA   B7A   B6A  1      180.0    96.6    ;
+  PTA   B7A   B7A  1      180.0    96.6
+  PTA   B7A   BA   1      180.0    96.6    ;
+  HA    BA    BA   1      180.0    85.9    ;
+  PTA   TA    SA   1      180.0    10.6    ;    85.9    ;
+  PTA   BA    SA   1      180.0    10.6    ;    85.9
+  PTA   HA    PTA  1      180.0    48.3    ;
+  PTA   PTA   TA   1      180.0    48.3    ;
+  PTA   PTA   T1A  1      180.0    85.9    ;
+  PTA   PTA   T2A  1      180.0    77.3    ;
+  PTA   PTA   T3A  1      180.0    70.3    ;
+  PTA   PTA   T4A  1      180.0    64.4    ;
+  PTA   PTA   T5A  1      180.0    59.4    ;
+  PTA   PTA   T6A  1      180.0    55.2    ;
+  PTA   PTA   T7A  1      180.0    51.5    ;
+  PTA   PTA   HA   1      180.0    48.3    ;
+  T1A   TA    HA   1      180.0    85.9    ;
+  T2A   TA    HA   1      180.0    77.3    ;
+  T3A   TA    HA   1      180.0    70.3    ;
+  T4A   TA    HA   1      180.0    64.4    ;
+  T5A   TA    HA   1      180.0    59.4    ;
+  T6A   TA    HA   1      180.0    55.2    ;
+  T7A   TA    HA   1      180.0    51.5
+  PTA   PTA   BA   1      180.0    48.3    ;
+  PTA   PTA   B1A  1      180.0    85.9    ;
+  PTA   PTA   B2A  1      180.0    77.3    ;
+  PTA   PTA   B3A  1      180.0    70.3    ;
+  PTA   PTA   B4A  1      180.0    64.4    ;
+  PTA   PTA   B5A  1      180.0    59.4    ;
+  PTA   PTA   B6A  1      180.0    55.2    ;
+  PTA   PTA   B7A  1      180.0    51.5
+  B1A   BA    HA   1      180.0    85.9    ;
+  B2A   BA    HA   1      180.0    77.3    ;
+  B3A   BA    HA   1      180.0    70.3    ;
+  B4A   BA    HA   1      180.0    64.4    ;
+  B5A   BA    HA   1      180.0    59.4    ;
+  B6A   BA    HA   1      180.0    55.2    ;
+  B7A   BA    HA   1      180.0    51.5
+  T1A   TA    SA   1      180.0    10.6    ;   386.4    ;
+  T2A   TA    SA   1      180.0    10.6    ;   257.6    ;
+  T3A   TA    SA   1      180.0    10.6    ;   193.2    ;
+  T4A   TA    SA   1      180.0    10.6    ;   154.6    ;
+  T5A   TA    SA   1      180.0    10.6    ;   128.8    ;
+  T6A   TA    SA   1      180.0    10.6    ;   110.4    ;
+  T7A   TA    SA   1      180.0    10.6    ;    96.6
+  B1A   BA    SA   1      180.0    10.6    ;   386.4    ;
+  B2A   BA    SA   1      180.0    10.6    ;   257.6    ;
+  B3A   BA    SA   1      180.0    10.6    ;   193.2    ;
+  B4A   BA    SA   1      180.0    10.6    ;   154.6    ;
+  B5A   BA    SA   1      180.0    10.6    ;   128.8    ;
+  B6A   BA    SA   1      180.0    10.6    ;   110.4    ;
+  B7A   BA    SA   1      180.0    10.6    ;    96.6
+  T2A   PTA   T2A  1      180.0   193.2    ;
+  T2A   PTA   T3A  1      180.0   154.6    ;
+  T2A   PTA   T4A  1      180.0   128.8    ;
+  T2A   PTA   T5A  1      180.0   110.4    ;
+  T2A   PTA   T6A  1      180.0    96.6    ;
+  T2A   PTA   T7A  1      180.0    85.9
+  T1A   PTA   T1A  1      180.0   386.4    ;
+  T1A   PTA   T2A  1      180.0   257.6    ;
+  T1A   PTA   T3A  1      180.0   193.2    ;
+  T1A   PTA   T4A  1      180.0   154.6    ;
+  T1A   PTA   T5A  1      180.0   128.8    ;
+  T1A   PTA   T6A  1      180.0   110.4    ;
+  T1A   PTA   T7A  1      180.0    96.6
+  T3A   PTA   T3A  1      180.0   128.8    ;
+  T3A   PTA   T4A  1      180.0   110.4    ;
+  T3A   PTA   T5A  1      180.0    96.6    ;
+  T3A   PTA   T6A  1      180.0    85.9    ;
+  T3A   PTA   T7A  1      180.0    77.3
+  T4A   PTA   T4A  1      180.0    96.6    ;
+  T4A   PTA   T5A  1      180.0    85.9    ;
+  T4A   PTA   T6A  1      180.0    77.3    ;
+  T4A   PTA   T7A  1      180.0    70.3
+  T5A   PTA   T5A  1      180.0    77.3    ;
+  T5A   PTA   T6A  1      180.0    70.3    ;
+  T5A   PTA   T7A  1      180.0    64.4
+  T6A   PTA   T6A  1      180.0    64.4    ;
+  T6A   PTA   T7A  1      180.0    59.4
+  T7A   PTA   T7A  1      180.0    55.2
+  T1A   PTA   TA   1      180.0    85.9    ;
+  T2A   PTA   TA   1      180.0    77.3    ;
+  T3A   PTA   TA   1      180.0    70.3    ;
+  T4A   PTA   TA   1      180.0    64.4    ;
+  T5A   PTA   TA   1      180.0    59.4    ;
+  T6A   PTA   TA   1      180.0    55.2    ;
+  T7A   PTA   TA   1      180.0    51.5
+  B2A   PTA   B2A  1      180.0   193.2    ;
+  B2A   PTA   B3A  1      180.0   154.6    ;
+  B2A   PTA   B4A  1      180.0   128.8    ;
+  B2A   PTA   B5A  1      180.0   110.4    ;
+  B2A   PTA   B6A  1      180.0    96.6    ;
+  B2A   PTA   B7A  1      180.0    85.9
+  B1A   PTA   B1A  1      180.0   386.4    ;
+  B1A   PTA   B2A  1      180.0   257.6    ;
+  B1A   PTA   B3A  1      180.0   193.2    ;
+  B1A   PTA   B4A  1      180.0   154.6    ;
+  B1A   PTA   B5A  1      180.0   128.8    ;
+  B1A   PTA   B6A  1      180.0   110.4    ;
+  B1A   PTA   B7A  1      180.0    96.6
+  B3A   PTA   B3A  1      180.0   128.8    ;
+  B3A   PTA   B4A  1      180.0   110.4    ;
+  B3A   PTA   B5A  1      180.0    96.6    ;
+  B3A   PTA   B6A  1      180.0    85.9    ;
+  B3A   PTA   B7A  1      180.0    77.3
+  B4A   PTA   B4A  1      180.0    96.6    ;
+  B4A   PTA   B5A  1      180.0    85.9    ;
+  B4A   PTA   B6A  1      180.0    77.3    ;
+  B4A   PTA   B7A  1      180.0    70.3
+  B5A   PTA   B5A  1      180.0    77.3    ;
+  B5A   PTA   B6A  1      180.0    70.3    ;
+  B5A   PTA   B7A  1      180.0    64.4
+  B6A   PTA   B6A  1      180.0    64.4    ;
+  B6A   PTA   B7A  1      180.0    59.4
+  B7A   PTA   B7A  1      180.0    55.2
+  B1A   PTA   BA   1      180.0    85.9    ;
+  B2A   PTA   BA   1      180.0    77.3    ;
+  B3A   PTA   BA   1      180.0    70.3    ;
+  B4A   PTA   BA   1      180.0    64.4    ;
+  B5A   PTA   BA   1      180.0    59.4    ;
+  B6A   PTA   BA   1      180.0    55.2    ;
+  B7A   PTA   BA   1      180.0    51.5
+  B2A   PTA   T2A  1      180.0   193.2    ;
+  B2A   PTA   T3A  1      180.0   154.6    ;
+  B2A   PTA   T4A  1      180.0   128.8    ;
+  B2A   PTA   T5A  1      180.0   110.4    ;
+  B2A   PTA   T6A  1      180.0    96.6    ;
+  B2A   PTA   T7A  1      180.0    85.9
+  B1A   PTA   T1A  1      180.0   386.4    ;
+  B1A   PTA   T2A  1      180.0   257.6    ;
+  B1A   PTA   T3A  1      180.0   193.2    ;
+  B1A   PTA   T4A  1      180.0   154.6    ;
+  B1A   PTA   T5A  1      180.0   128.8    ;
+  B1A   PTA   T6A  1      180.0   110.4    ;
+  B1A   PTA   T7A  1      180.0    96.6
+  B3A   PTA   T3A  1      180.0   128.8    ;
+  B3A   PTA   T4A  1      180.0   110.4    ;
+  B3A   PTA   T5A  1      180.0    96.6    ;
+  B3A   PTA   T6A  1      180.0    85.9    ;
+  B3A   PTA   T7A  1      180.0    77.3
+  B4A   PTA   T4A  1      180.0    96.6    ;
+  B4A   PTA   T5A  1      180.0    85.9    ;
+  B4A   PTA   T6A  1      180.0    77.3    ;
+  B4A   PTA   T7A  1      180.0    70.3
+  B5A   PTA   T5A  1      180.0    77.3    ;
+  B5A   PTA   T6A  1      180.0    70.3    ;
+  B5A   PTA   T7A  1      180.0    64.4
+  B6A   PTA   T6A  1      180.0    64.4    ;
+  B6A   PTA   T7A  1      180.0    59.4
+  B7A   PTA   T7A  1      180.0    55.2
+  B1A   PTA   TA   1      180.0    85.9    ;
+  B2A   PTA   TA   1      180.0    77.3    ;
+  B3A   PTA   TA   1      180.0    70.3    ;
+  B4A   PTA   TA   1      180.0    64.4    ;
+  B5A   PTA   TA   1      180.0    59.4    ;
+  B6A   PTA   TA   1      180.0    55.2    ;
+  B7A   PTA   TA   1      180.0    51.5
+  T2A   PTA   B3A  1      180.0   154.6    ;
+  T2A   PTA   B4A  1      180.0   128.8    ;
+  T2A   PTA   B5A  1      180.0   110.4    ;
+  T2A   PTA   B6A  1      180.0    96.6    ;
+  T2A   PTA   B7A  1      180.0    85.9
+  T1A   PTA   B2A  1      180.0   257.6    ;
+  T1A   PTA   B3A  1      180.0   193.2    ;
+  T1A   PTA   B4A  1      180.0   154.6    ;
+  T1A   PTA   B5A  1      180.0   128.8    ;
+  T1A   PTA   B6A  1      180.0   110.4    ;
+  T1A   PTA   B7A  1      180.0    96.6
+  T3A   PTA   B4A  1      180.0   110.4    ;
+  T3A   PTA   B5A  1      180.0    96.6    ;
+  T3A   PTA   B6A  1      180.0    85.9    ;
+  T3A   PTA   B7A  1      180.0    77.3
+  T4A   PTA   B5A  1      180.0    85.9    ;
+  T4A   PTA   B6A  1      180.0    77.3    ;
+  T4A   PTA   B7A  1      180.0    70.3
+  T5A   PTA   B6A  1      180.0    70.3    ;
+  T5A   PTA   B7A  1      180.0    64.4
+  T6A   PTA   B7A  1      180.0    59.4
+  T1A   PTA   BA   1      180.0    85.9    ;
+  T2A   PTA   BA   1      180.0    77.3    ;
+  T3A   PTA   BA   1      180.0    70.3    ;
+  T4A   PTA   BA   1      180.0    64.4    ;
+  T5A   PTA   BA   1      180.0    59.4    ;
+  T6A   PTA   BA   1      180.0    55.2    ;
+  T7A   PTA   BA   1      180.0    51.5
+  T1A   T1A   TA   1       90.0    10.6    ;
+  T1A   T2A   TA   1       90.0    10.6    ;
+  T1A   T3A   TA   1       90.0    10.6    ;
+  T1A   T4A   TA   1       90.0    10.6    ;
+  T1A   T5A   TA   1       90.0    10.6    ;
+  T1A   T6A   TA   1       90.0    10.6    ;
+  T1A   T7A   TA   1       90.0    10.6
+  T2A   T1A   TA   1       90.0    10.6    ;
+  T2A   T2A   TA   1       90.0    10.6    ;
+  T2A   T3A   TA   1       90.0    10.6    ;
+  T2A   T4A   TA   1       90.0    10.6    ;
+  T2A   T5A   TA   1       90.0    10.6    ;
+  T2A   T6A   TA   1       90.0    10.6    ;
+  T2A   T7A   TA   1       90.0    10.6
+  T3A   T1A   TA   1       90.0    10.6    ;
+  T3A   T2A   TA   1       90.0    10.6    ;
+  T3A   T3A   TA   1       90.0    10.6    ;
+  T3A   T4A   TA   1       90.0    10.6    ;
+  T3A   T5A   TA   1       90.0    10.6    ;
+  T3A   T6A   TA   1       90.0    10.6    ;
+  T3A   T7A   TA   1       90.0    10.6
+  T4A   T1A   TA   1       90.0    10.6    ;
+  T4A   T2A   TA   1       90.0    10.6    ;
+  T4A   T3A   TA   1       90.0    10.6    ;
+  T4A   T4A   TA   1       90.0    10.6    ;
+  T4A   T5A   TA   1       90.0    10.6    ;
+  T4A   T6A   TA   1       90.0    10.6    ;
+  T4A   T7A   TA   1       90.0    10.6
+  T5A   T1A   TA   1       90.0    10.6    ;
+  T5A   T2A   TA   1       90.0    10.6    ;
+  T5A   T3A   TA   1       90.0    10.6    ;
+  T5A   T4A   TA   1       90.0    10.6    ;
+  T5A   T5A   TA   1       90.0    10.6    ;
+  T5A   T6A   TA   1       90.0    10.6    ;
+  T5A   T7A   TA   1       90.0    10.6
+  T6A   T1A   TA   1       90.0    10.6    ;
+  T6A   T2A   TA   1       90.0    10.6    ;
+  T6A   T3A   TA   1       90.0    10.6    ;
+  T6A   T4A   TA   1       90.0    10.6    ;
+  T6A   T5A   TA   1       90.0    10.6    ;
+  T6A   T6A   TA   1       90.0    10.6    ;
+  T6A   T7A   TA   1       90.0    10.6
+  T7A   T1A   TA   1       90.0    10.6    ;
+  T7A   T2A   TA   1       90.0    10.6    ;
+  T7A   T3A   TA   1       90.0    10.6    ;
+  T7A   T4A   TA   1       90.0    10.6    ;
+  T7A   T5A   TA   1       90.0    10.6    ;
+  T7A   T6A   TA   1       90.0    10.6    ;
+  T7A   T7A   TA   1       90.0    10.6
+  BA    B1A   BA   1      180.0   386.4    ;356.2    ;
+  BA    B2A   BA   1      180.0   386.4    ;356.2    ;
+  BA    B3A   BA   1      180.0   386.4    ;356.2    ;
+  BA    B4A   BA   1      180.0   386.4    ;356.2    ;
+  BA    B5A   BA   1      180.0   386.4    ;356.2    ;
+  BA    B6A   BA   1      180.0   386.4    ;356.2    ;
+  BA    B7A   BA   1      180.0   386.4    ;356.2    ;
+  B1A   B1A   BA   1      180.0   386.4    ;356.2    ;
+  B1A   B2A   BA   1      180.0   386.4    ;257.6    ;
+  B1A   B3A   BA   1      180.0   386.4    ;193.2    ;
+  B1A   B4A   BA   1      180.0   386.4    ;154.6    ;
+  B1A   B5A   BA   1      180.0   386.4    ;128.8    ;
+  B1A   B6A   BA   1      180.0   386.4    ;110.4    ;
+  B1A   B7A   BA   1      180.0   386.4
+  B2A   B1A   BA   1      180.0   386.4    ;
+  B2A   B2A   BA   1      180.0   386.4    ;257.6    ;
+  B2A   B3A   BA   1      180.0   386.4    ;193.2    ;
+  B2A   B4A   BA   1      180.0   386.4    ;154.6    ;
+  B2A   B5A   BA   1      180.0   386.4    ;128.8    ;
+  B2A   B6A   BA   1      180.0   386.4    ;110.4    ;
+  B2A   B7A   BA   1      180.0   386.4
+  B3A   B1A   BA   1      180.0   386.4    ;
+  B3A   B2A   BA   1      180.0   386.4    ;257.6    ;
+  B3A   B3A   BA   1      180.0   386.4    ;193.2    ;
+  B3A   B4A   BA   1      180.0   386.4    ;154.6    ;
+  B3A   B5A   BA   1      180.0   386.4    ;128.8    ;
+  B3A   B6A   BA   1      180.0   386.4    ;110.4    ;
+  B3A   B7A   BA   1      180.0   386.4
+  B4A   B1A   BA   1      180.0   386.4    ;
+  B4A   B2A   BA   1      180.0   386.4    ;257.6    ;
+  B4A   B3A   BA   1      180.0   386.4    ;193.2    ;
+  B4A   B4A   BA   1      180.0   386.4    ;154.6    ;
+  B4A   B5A   BA   1      180.0   386.4    ;128.8    ;
+  B4A   B6A   BA   1      180.0   386.4    ;110.4    ;
+  B4A   B7A   BA   1      180.0   386.4
+  B5A   B1A   BA   1      180.0   386.4    ;
+  B5A   B2A   BA   1      180.0   386.4    ;257.6    ;
+  B5A   B3A   BA   1      180.0   386.4    ;193.2    ;
+  B5A   B4A   BA   1      180.0   386.4    ;154.6    ;
+  B5A   B5A   BA   1      180.0   386.4    ;128.8    ;
+  B5A   B6A   BA   1      180.0   386.4    ;110.4    ;
+  B5A   B7A   BA   1      180.0   386.4
+  B6A   B1A   BA   1      180.0   386.4    ;
+  B6A   B2A   BA   1      180.0   386.4    ;257.6    ;
+  B6A   B3A   BA   1      180.0   386.4    ;193.2    ;
+  B6A   B4A   BA   1      180.0   386.4    ;154.6    ;
+  B6A   B5A   BA   1      180.0   386.4    ;128.8    ;
+  B6A   B6A   BA   1      180.0   386.4    ;110.4    ;
+  B6A   B7A   BA   1      180.0   386.4
+  B7A   B1A   BA   1      180.0   386.4    ;
+  B7A   B2A   BA   1      180.0   386.4    ;257.6    ;
+  B7A   B3A   BA   1      180.0   386.4    ;193.2    ;
+  B7A   B4A   BA   1      180.0   386.4    ;154.6    ;
+  B7A   B5A   BA   1      180.0   386.4    ;128.8    ;
+  B7A   B6A   BA   1      180.0   386.4    ;110.4    ;
+  B7A   B7A   BA   1      180.0   386.4
+  PTA   HA    TA   1      180.0    48.3    ;
+  TA    TA    NA   1       90.0    10.6    ;
+  T1A   TA    NA   1       90.0    10.6    ;
+  T2A   TA    NA   1       90.0    10.6    ;
+  T3A   TA    NA   1       90.0    10.6    ;
+  T4A   TA    NA   1       90.0    10.6    ;
+  T5A   TA    NA   1       90.0    10.6    ;
+  T6A   TA    NA   1       90.0    10.6    ;
+  T7A   TA    NA   1       90.0    10.6
+  PTA   HA    BA   1      180.0    48.3    ;
+  BA    BA    NA   1      180.0    85.9    ;
+  B1A   BA    NA   1      180.0   386.4    ;
+  B2A   BA    NA   1      180.0   257.6    ;
+  B3A   BA    NA   1      180.0   193.2    ;
+  B4A   BA    NA   1      180.0   154.6    ;
+  B5A   BA    NA   1      180.0   128.8    ;
+  B6A   BA    NA   1      180.0   110.4    ;
+  B7A   BA    NA   1      180.0    96.6
+  BA    BA    BA   1      180.0   386.4    ; !
+  B1A   BA    BA   1      180.0   386.4    ; !
+  B2A   BA    BA   1      180.0   386.4    ; !
+  B3A   BA    BA   1      180.0   386.4    ; !
+  B4A   BA    BA   1      180.0   386.4    ; !
+  B5A   BA    BA   1      180.0   386.4    ; !
+  B6A   BA    BA   1      180.0   386.4    ; !
+  B7A   BA    BA   1      180.0   386.4    ; !
+  B1A   BA    B1A  1      180.0   386.4    ; !
+  B1A   BA    B2A  1      180.0   386.4    ; !
+  B1A   BA    B3A  1      180.0   386.4    ; !
+  B1A   BA    B4A  1      180.0   386.4    ; !
+  B1A   BA    B5A  1      180.0   386.4    ; !
+  B1A   BA    B6A  1      180.0   386.4    ; !
+  B2A   BA    B2A  1      180.0   386.4    ; !
+  B2A   BA    B3A  1      180.0   386.4    ; !
+  B2A   BA    B4A  1      180.0   386.4    ; !
+  B2A   BA    B5A  1      180.0   386.4    ; !
+  B2A   BA    B6A  1      180.0   386.4    ; !
+  B3A   BA    B3A  1      180.0   386.4    ; !
+  B3A   BA    B4A  1      180.0   386.4    ; !
+  B3A   BA    B5A  1      180.0   386.4    ; !
+  B3A   BA    B6A  1      180.0   386.4    ; !
+  B4A   BA    B4A  1      180.0   386.4    ; !
+  B4A   BA    B5A  1      180.0   386.4    ; !
+  B4A   BA    B6A  1      180.0   386.4    ; !
+  B5A   BA    B5A  1      180.0   386.4    ; !
+  B5A   BA    B6A  1      180.0   386.4    ; !
+  B6A   BA    B6A  1      180.0   386.4    ; !
+  B7A   BA    B1A  1      180.0   386.4    ; !
+  B7A   BA    B2A  1      180.0   386.4    ; !
+  B7A   BA    B3A  1      180.0   386.4    ; !
+  B7A   BA    B4A  1      180.0   386.4    ; !
+  B7A   BA    B5A  1      180.0   386.4    ; !
+  B7A   BA    B6A  1      180.0   386.4    ; !
+  B7A   BA    B7A  1      180.0   386.4    ; !
+  TA    BA    BA   1      180.0   386.4    ; !
+  TA    TA    TA   1      180.0   10.6 ;386.4    ; !
+  TA    BA    B1A  1      180.0   386.4    ; !
+  TA    BA    B2A  1      180.0   386.4    ; !
+  TA    BA    B3A  1      180.0   386.4    ; !
+  TA    BA    B4A  1      180.0   386.4    ; !
+  TA    BA    B5A  1      180.0   386.4    ; !
+  TA    BA    B6A  1      180.0   386.4    ; !
+  TA    BA    B7A  1      180.0   386.4    ; !
+  TA    TA    BA   1      180.0   386.4    ; !
+  TA    TA    B1A  1      180.0   386.4    ; !
+  TA    TA    B2A  1      180.0   386.4    ; !
+  TA    TA    B3A  1      180.0   386.4    ; !
+  TA    TA    B4A  1      180.0   386.4    ; !
+  TA    TA    B5A  1      180.0   386.4    ; !
+  TA    TA    B6A  1      180.0   386.4    ; !
+  TA    TA    B7A  1      180.0   386.4    ; !
+  TA    TA    T1A  1       90.0   10.6 ;386.4    ; !
+  TA    TA    T2A  1       90.0   10.6 ;386.4    ; !
+  TA    TA    T3A  1       90.0   10.6 ;386.4    ; !
+  TA    TA    T4A  1       90.0   10.6 ;386.4    ; !
+  TA    TA    T5A  1       90.0   10.6 ;386.4    ; !
+  TA    TA    T6A  1       90.0   10.6 ;386.4    ; !
+  TA    TA    T7A  1       90.0   10.6 ;386.4    ; !
+  T1A   TA    BA   1      180.0   386.4    ; !
+  T2A   TA    BA   1      180.0   386.4    ; !
+  T3A   TA    BA   1      180.0   386.4    ; !
+  T4A   TA    BA   1      180.0   386.4    ; !
+  T5A   TA    BA   1      180.0   386.4    ; !
+  T6A   TA    BA   1      180.0   386.4    ; !
+  T7A   TA    BA   1      180.0   386.4    ; !
+  TA    T1A   BA   1      180.0   386.4    ; !
+  TA    T2A   BA   1      180.0   386.4    ; !
+  TA    T3A   BA   1      180.0   386.4    ; !
+  TA    T4A   BA   1      180.0   386.4    ; !
+  TA    T5A   BA   1      180.0   386.4    ; !
+  TA    T6A   BA   1      180.0   386.4    ; !
+  TA    T7A   BA   1      180.0   386.4    ; !
+  T1A   T1A   BA   1      180.0   386.4    ; !
+  T1A   T2A   BA   1      180.0   386.4    ; !
+  T1A   T3A   BA   1      180.0   386.4    ; !
+  T1A   T4A   BA   1      180.0   386.4    ; !
+  T1A   T5A   BA   1      180.0   386.4    ; !
+  T1A   T6A   BA   1      180.0   386.4    ; !
+  T1A   T7A   BA   1      180.0   386.4    ; !
+  T2A   T1A   BA   1      180.0   386.4    ; !
+  T2A   T2A   BA   1      180.0   386.4    ; !
+  T2A   T3A   BA   1      180.0   386.4    ; !
+  T2A   T4A   BA   1      180.0   386.4    ; !
+  T2A   T5A   BA   1      180.0   386.4    ; !
+  T2A   T6A   BA   1      180.0   386.4    ; !
+  T2A   T7A   BA   1      180.0   386.4    ; !
+  T3A   T1A   BA   1      180.0   386.4    ; !
+  T3A   T2A   BA   1      180.0   386.4    ; !
+  T3A   T3A   BA   1      180.0   386.4    ; !
+  T3A   T4A   BA   1      180.0   386.4    ; !
+  T3A   T5A   BA   1      180.0   386.4    ; !
+  T3A   T6A   BA   1      180.0   386.4    ; !
+  T3A   T7A   BA   1      180.0   386.4    ; !
+  T4A   T1A   BA   1      180.0   386.4    ; !
+  T4A   T2A   BA   1      180.0   386.4    ; !
+  T4A   T3A   BA   1      180.0   386.4    ; !
+  T4A   T4A   BA   1      180.0   386.4    ; !
+  T4A   T5A   BA   1      180.0   386.4    ; !
+  T4A   T6A   BA   1      180.0   386.4    ; !
+  T4A   T7A   BA   1      180.0   386.4    ; !
+  T5A   T1A   BA   1      180.0   386.4    ; !
+  T5A   T2A   BA   1      180.0   386.4    ; !
+  T5A   T3A   BA   1      180.0   386.4    ; !
+  T5A   T4A   BA   1      180.0   386.4    ; !
+  T5A   T5A   BA   1      180.0   386.4    ; !
+  T5A   T6A   BA   1      180.0   386.4    ; !
+  T6A   T7A   BA   1      180.0   386.4    ; !
+  T6A   T1A   BA   1      180.0   386.4    ; !
+  T6A   T2A   BA   1      180.0   386.4    ; !
+  T6A   T3A   BA   1      180.0   386.4    ; !
+  T6A   T4A   BA   1      180.0   386.4    ; !
+  T6A   T5A   BA   1      180.0   386.4    ; !
+  T6A   T6A   BA   1      180.0   386.4    ; !
+  T7A   T1A   BA   1      180.0   386.4    ; !
+  T7A   T2A   BA   1      180.0   386.4    ; !
+  T7A   T3A   BA   1      180.0   386.4    ; !
+  T7A   T4A   BA   1      180.0   386.4    ; !
+  T7A   T5A   BA   1      180.0   386.4    ; !
+  T7A   T6A   BA   1      180.0   386.4    ; !
+  T7A   T7A   BA   1      180.0   386.4    ; !
+  TA    B1A   BA   1      180.0   386.4    ; !
+  TA    B2A   BA   1      180.0   386.4    ; !
+  TA    B3A   BA   1      180.0   386.4    ; !
+  TA    B4A   BA   1      180.0   386.4    ; !
+  TA    B5A   BA   1      180.0   386.4    ; !
+  TA    B6A   BA   1      180.0   386.4    ; !
+  TA    B7A   BA   1      180.0   386.4    ; !
+  TA    B1A   B1A  1      180.0   386.4    ; !
+  TA    B2A   B1A  1      180.0   386.4    ; !
+  TA    B3A   B1A  1      180.0   386.4    ; !
+  TA    B4A   B1A  1      180.0   386.4    ; !
+  TA    B5A   B1A  1      180.0   386.4    ; !
+  TA    B6A   B1A  1      180.0   386.4    ; !
+  TA    B7A   B1A  1      180.0   386.4    ; !
+  TA    B1A   B2A  1      180.0   386.4    ; !
+  TA    B2A   B2A  1      180.0   386.4    ; !
+  TA    B3A   B2A  1      180.0   386.4    ; !
+  TA    B4A   B2A  1      180.0   386.4    ; !
+  TA    B5A   B2A  1      180.0   386.4    ; !
+  TA    B6A   B2A  1      180.0   386.4    ; !
+  TA    B7A   B2A  1      180.0   386.4    ; !
+  TA    B1A   B3A  1      180.0   386.4    ; !
+  TA    B2A   B3A  1      180.0   386.4    ; !
+  TA    B3A   B3A  1      180.0   386.4    ; !
+  TA    B4A   B3A  1      180.0   386.4    ; !
+  TA    B5A   B3A  1      180.0   386.4    ; !
+  TA    B6A   B3A  1      180.0   386.4    ; !
+  TA    B7A   B3A  1      180.0   386.4    ; !
+  TA    B1A   B4A  1      180.0   386.4    ; !
+  TA    B2A   B4A  1      180.0   386.4    ; !
+  TA    B3A   B4A  1      180.0   386.4    ; !
+  TA    B4A   B4A  1      180.0   386.4    ; !
+  TA    B5A   B4A  1      180.0   386.4    ; !
+  TA    B6A   B4A  1      180.0   386.4    ; !
+  TA    B7A   B4A  1      180.0   386.4    ; !
+  TA    B1A   B5A  1      180.0   386.4    ; !
+  TA    B2A   B5A  1      180.0   386.4    ; !
+  TA    B3A   B5A  1      180.0   386.4    ; !
+  TA    B4A   B5A  1      180.0   386.4    ; !
+  TA    B5A   B5A  1      180.0   386.4    ; !
+  TA    B6A   B5A  1      180.0   386.4    ; !
+  TA    B7A   B5A  1      180.0   386.4    ; !
+  TA    B1A   B6A  1      180.0   386.4    ; !
+  TA    B2A   B6A  1      180.0   386.4    ; !
+  TA    B3A   B6A  1      180.0   386.4    ; !
+  TA    B4A   B6A  1      180.0   386.4    ; !
+  TA    B5A   B6A  1      180.0   386.4    ; !
+  TA    B6A   B6A  1      180.0   386.4    ; !
+  TA    B7A   B6A  1      180.0   386.4    ; !
+  TA    B7A   B7A  1      180.0   386.4    ; !
+  TA    B1A   B7A  1      180.0   386.4    ; !
+  TA    B2A   B7A  1      180.0   386.4    ; !
+  TA    B3A   B7A  1      180.0   386.4    ; !
+  TA    B4A   B7A  1      180.0   386.4    ; !
+  TA    B5A   B7A  1      180.0   386.4    ; !
+  TA    B6A   B7A  1      180.0   386.4    ; !
+  PTA   BA    BA   1      180.0   386.4    ;
+  PTA   BA    B1A  1      180.0   386.4    ; !
+  PTA   BA    B2A  1      180.0   386.4    ; !
+  PTA   BA    B3A  1      180.0   386.4    ; !
+  PTA   BA    B4A  1      180.0   386.4    ; !
+  PTA   BA    B5A  1      180.0   386.4    ; !
+  PTA   BA    B6A  1      180.0   386.4    ; !
+  PTA   BA    B7A  1      180.0   386.4    ; !
+  
+  BA    BA    T1A  1      180.0   386.4    ; !
+  BA    BA    T2A  1      180.0   386.4    ; !
+  BA    BA    T3A  1      180.0   386.4    ; !
+  BA    BA    T4A  1      180.0   386.4    ; !
+  BA    BA    T5A  1      180.0   386.4    ; !
+  BA    BA    T6A  1      180.0   386.4    ; !
+  BA    BA    T7A  1      180.0   386.4    ; !
+
+[ dihedraltypes]
+
+X HA HA X 1 0.0   6.109   1
+X X X X 1   0.0 0.0   1;
