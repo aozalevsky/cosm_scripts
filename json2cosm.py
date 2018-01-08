@@ -4,7 +4,6 @@
 import json
 import argparse
 import string
-import sys
 import copy
 import math
 
@@ -36,12 +35,13 @@ parser.add_argument('--oligs',
 args = parser.parse_args()
 
 
-### do not 3-5 restr if additional oligs
-### lattice crossovers - not only near
-### other constants for olig-ssnear (hexcl)
+# do not 3-5 restr if additional oligs
+# lattice crossovers - not only near
+# other constants for olig-ssnear (hexcl)
 
 
 HELIXDIST = 22.0
+
 
 def honeycomb(row, col, dist=HELIXDIST):
     """Cadnano honeycomb lattice into cartesian"""
@@ -92,7 +92,7 @@ def get_scaffold_path(end):
     res = None
 #    print Path['scaf'][3][5]
 #    print cross_base, cross_vh
-    cross_base = end[1] + k * cross_base + k#+ (k + 1)/2
+    cross_base = end[1] + k * cross_base + k  # + (k + 1)/2
     if cross_vh == 'e3':
         res = ['end', cross_base]
     else:
@@ -106,9 +106,9 @@ def get_scaffold_path(end):
 
 def nextbase(vh, base, seq):
     """ Get next base after """
-    ### works two times in sequence search:
-    ### 1st iteration for next sequence negin point
-    ### 2nd iterantion for sequence checking
+    # works two times in sequence search:
+    # 1st iteration for next sequence negin point
+    # 2nd iterantion for sequence checking
     global last1, last2
     if seq:
         lastc = last2
@@ -135,12 +135,12 @@ def checkseq(vh, base):
     global last2
     last2 = last1
     beg = [vh, base]
-    k = revers(vh, 0)
+    # k = revers(vh, 0) # Commented during code cleaning
     i = 0
-    while [vh, base] != beg or not i: #and Path['scaf'][vh][base] != 'e3':
+    while [vh, base] != beg or not i:  # and Path['scaf'][vh][base] != 'e3':
         if endtmp and Path['scaf'][vh][base] == 'e3':
             return True
-        if seqPath[vh][base] != '-':  #in ['A', 'T', 'G', 'C']:
+        if seqPath[vh][base] != '-':  # in ['A', 'T', 'G', 'C']:
             if seq[i].upper() != compl[seqPath[vh][base]]:
                 return False
         [vh, base] = nextbase(vh, base, True)
@@ -165,15 +165,16 @@ def findnextnot(end, pat):
             if path[i] not in [pat, '-']:
                 cross_base = i
 
-#    cross_vh = path[cross_base]
+    #   cross_vh = path[cross_base]
         if cross_base:
-#            cross_base += 1
+            #   cross_base += 1
             cross_base = end[1] + k * cross_base
 #            print cross_base
 #            if k == -1:
 #                cross_base -= 1
             return [end, [end[0], cross_base]]
-        else: return None
+        else:
+            return None
     else:
         return None
 
@@ -233,7 +234,7 @@ def findconnects(vh, j, number, length, end):
     global connects, needed, add_tmp
     if end == 's':
         return None
-    [x, y] = [0, 0]
+    # [x, y] = [0, 0]
     k = revers(vh, 0)
     seq = [j]
     seq += range(j + k, j + k * length, k)
@@ -245,39 +246,30 @@ def findconnects(vh, j, number, length, end):
                 n = needst.index([vh, i])
                 if i == j:
                     needst[n] = (number, 0)
-#                    add.write('cross ; ' + str(number) + ' 0 ' + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
                     add_tmp.append([number, 0, connst[n][0], connst[n][1]])
                 elif i % HC == HC - 1:
                     needst[n] = (number, dif)
                     if k == -1:
-#                        add.write('cross ; ' + str(number) + ' ' + str(1) + ' '  + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
                         add_tmp.append([number, 1, connst[n][0], connst[n][1]])
                     else:
-#                        add.write('cross ; ' + str(number) + ' ' + str(length - 1) + ' '  + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
-                        add_tmp.append([number, length - 1, connst[n][0], connst[n][1]])
+                        add_tmp.append(
+                            [number, length - 1, connst[n][0], connst[n][1]])
                 else:
                     needst[n] = (number + dif, 0)
-#                    add.write('cross ; ' + str(number + dif) + ' 0 ' + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
-                    add_tmp.append([number + dif, 0, connst[n][0], connst[n][1]])
+                    add_tmp.append(
+                        [number + dif, 0, connst[n][0], connst[n][1]])
             if [vh, i] in needed:
                 n = needed.index([vh, i])
                 if i == j:
                     needed[n] = number
-##                    prconnect(connects[n], number)
                 elif i % HC == HC - 1:
                     if k == 1:
                         needed[n] = number + 1
-##                        prconnect(connects[n], number + 1)
                     else:
                         needed[n] = number
-##                        prconnect(connects[n], number)
                 else:
                     ind.append(dif)
-##                    prconnect(connects[n], number + dif) # and here the function?
-#                    add.write('cross; ' + str(number + dif) + '0 ' + str(connects[n]) + ' 0\n')
                     needed[n] = number + dif
-#                    add.write('cross; ' + str(number) + ' ' + str(c - 1) + ' '  + str(connst[n][0]) + ' ' + str(connst[n][1]) + '\n')
-                #add.write
     for i in seq:
         dif = (i - j) * k
         if Path['stap'][vh][i] not in [vh, 'e5', 'e3', '-']:
@@ -307,39 +299,37 @@ def findconnects(vh, j, number, length, end):
                                         needed.append([pair[0][1], pair[1][1]])
                         else:
                             connst.append((number + dif, 0))
-                            if dif not in ind: ind.append(dif)
+                            if dif not in ind:
+                                ind.append(dif)
                             connects.append(number + dif)
                             needed.append([pair[0][1], pair[1][1]])
-#                            connst.append((number - 1, c - 1))
-#        elif Path['stap'][vh][i] in ['e5', 'e3']:
-#            en = Path['stap'][vh][i]
-#            if dif != -1:
-#                add.write(en + ' ; ' + str(a_sc) + ' ' + str(dif) + '\n')
-#            else:
-#                add.write(en + ' ; ' + str(a_sc - 1) + ' ' + str(c - 1) + '\n')
 
     if ind:
         return ind
     return None
-        #### if crossover at 6/7 in another chain?
-        #### if c-1 - N?
 
 
 def checkreg(pair):
     [[vh1, b1], [vh2, b2]] = pair
-    if not (isinstance(b1, int) and isinstance(b2, int)): return True
+    if not (isinstance(b1, int) and isinstance(b2, int)):
+        return True
     c = -1
     ok1 = False
     ok2 = False
     end = ['-']
     if endtmp:
         end += ['e5', 'e3']
-    while Path['scaf'][vh1][b1 + c] not in end and Path['scaf'][vh2][b2 + c] not in end and c > lim * -1:
+    while (Path['scaf'][vh1][b1 + c] not in end and
+            Path['scaf'][vh2][b2 + c] not in end and
+            c > lim * -1):
         if Path['stap'][vh1][b1 + c] == vh2:
             ok1 = True
         c -= 1
     c = 1
-    while Path['scaf'][vh1][b1 + c] not in end and Path['scaf'][vh2][b2 + c] not in end and c < lim:
+
+    while (Path['scaf'][vh1][b1 + c] not in end and
+            Path['scaf'][vh2][b2 + c] not in end and
+            c < lim):
         if Path['stap'][vh1][b1 + c] == vh2:
             ok2 = True
         c += 1
@@ -349,7 +339,7 @@ def checkreg(pair):
 def crosscheck(one, two, thr):
     '''Check if crossovers in the range'''
     ok = True
-    #print one, two, thr
+    # print one, two, thr
     for pair in [[one, two], [two, thr]]:
         ok = ok & checkreg(pair)
     return ok
@@ -368,6 +358,7 @@ def TtoB(name, atom1):
             return 'B'
         else:
             return 'B' + name[1:]
+
 
 def check_circular(vh, i):
     global valStap
@@ -399,15 +390,18 @@ def check_circular(vh, i):
                     end3 = True
                     valStap[vh][i] = '-'
                 else:
-                    raise Exception('ADMIN: PY1. Smth wrong with staple crossover paths')
+                    raise Exception(
+                        'ADMIN: PY1. Smth wrong with staple crossover paths')
     if nextbase == end5:
         raise Exception('ADMIN: PY1. Smth wrong with staple crossover paths')
+
 
 def staplesends(vh, i, number, length):
     """Find staple ends through path"""
     global needst, connst, add_ends
     rev = (Rows[vh] + Cols[vh]) % 2
-    if not isinstance(i, int): return False
+    if not isinstance(i, int):
+        return False
     if not rev:
         k = 1
     else:
@@ -426,13 +420,13 @@ def staplesends(vh, i, number, length):
 
 def scaffoldcross(vh, i, number):
     """Find and print scaffold crossovers"""
-    global scconn, scneed # check for inserts!
+    global scconn, scneed  # check for inserts!
     rev = (Rows[vh] + Cols[vh]) % 2
     if not rev:
         k = 1
     else:
         k = -1
-    if (vh, i) in scneed: # test this
+    if (vh, i) in scneed:  # test this
         n = scneed.index((vh, i))
 #        t = atomsh[scconn][n]
 #        if number
@@ -452,7 +446,9 @@ def scaffoldcross(vh, i, number):
                             scneed.append((vh, i + k))
                             scconn.append(number)
                     else:
-                        raise Exception('ADMIN: PY1. Error with scaffold restraints (2bp duplex)')
+                        raise Exception(
+                            'ADMIN: PY1. Error with scaffold '
+                            'restraints (2bp duplex)')
                 elif Path['scaf'][vh][i - k] not in [vh, '-']:
                     if (vh, i - k) in atomsh:
                         n = atomsh.index((vh, i - k))
@@ -465,7 +461,11 @@ def outatom(atom):
     """Print atom in pdb"""
     global a_sc
     if len(atom) > 1:
-        template = "{0[0]:<6s}{0[1]:>5d}  {0[2]:<4s}{0[3]:<3s} {0[4]:>1s}{0[5]:>4d}    {0[6]:>8.3f}{0[7]:>8.3f}{0[8]:>8.3f}{0[9]:>6.2f}{0[10]:>6.2f}            {0[11]:<2s}"
+        template = ("{0[0]:<6s}{0[1]:>5d}  {0[2]:<4s}{0[3]:<3s} "
+                    "{0[4]:>1s}{0[5]:>4d}    "
+                    "{0[6]:>8.3f}{0[7]:>8.3f}{0[8]:>8.3f}"
+                    "{0[9]:>6.2f}{0[10]:>6.2f}            {0[11]:<2s}"
+                    )
         t = tuple(atom[:-2])
         pdb.write(template.format(t) + '\n')
     else:
@@ -488,7 +488,7 @@ def addtoout(aname, tname, nlname, ox, oy, z, chain, length, mod):
             t1[1] = 'N'
             outpdb.append(['ATOM', a_sc] + t1 + [a_sc] + t2)
             outmap.append(['I', 'N', a_sc, chain, z])
-#            add.write('I ; N ; ' + str(a_sc) + ' ; ' + str(chain) + ' ; ' + str(z) + '\n')
+
             atomsh.append((chain, z))
             anames.append('N')
             a_sc += 1
@@ -532,8 +532,6 @@ def createatom(z, chain, tname, length, end, modif):
     if a_sc == 1:
         dif = None
     aname = 'D'
-#    atomsh.appenid((chain, z))
-#    anames.append(tname)
     if modif:
         if modif[0] not in ['t', 'e']:
             inserts = modif[0]
@@ -549,7 +547,8 @@ def createatom(z, chain, tname, length, end, modif):
     if inserts or delet:
         for i in inserts:
             if i in delet:
-                raise Exception('USER: Insertion and deletion in the same place.')
+                raise Exception(
+                    'USER: Insertion and deletion in the same place.')
     k = revers(chain, 0)
     if (chain, z) in ssnear:
         n = ssnear.index((chain, z))
@@ -562,7 +561,6 @@ def createatom(z, chain, tname, length, end, modif):
         if ssnear[n]:
             add.write('scaf ; ' + str(ssnear[n]) + ' ; ' + str(a_sc) + '\n')
     nlname = nls[nl]
-    tlname = tname
     savedif = False
     if tname == 'N':
         if delet:
@@ -581,8 +579,10 @@ def createatom(z, chain, tname, length, end, modif):
                 savedif = True
         dif = findconnects(chain, z, a_sc, length, end)
         if dif:
-            if tname not in term: tname = 'PT'
-            if tname in term and tname[0] == 'T': tname = 'T'
+            if tname not in term:
+                tname = 'PT'
+            if tname in term and tname[0] == 'T':
+                tname = 'T'
             if z in inserts:
                 M = 'I'
             elif z in delet:
@@ -600,8 +600,10 @@ def createatom(z, chain, tname, length, end, modif):
                 addtoout(aname, 'N', nlname, ox, oy, z + i * k, chain, 1, M)
         elif inserts or delet:
             if not instype:
-                if tname not in term: tname = 'PT'
-                if tname in term and tname[0] == 'T': tname = 'T'
+                if tname not in term:
+                    tname = 'PT'
+                if tname in term and tname[0] == 'T':
+                    tname = 'T'
                 if z in inserts:
                     M = 'I'
                 elif z in delet:
@@ -611,9 +613,11 @@ def createatom(z, chain, tname, length, end, modif):
                 if length > 1:
                     addtoout(aname, tname, nlname, ox, oy, z, chain, length, M)
                 elif M:
-                    addtoout(aname, tname, nlname, ox, oy, z, chain, length, M + 'e') #first insert
+                    addtoout(aname, tname, nlname, ox, oy,
+                             z, chain, length, M + 'e')  # first insert
                 else:
-                    addtoout(aname, tname, nlname, ox, oy, z, chain, length, None)
+                    addtoout(
+                        aname, tname, nlname, ox, oy, z, chain, length, None)
                 for i in range(1, length):
                     if z + i * k in inserts:
                         M = 'I'
@@ -621,13 +625,15 @@ def createatom(z, chain, tname, length, end, modif):
                         M = 'D'
                     else:
                         M = None
-                    addtoout(aname, 'N', nlname, ox, oy, z + i * k, chain, 1, M)
+                    addtoout(
+                        aname, 'N', nlname, ox, oy, z + i * k, chain, 1, M)
                 dif = True
             else:
                 if not savedif:
                     length = count[tname]
                 if z in delet and tname == 'T1':
-                    raise Exception('USER: Deletion at terminal base pair') # because of T1
+                    raise Exception(
+                        'USER: Deletion at terminal base pair')  # because of T1
                     MT = 'D'
                 if z in inserts:
                     MT = 'I'
@@ -641,7 +647,8 @@ def createatom(z, chain, tname, length, end, modif):
                             M = 'I'
                         elif z + i * k in delet:
                             M = 'D'
-                        addtoout(aname, 'N', nlname, ox, oy, z + i * k, chain, 1, M)
+                        addtoout(
+                            aname, 'N', nlname, ox, oy, z + i * k, chain, 1, M)
                 else:
                     for i in range(1, length):
                         M = None
@@ -649,13 +656,19 @@ def createatom(z, chain, tname, length, end, modif):
                             M = 'I'
                         elif z + (i - length) * k in delet:
                             M = 'D'
-                        addtoout(aname, 'N', nlname, ox, oy, z + (i - length) * k, chain, 1, M)
+                        addtoout(aname, 'N', nlname, ox, oy, z + (
+                            i - length) * k, chain, 1, M)
                     if MT:
-                        addtoout(aname, 'T', nlname, ox, oy, z, chain, length, MT + 'e')
+                        addtoout(
+                            aname, 'T', nlname, ox, oy, z,
+                            chain, length, MT + 'e')
                     else:
-                        addtoout(aname, 'T', nlname, ox, oy, z, chain, 1, None) # !!!
+                        addtoout(
+                            aname, 'T', nlname, ox, oy, z,
+                            chain, 1, None)  # !!!
         else:
-            addtoout(aname, tname, nlname, ox, oy, z, chain, length, None)  # quite normal atom
+            addtoout(aname, tname, nlname, ox, oy, z,
+                     chain, length, None)  # quite normal atom
 
 
 def findtriples(base, coords):
@@ -668,23 +681,37 @@ def findtriples(base, coords):
     rpair4 = [None, None]
     if SQ:
         for i, atom in enumerate(coords):
-            if atom == (row, col + 1): cpair[0] = i
-            elif atom == (row, col + 2): cpair[1] = i
-            elif atom == (row + 1, col): rpair1[0] = i
-            elif atom == (row + 2, col): rpair1[1] = i
+            if atom == (row, col + 1):
+                cpair[0] = i
+            elif atom == (row, col + 2):
+                cpair[1] = i
+            elif atom == (row + 1, col):
+                rpair1[0] = i
+            elif atom == (row + 2, col):
+                rpair1[1] = i
     else:
         for i, atom in enumerate(coords):
-            if atom == (row, col + 1): cpair[0] = i
-            elif atom == (row, col + 2): cpair[1]= i
+            if atom == (row, col + 1):
+                cpair[0] = i
+            elif atom == (row, col + 2):
+                cpair[1] = i
             if (row + col) % 2:
-                if atom == (row + 1, col): rpair3[0] = i; rpair4[0] = i
-                elif atom == (row + 1, col + 1): rpair3[1] = i
-                elif atom == (row + 1, col - 1): rpair4[1] = i
+                if atom == (row + 1, col):
+                    rpair3[0] = i
+                    rpair4[0] = i
+                elif atom == (row + 1, col + 1):
+                    rpair3[1] = i
+                elif atom == (row + 1, col - 1):
+                    rpair4[1] = i
             else:
-                if atom == (row, col + 1): rpair1[0] = i
-                elif atom == (row + 1, col + 1): rpair1[1] = i
-                elif atom == (row, col - 1): rpair2[0] = i
-                elif atom == (row + 1, col - 1): rpair2[1] = i
+                if atom == (row, col + 1):
+                    rpair1[0] = i
+                elif atom == (row + 1, col + 1):
+                    rpair1[1] = i
+                elif atom == (row, col - 1):
+                    rpair2[0] = i
+                elif atom == (row + 1, col - 1):
+                    rpair2[1] = i
     for pair in [cpair, rpair1, rpair2, rpair3, rpair4]:
         if None not in pair:
             res += [pair]
@@ -723,7 +750,8 @@ try:
 
     for strand in strands:
         num = strand["num"]
-        if num in vhNums: raise Exception("USER: Double strand names in json file")
+        if num in vhNums:
+            raise Exception("USER: Double strand names in json file")
         vhNums.append(num)
         Rows[num] = strand["row"]
         Cols[num] = strand["col"]
@@ -818,7 +846,8 @@ try:
         allPath[vh] = joinedPath
         seqPath[vh] = len(joinedPath) * ['-']
 
-except:
+except Exception as e:
+    print(e)
     raise Exception('USER: Error in input json file')
 
 
@@ -836,7 +865,8 @@ for vh in loop:
     for i, n in enumerate(loop[vh]):
         if n != 0:
             if n > 1:
-                raise Exception('USER: More than one base inserted in one place')
+                raise Exception(
+                    'USER: More than one base inserted in one place')
             else:
                 insert[(vh, i)] = n
 
@@ -844,7 +874,8 @@ for vh in skip:
     for i, n in enumerate(skip[vh]):
         if n != 0:
             if n > 1:
-                raise Exception('USER: More than one base deleted in one place')
+                raise Exception(
+                    'USER: More than one base deleted in one place')
             else:
                 deletion[(vh, i)] = -1 * n
                 mapf.write('D ' + str(i) + ':' + str(vhNums.index(vh)) + '\n')
@@ -859,20 +890,20 @@ elif args.lattice in ['s', 'sq', 'square']:
 else:
     raise Exception('ADMIN: Wrong lattice type')
 if SQ:
-    lim = 36+7
+    lim = 36 + 7
     HC = 8
 else:
-    lim = 21+6
+    lim = 21 + 6
     HC = 7
 
 # ------------- output files ----------
 
 
-#ch = (Rows[0] + Cols[0]) % 2
+# ch = (Rows[0] + Cols[0]) % 2
 
 # ---------------- end5 definition (if circular)  ---------------
 
-endtmp = True # indicator whether scaffold is circular
+endtmp = True  # indicator whether scaffold is circular
 if not end5scaf:
     if SQ:
         dl = 36
@@ -906,7 +937,7 @@ if not end5scaf:
         while not end and p in allPath:
             b = 1
             while not end and b < len(Path['scaf'][p]):
-                if allPath[p][b-1 : b+2] == ['d']*3:
+                if allPath[p][b - 1: b + 2] == ['d'] * 3:
                     end = True
                     end5scaf = [p, b]
                     end3scaf = [p, b + revers(p, 1)]
@@ -947,9 +978,11 @@ if args.seq and args.oligs:
                     line[0] = line[0].split('[')
                     line[1] = line[1].split('[')
                     if line[2][1] != '?':
-                        seqPath[int(line[0][0])][int(line[0][1][:-1])] = line[2][0]
+                        seqPath[int(line[0][0])][
+                            int(line[0][1][:-1])] = line[2][0]
                     if line[2][-1] != '?':
-                        seqPath[int(line[1][0])][int(line[1][1][:-1])] = line[2][-1]
+                        seqPath[int(line[1][0])][
+                            int(line[1][1][:-1])] = line[2][-1]
     except:
         raise Exception('USER: Error in staple csv file')
     for vh in seqPath:
@@ -989,9 +1022,9 @@ count = {'T1': 1, 'T2': 2, 'T3': 3, 'T4': 4, 'T5': 5,
          'T6': 6, 'H': 7, 'T7': 7, 'T': 7, 'PT': 7, 'S': 1,
          'TT': 7, 'T1T': 1, 'T2T': 2, 'T3T': 3, 'T4T': 4,
          'T5T': 5, 'T6T': 6, 'T7T': 7, 'O': 1, 'OT': 1, 'N': 1,
-         'B1' : 1, 'B2': 2, 'B3': 3, 'B4': 4, 'B5': 5, 'B6': 6,
-         'B7' : 7, 'B1T': 1, 'B2T' : 2, 'B3T' : 3, 'B4T' : 4,
-         'B5T' : 5, 'B6T': 6, 'B7T' : 7, 'B': 7, 'BT': 7}
+         'B1': 1, 'B2': 2, 'B3': 3, 'B4': 4, 'B5': 5, 'B6': 6,
+         'B7': 7, 'B1T': 1, 'B2T': 2, 'B3T': 3, 'B4T': 4,
+         'B5T': 5, 'B6T': 6, 'B7T': 7, 'B': 7, 'BT': 7}
 term = ['T', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'TT', 'T1T', 'T2T',
         'T3T', 'T4T', 'T5T', 'T6T', 'T7T', 'T7',
         'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7',
@@ -1009,7 +1042,8 @@ if SQ:
 scheme = []
 s = 'chain'
 k = revers(end5scaf[0], 0)
-mapf.write('L ' + str(end5scaf[1]) + ':' + str(vhNums.index(end5scaf[0])) + '\n')
+mapf.write('L ' + str(end5scaf[1]) + ':' + str(
+    vhNums.index(end5scaf[0])) + '\n')
 [hm, s] = pathandtype(end5scaf, s)
 end = hm[1]
 scheme.append(hm[0])
@@ -1060,27 +1094,32 @@ for part in scheme:
         dele1 = []
         dele2 = []
         dele = []
-        beg = part[2][0] - part[2][0] % HC + HC * (k + 1) / 2 * bool(part[2][0] % HC)
-        end = part[2][1] - part[2][1] % HC - HC * (k - 1) / 2 * bool(part[2][1] % HC)
+        beg = part[2][0] - part[2][0] % HC + \
+            HC * (k + 1) / 2 * bool(part[2][0] % HC)
+        end = part[2][1] - part[2][1] % HC - \
+            HC * (k - 1) / 2 * bool(part[2][1] % HC)
         isH = False
         for base in range(part[2][0], part[2][1] + k, k):
             if base % HC:
                 isH = True
         if (end - beg) * k >= 0 and isH:
-            part[2] = [(part[2][0], (beg - part[2][0]) * k), range(beg, end + HC * k, HC * k),
-                       (part[2][1], (part[2][1] - end) * k)]
+            part[2] = [(
+                part[2][0], (
+                    beg - part[2][0]) * k), range(beg, end + HC * k, HC * k),
+                (part[2][1], (part[2][1] - end) * k)]
 
             # find insertions
             for i in range(part[2][0][0], part[2][1][0], k):    # first term
                 if (part[1], i) in insert:
                     ins1.append(i)
             part[2][0] = tuple(list(part[2][0]) + [ins1])
-            for i in range(part[2][1][-1] + k, part[2][2][0] + k, k):   # last term
+            # last term
+            for i in range(part[2][1][-1] + k, part[2][2][0] + k, k):
                 if (part[1], i) in insert:
                     ins2.append(i)
             part[2][2] = tuple(list(part[2][2]) + [ins2])
             if len(part[2][1]) > 1:
-                for i, b in enumerate(part[2][1][:-1]): # center
+                for i, b in enumerate(part[2][1][:-1]):  # center
                     ins.append([])
                     for l in range(b, b + k * HC, k):
                         if (part[1], l) in insert:
@@ -1095,7 +1134,7 @@ for part in scheme:
                     ins.append([])
             part.append(ins)
 
-            #find deletions
+            # find deletions
 
             for i in range(part[2][0][0], part[2][1][0], k):
                 if (part[1], i) in deletion:
@@ -1141,7 +1180,8 @@ for part in scheme:
         part[2] = range(part[2][0], part[2][1] + k, k)
         for i in part[2]:
             if (part[1], i) in insert or (part[1], i) in deletion:
-                raise Exception('USER: Insertion or deletion in single-stranded region')
+                raise Exception(
+                    'USER: Insertion or deletion in single-stranded region')
 
 # ------------ print scaffold particles -----------
 # ------------ print staple crossovers ------------
@@ -1215,7 +1255,7 @@ for v in allPath:
                             d = not d
                         else:
                             sstrans1.append((v, i))
-                            sstrans2.append((v1, i1))  ### check v or smth
+                            sstrans2.append((v1, i1))  # check v or smth
 
 cnct = open(args.cnct, 'w')
 cnct.write('[ distance_restraints ]\n')
@@ -1233,31 +1273,40 @@ for a, part in enumerate(scheme):
         tmpins = 0
         tmpdel = 0
         if part[2][0]:
-            createatom(part[2][0][0], part[1], n, part[2][0][1], 'b', ('t', part[2][0][2], part[2][0][3]))
+            createatom(part[2][0][0], part[1], n, part[2][
+                       0][1], 'b', ('t', part[2][0][2], part[2][0][3]))
             if len(part[2][1]) <= 1:
                 if part[2][2]:
-                    createatom(part[2][1][0], part[1], 'PT', 1, 0, (part[3][0], part[4][0]))
+                    createatom(part[2][1][0], part[
+                               1], 'PT', 1, 0, (part[3][0], part[4][0]))
                 else:
-                    createatom(part[2][1][0], part[1], 'T', 1, 0, (part[3][0], part[4][0]))
+                    createatom(part[2][1][0], part[
+                               1], 'T', 1, 0, (part[3][0], part[4][0]))
             else:
-                createatom(part[2][1][0], part[1], 'PT', HC, 0, (part[3][0], part[4][0]))
+                createatom(part[2][1][0], part[
+                           1], 'PT', HC, 0, (part[3][0], part[4][0]))
 
         else:
-            createatom(part[2][1][0], part[1], m, HC, 'b', (part[3][0], part[4][0]))
+            createatom(
+                part[2][1][0], part[1], m, HC, 'b', (part[3][0], part[4][0]))
 
         # center
         for i, atom in enumerate(part[2][1][1:-1]):
-            createatom(atom, part[1], pc, HC, 0, (part[3][i + 1], part[4][i + 1]))
+            createatom(atom, part[1], pc, HC, 0, (
+                part[3][i + 1], part[4][i + 1]))
 
         # last term
 
         if part[2][2]:
             if len(part[2][1]) > 1:
-                createatom(part[2][1][-1], part[1], 'PT', part[2][2][1], 0, (part[3][-1], part[4][-1]))
-            createatom(part[2][2][0], part[1], 'T' + str(part[2][2][1]), 1, 'e', ('e', part[2][2][2], part[2][2][3]))
+                createatom(part[2][1][-1], part[1], 'PT', part[
+                           2][2][1], 0, (part[3][-1], part[4][-1]))
+            createatom(part[2][2][0], part[1], 'T' + str(
+                part[2][2][1]), 1, 'e', ('e', part[2][2][2], part[2][2][3]))
         else:
             if len(part[2][1]) > 1:
-                createatom(part[2][1][-1], part[1], 'T', 1, 'e', (part[3][-1], part[4][-1]))
+                createatom(part[2][1][-1], part[
+                           1], 'T', 1, 'e', (part[3][-1], part[4][-1]))
     elif part[0] == 's':
         if a == 0:
             createatom(part[2][0], part[1], 'S', 1, 's', False)
@@ -1314,9 +1363,9 @@ for a, part in enumerate(scheme):
 # test crossovers olig-olig
 
 
-###### !!!! print sstrans!!! if we need
+# !!!! print sstrans!!! if we need
 
-#tn = open(args.tn, 'w')
+# tn = open(args.tn, 'w')
 # sequence
 
 
@@ -1346,10 +1395,11 @@ while len(done) < len(ssoligs):
     createatom(base, vh, 'OT', 1, 's')
     n = ssoligs.index((vh, base))
     if ssnear[n]:
-        cnct.write(str(ssnear[n]) + '\t' + str(a_sc - 1) + '\t1\t' + str(l) + '\t1\t0.33\t0.35\t0.37\t0.2\t; ssnear\n')
+        cnct.write(str(ssnear[n]) + '\t' + str(a_sc - 1) + '\t1\t' + str(
+            l) + '\t1\t0.33\t0.35\t0.37\t0.2\t; ssnear\n')
         l += 1
-        add.write('cross ; ' + ' '.join(map(str, [ssnear[n], 0]))  + ' ' +
-              ' '.join(map(str, [a_sc - 1, 0])) + '\n')
+        add.write('cross ; ' + ' '.join(map(str, [ssnear[n], 0])) + ' ' +
+                  ' '.join(map(str, [a_sc - 1, 0])) + '\n')
     base += k
     while (vh, base) not in ssoligs:
         k = revers(vh, 0)
@@ -1368,12 +1418,13 @@ while len(done) < len(ssoligs):
     createatom(base, vh, 'O', 1, 's')
     n = ssoligs.index((vh, base))
     if ssnear[n]:
-        cnct.write(str(ssnear[n]) + '\t' + str(a_sc - 1) + '\t1\t' + str(l) + '\t1\t0.33\t0.35\t0.37\t0.2\n')
+        cnct.write(str(ssnear[n]) + '\t' + str(
+            a_sc - 1) + '\t1\t' + str(l) + '\t1\t0.33\t0.35\t0.37\t0.2\n')
         l += 1
         add.write('cross ; ' + ' '.join(map(str, [ssnear[n], 0])) + ' ; ' +
                   ' '.join(map(str, [a_sc - 1, 0])) + '\n')
 
-#tn.close()
+# tn.close()
 outpdb[0][3] += 'T'
 
 for i, c in enumerate(atomsh):
@@ -1401,6 +1452,7 @@ for i in add_ends:
         p_i = allPath[i[1]][i[2] - revers(i[1], 0)]
     add.write(i[0] + ' ; ' + str(p_i[0]) + ' ' + str(p_i[1]) + '\n')
 
+
 def nsearch(b, a, direct):
     # determine direct
     i = allPath[b][a]
@@ -1414,20 +1466,21 @@ def wr_restr(i1, i2):
     if i1[1] not in [0, 1, HC - 1] or i2[1] not in [0, 1, HC - 1]:
         raise Exception('ADMIN: PY1. Restraints error')
     if (i1[0], i2[0]) not in R_DONE and (i2[0], i1[0]) not in R_DONE:
-#        print i1, i2, l, len(R_DONE)
-        cnct.write(str(i1[0]) + '\t' + str(i2[0]) + '\t1\t' + str(l) + '\t1\t1.8\t1.85\t1.9\t1.4\n')
+        # print i1, i2, l, len(R_DONE)
+        cnct.write(str(i1[0]) + '\t' + str(i2[0]) +
+                   '\t1\t' + str(l) + '\t1\t1.8\t1.85\t1.9\t1.4\n')
         l += 1
         R_DONE.append((i1[0], i2[0]))
-#        print i1[0], i2[0]
         prconnect(i1[0], i2[0])
 
 
 def wr_add(i1, i2):
     global T_DONE
     if (i1, i2) not in T_DONE and (i1, i2) not in T_DONE:
-        add.write('cross ; ' + ' '.join(map(str, i1)) + ' ' + ' '.join(map(str, i2)) + '\n')
+        add.write(
+            'cross ; ' + ' '.join(map(str, i1)) + ' ' +
+            ' '.join(map(str, i2)) + '\n')
         T_DONE.append((i1, i2))
-#    prconnect(i1[0], i2[0])
 
 PAIR_DONE = []
 R_DONE = []
@@ -1461,9 +1514,9 @@ for pair in trans:
             wr_add(i1, i2)
             wr_restr(i1, i2)
 
-#print R_DONE, len(R_DONE)
+# print R_DONE, len(R_DONE)
 
-#    if a1 % HC == HC - 1 and a2 % HC == HC - 1: #and not pair
+# if a1 % HC == HC - 1 and a2 % HC == HC - 1: #and not pair
 #        direct = -1
 #        i1 = nsearch(b1, a1, direct)
 #        i2 = nsearch(b2, a2, direct)
@@ -1492,7 +1545,12 @@ pdb = open(args.output, 'w')
 prevB = False
 for atom in outpdb:
     if len(atom) > 1:
-        if atom[3][0] == 'T' and atom[1] < a_sc - 1 and atom[1] > 1 and len(outpdb[atom[1]]) > 1 and not prevB:
+        if (atom[3][0] == 'T' and
+            atom[1] < a_sc - 1 and
+            atom[1] > 1 and
+            len(outpdb[atom[1]]) > 1 and
+                not prevB):
+
             if outpdb[atom[1]][3] != 'S' and outpdb[atom[1] - 2][3] != 'S':
                 new_name = TtoB(atom[3], atom[1])
                 prevB = True
@@ -1512,7 +1570,7 @@ for atom in outmap:
     atom[3] = vhNums.index(atom[3])
     mapf.write("{0[0]:s} {0[1]:s}:{0[2]:d}:{0[3]:d}:{0[4]:d}\n".format(atom))
 
-#for i in range(len(connst)):
+# for i in range(len(connst)):
 #    add.write('cross ; ' + ' '.join(map(str, connst[i])) + ' ; ' +
 #              ' '.join(map(str, needst[i])) + '\n')
 cnct.write('; scaffold crossovers\n')
@@ -1524,8 +1582,10 @@ l += 1
 for i in range(len(scconn)):
     if not (isinstance(scconn[i], int) and isinstance(scneed[i], int)):
         raise Exception('ADMIN: PY1. Error with scaffold restraints')
-    cnct.write(str(scconn[i]) + '\t' + str(scneed[i]) + '\t1\t'
-               + str(l) + '\t1\t0.33\t0.35\t0.37\t2.5\n')
+    cnct.write(
+        str(scconn[i]) + '\t' + str(scneed[i]) + '\t1\t' + str(l) +
+        '\t1\t0.33\t0.35\t0.37\t2.5\n'
+    )
     l += 1
     add.write('scaf ; ' + str(scconn[i]) + ' ; ' + str(scneed[i]) + '\n')
 cnct.write('\n')
@@ -1534,7 +1594,7 @@ add.close()
 
 cnct.write('; lattice restraints\n')
 if len(connects) != len(needed):
-    print 'Smth with connects is wrong' # ~ error
+    print('Smth with connects is wrong')  # ~ error
 cnct.write('\n')
 
 template = "{0[0]:<6s}{0[1]:>5d}{0[2]:>5d}"
@@ -1572,6 +1632,9 @@ for x in trcoords:
             two = atomsh[triples[x][pair[0]]]
             thr = atomsh[triples[x][pair[1]]]
             if crosscheck(one, two, thr):
-                cnct.write(str(triples[x][i]) + '\t' + str(triples[x][pair[1]]) + '\t1\t' + str(l) + '\t1\t' + a + '\t' + b + '\t' + c + '\t1.5\n')
+                cnct.write(
+                    str(triples[x][i]) + '\t' + str(triples[x][pair[1]]) +
+                    '\t1\t' + str(l) + '\t1\t' + a + '\t' + b + '\t' + c +
+                    '\t1.5\n')
                 l += 1
 cnct.close()
