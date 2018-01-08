@@ -4,9 +4,6 @@
 
 #set -e -x
 
-# for aozalevsky:
-#   read comments!
-
 BASE=$(dirname $(readlink -f ${0}))
 export PATH=${BASE}:${PATH}
 export GMXLIB=${BASE}/static/gromacs
@@ -39,13 +36,12 @@ esac
 
 function python_wrapper {
   err=$(${1} 2>&1)
- 
   # search for error message in python outpyt
   # with true fix for grep return code 
   error=$(echo "${err}" | grep -o "Exception: .*")
   if [[ ${error} ]]
     then
-      error=$(echo ${error} | sed "s/^*Exception: //")
+      error=$(echo ${error} | sed "s/Exception: //g")
       error_exit "${error}"
   fi
 }
@@ -96,39 +92,36 @@ stage 'Preparing files'
 
 job=${json%.json}
 
-lattice=$(val_lattice.py ${job}.json) || error_exit "USER: Error in input json file"
-
-if [[ $lattice == 'u' ]]
-    then
-    echo 'Lattice type required' # ask user for lattice type
-    exit 1
-fi
+python_wrapper "util.py ${job}.json"
+lattice=$(util.py ${job}.json)
 
 ### Select proper forcefield
 
-if [[ "$lattice" = "h" ]]
-  then 
-    ccg="cosm"
-  elif [[ "$lattice" = "s" ]]
-    then 
-      ccg="cosmsq"
-  else
-    error_exit "Wrong lattice type" 
-fi
+case "${lattice}" in
 
+    "h")
+    ccg="cosm";;
+
+    "s")
+    ccg="cosmsq";;
+
+    "*")
+    error_exit "Wrong lattice type" ;;
+
+esac
 
 ## Check GC ratio
 
 if [[ -z ${gc} ]]
-then 
-gc=${GC}
+    then 
+        gc=${GC}
 fi
 
 python_wrapper "json2cosm.py -i ${job}.json -o ${job}_tmp.pdb -r tmp_r -t ${job}_t -l ${lattice} -m ${job}_map"
 python_wrapper "cosm_restr.py -i ${job}_tmp.pdb -t ${job}_t -l ${lattice} -o ${job}_r"
+
 grep -h "; 5' - 3' ends" tmp_r >> ${job}_r
 rm -f tmp_r
-
 
 ### Very strange way to detect scaffold type. But ok, let it be ###
 
