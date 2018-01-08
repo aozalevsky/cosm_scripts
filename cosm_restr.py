@@ -88,16 +88,14 @@ def divide_ds(DS, coords):
             if (x_ == x) and (y_ == y):
                 pass
             else:
-               DS_.append(ds_)
-               ds_ = list()
-               x = x_
-               y = y_
+                DS_.append(ds_)
+                ds_ = list()
+                x = x_
+                y = y_
             ds_.append(p)
 
     return DS_
-                 
 
-        
 
 # In[74]:
 
@@ -369,7 +367,7 @@ for n in range(len(junctions) - 2):
                     iin = ii - p
                     jjn = jj + delta - p
                     # print i, iin, jjn
-                    if i < 0 or  iin < 0 or jjn < 0:
+                    if i < 0 or iin < 0 or jjn < 0:
                         raise IndexError
 
                     lplane = ((rlabels[i + p] in LAT) and
@@ -412,7 +410,7 @@ torsions = list()
 
 for ds_i_ in range(len(DS)):
     ds_i = DS[ds_i_]
-    
+
     if len(ds_i) == 1:
         continue
 
@@ -426,11 +424,11 @@ for ds_i_ in range(len(DS)):
         for s in scross:
 
             if (s[0] in ds_i and s[1] in ds_j):
-            	i_, j_ = s
+                i_, j_ = s
 
             elif (s[1] in ds_i and s[0] in ds_j):
-            	j_, i_ = s
-		
+                j_, i_ = s
+
             else:
                 continue
 
@@ -442,12 +440,11 @@ for ds_i_ in range(len(DS)):
             elif not t_e or j_ > t_e[0]:
                 t_e = s
 
-
-	if t_s and t_e:
-	        torsions.append((
-        	    t_s[1], t_s[0],
-	            t_e[0], t_e[1],
-        	))
+        if t_s and t_e:
+            torsions.append((
+                t_s[1], t_s[0],
+                t_e[0], t_e[1],
+            ))
 
 cgtop.torsions = torsions
 
@@ -473,11 +470,10 @@ def write_fullatom_pdb(fname, top):
     with open(fname, 'w') as f:
         f.write('\n[ dihedrals ]\n')
         f.write('; torsion angles\n')
-        
+
         for t in top.torsions:
             t = map(lambda x: int(x) + 1, t)
             f.write(' '.join(map(str, t)) + " 1 " + '\n')
-        
 
         N = 1
         f.write('\n[ distance_restraints ]\n')
@@ -508,7 +504,7 @@ def write_fullatom_pdb(fname, top):
             i, j = s
             f.write(RF % (i + 1, j + 1, N) + ' '.join(map(str, LR)) + '\n')
             N += 1
-        
+
 
 # In[130]:
 
