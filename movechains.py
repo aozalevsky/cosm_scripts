@@ -20,10 +20,17 @@ for line in infile:
         else:
             while (x, y, z) in call:
                 x += 0.2
-            outfile.write(" ".join([beg, "{0[0]:>8.3f}{0[1]:>8.3f}{0[2]:>8.3f}".format((x, y, z)), end]))
+            outfile.write(
+                " ".join(
+                    [
+                        beg,
+                        "{0[0]:>8.3f}{0[1]:>8.3f}{0[2]:>8.3f}".format(
+                            (x, y, z)),
+                        end
+                    ]))
             call.append((x, y, z))
     elif line.strip():
         outfile.write(line)
-       
+
 infile.close()
-outfile.close() 
+outfile.close()
