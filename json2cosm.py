@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import json
 import argparse
 import string
 import copy
 import math
+import util
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', required=True,
@@ -321,7 +321,7 @@ def checkreg(pair):
         end += ['e5', 'e3']
     while (Path['scaf'][vh1][b1 + c] not in end and
             Path['scaf'][vh2][b2 + c] not in end and
-            c > lim * -1):
+            c > LIM * -1):
         if Path['stap'][vh1][b1 + c] == vh2:
             ok1 = True
         c -= 1
@@ -329,7 +329,7 @@ def checkreg(pair):
 
     while (Path['scaf'][vh1][b1 + c] not in end and
             Path['scaf'][vh2][b2 + c] not in end and
-            c < lim):
+            c < LIM):
         if Path['stap'][vh1][b1 + c] == vh2:
             ok2 = True
         c += 1
@@ -544,11 +544,9 @@ def createatom(z, chain, tname, length, end, modif):
     else:
             inserts = None
             delet = None
-    if inserts or delet:
-        for i in inserts:
-            if i in delet:
-                raise Exception(
-                    'USER: Insertion and deletion in the same place.')
+    if set(inserts) and set(delet):
+        raise Exception(
+            'USER: Insertion and deletion in the same place.')
     k = revers(chain, 0)
     if (chain, z) in ssnear:
         n = ssnear.index((chain, z))
@@ -722,13 +720,11 @@ outpdb = []
 outpdbc = []
 outmap = []
 
+
+obj = util.load_json(args.input)
+util.check_json_version(obj)
+
 try:
-    file = open(args.input, 'r')
-    lines = file.readlines()
-    stringl = ""
-    for line in lines:
-        stringl += line
-    obj = json.loads(stringl)
     strands = obj["vstrands"]
     name = obj["name"]
 
@@ -850,11 +846,15 @@ except Exception as e:
     print(e)
     raise Exception('USER: Error in input json file')
 
+print 'end5scaf', end5scaf
+print 'end3scaf', end3scaf
 
 for v in allPath:
     vh = allPath[v]
     if 'o' in vh:
         raise Exception('USER: Single-stranded staple')
+
+
 # ------------- loop --------------
 add = open(args.top, 'w')
 insert = {}
@@ -863,23 +863,22 @@ mapf = open(args.map, 'w')
 
 for vh in loop:
     for i, n in enumerate(loop[vh]):
-        if n != 0:
-            if n > 1:
-                raise Exception(
-                    'USER: More than one base inserted in one place')
-            else:
-                insert[(vh, i)] = n
+        # if n != 0:  # Useless check
+        if n > 1:
+            raise Exception(
+                'USER: More than one base inserted in one place')
+        else:
+            insert[(vh, i)] = n
 
 for vh in skip:
     for i, n in enumerate(skip[vh]):
-        if n != 0:
-            if n > 1:
-                raise Exception(
-                    'USER: More than one base deleted in one place')
-            else:
-                deletion[(vh, i)] = -1 * n
-                mapf.write('D ' + str(i) + ':' + str(vhNums.index(vh)) + '\n')
-#                add.write('D ' + str(i) + ';' + str((vh)) + '\n')
+        # if n != 0:
+        if abs(n) > 1:
+            raise Exception(
+                'USER: More than one base deleted in one place')
+        elif n != 0:
+            deletion[(vh, i)] = abs(n)
+            mapf.write('D ' + str(i) + ':' + str(vhNums.index(vh)) + '\n')
 
 # ------------ lattice ------------
 
@@ -889,11 +888,12 @@ elif args.lattice in ['s', 'sq', 'square']:
     SQ = True
 else:
     raise Exception('ADMIN: Wrong lattice type')
+
 if SQ:
-    lim = 36 + 7
+    LIM = 36 + 7
     HC = 8
 else:
-    lim = 21 + 6
+    LIM = 21 + 6
     HC = 7
 
 # ------------- output files ----------
