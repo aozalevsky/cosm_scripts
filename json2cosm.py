@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import json
 import argparse
 import string
 import copy
 import math
+import util
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', required=True,
@@ -722,13 +722,10 @@ outpdb = []
 outpdbc = []
 outmap = []
 
+obj = util.load_json(args.input)
+util.check_json_version(obj)
+
 try:
-    file = open(args.input, 'r')
-    lines = file.readlines()
-    stringl = ""
-    for line in lines:
-        stringl += line
-    obj = json.loads(stringl)
     strands = obj["vstrands"]
     name = obj["name"]
 
@@ -879,7 +876,6 @@ for vh in skip:
             else:
                 deletion[(vh, i)] = -1 * n
                 mapf.write('D ' + str(i) + ':' + str(vhNums.index(vh)) + '\n')
-#                add.write('D ' + str(i) + ';' + str((vh)) + '\n')
 
 # ------------ lattice ------------
 
