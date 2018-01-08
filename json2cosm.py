@@ -544,9 +544,11 @@ def createatom(z, chain, tname, length, end, modif):
     else:
             inserts = None
             delet = None
-    if set(inserts) and set(delet):
-        raise Exception(
-            'USER: Insertion and deletion in the same place.')
+    if inserts or delet:
+        for i in inserts:
+            if i in delet:
+                raise Exception(
+                    'USER: Insertion and deletion in the same place.')
     k = revers(chain, 0)
     if (chain, z) in ssnear:
         n = ssnear.index((chain, z))
@@ -720,7 +722,6 @@ outpdb = []
 outpdbc = []
 outmap = []
 
-
 obj = util.load_json(args.input)
 util.check_json_version(obj)
 
@@ -846,39 +847,52 @@ except Exception as e:
     print(e)
     raise Exception('USER: Error in input json file')
 
-print 'end5scaf', end5scaf
-print 'end3scaf', end3scaf
 
 for v in allPath:
     vh = allPath[v]
     if 'o' in vh:
         raise Exception('USER: Single-stranded staple')
-
-
 # ------------- loop --------------
 add = open(args.top, 'w')
 insert = {}
 deletion = {}
 mapf = open(args.map, 'w')
 
+# loop corresponds to insertions
 for vh in loop:
     for i, n in enumerate(loop[vh]):
-        # if n != 0:  # Useless check
-        if n > 1:
+        # 0 means no deletion or insertion
+        if n == 0:
+            pass
+        # Normally it should be just 1 nucleotide
+        elif n == 1:
+            insert[(vh, i)] = n
+        # N - means how many nucleotides to insert
+        elif n > 1:
             raise Exception(
                 'USER: More than one base inserted in one place')
         else:
-            insert[(vh, i)] = n
+            raise Exception(
+                'USER: Wrong insertion definition')
 
+# skip corresponds to deletions
 for vh in skip:
     for i, n in enumerate(skip[vh]):
-        # if n != 0:
-        if abs(n) > 1:
+        # 0 means no deletion or insertion
+        if n == 0:
+            pass
+        # Normally it should be just 1 nucleotide (-1)
+        elif abs(n) == 1:
+            deletion[(vh, i)] = abs(n)
+            mapf.write('D %d:%d\n' % (i, vhNums.index(vh)))
+        # -N - means how many nucleotides to delete
+        elif abs(n) > 1:
             raise Exception(
                 'USER: More than one base deleted in one place')
-        elif n != 0:
-            deletion[(vh, i)] = abs(n)
-            mapf.write('D ' + str(i) + ':' + str(vhNums.index(vh)) + '\n')
+        else:
+            raise Exception(
+                'USER: Wrong deletion definition')
+
 
 # ------------ lattice ------------
 
@@ -888,7 +902,6 @@ elif args.lattice in ['s', 'sq', 'square']:
     SQ = True
 else:
     raise Exception('ADMIN: Wrong lattice type')
-
 if SQ:
     LIM = 36 + 7
     HC = 8
