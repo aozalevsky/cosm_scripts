@@ -121,6 +121,7 @@ def validate_json_old(f):
 
     return (flag, msg, error)
 
+
 def validate_json(f):
     # initiate variables
     flag, msg, error = True, 'JSON is OK.', ''
@@ -129,15 +130,14 @@ def validate_json(f):
     import json
 
     try:
-        obj = json.load(f)
-    
+        json.load(f)
+
     except:
         flag = False
         msg = ''
         error = 'JSON file is invalid.'
 
     return (flag, msg, error)
-
 
 
 def validate_lattice(f):
@@ -185,8 +185,9 @@ def validate_staples(f):
     for line in f:
         try:
             validLine.parseString(line)
-        except pg.ParseException, pe:
-            flag, msg, error = False, pe.markInputline('?'), 'Invalid staples. ' + pe.msg
+        except pg.ParseException as pe:
+            flag, msg, error = False, pe.markInputline(
+                '?'), 'Invalid staples. ' + pe.msg
             break
 
     return (flag, msg, error)
@@ -204,7 +205,7 @@ def validate_sequence(f):
     for line in f:
         try:
             validLine.parseString(line.upper())
-        except pg.ParseException, pe:
+        except pg.ParseException as pe:
             flag = False
             error = 'Illegal symbols in DNA sequence.'
             msg = pe.markInputline('?')
@@ -213,11 +214,11 @@ def validate_sequence(f):
 
 
 def pretty(t, flag, msg=None, error=None):
-    print '-' * 80
-    print 'TYPE:', t
-    print 'MSG:', msg
-    print 'ERROR:', error
-    print '-' * 80
+    print('-' * 80)
+    print('TYPE:', t)
+    print('MSG:', msg)
+    print('ERROR:', error)
+    print('-' * 80)
 
 
 if __name__ == '__main__':
@@ -236,7 +237,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.json:
-#	print validate_json(args.json)
+        #   print validate_json(args.json)
         pretty('JSON', *validate_json(args.json))
         args.json.close()
     if args.lattice:
