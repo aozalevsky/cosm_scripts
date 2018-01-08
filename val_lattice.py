@@ -4,6 +4,7 @@
 import json
 import sys
 
+
 def val_lattice(f):
     obj = json.load(f)
     numBases = len(obj['vstrands'][0]['scaf'])
@@ -12,12 +13,12 @@ def val_lattice(f):
     elif numBases % 21 == 0 and numBases % 32 != 0:
         return 'h'
     else:
-        return 'u' #unknown
+        return 'u'  # unknown
 
 if __name__ == '__main__':
 
     try:
         with open(sys.argv[1], 'r') as f:
-            print val_lattice(f)
+            print(val_lattice(f))
     except:
         raise Exception('USER: Error in input json file')
