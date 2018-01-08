@@ -744,6 +744,7 @@ try:
     end5scaf = None
     end3scaf = None
     RCvh = {}
+    LEN = len(strands[0]['scaf'])
 
     for strand in strands:
         num = strand["num"]
@@ -771,29 +772,27 @@ try:
     seqPath = {}
 
     for vh in vhNums:
-        scafPath = []
-        stapPath = []
+        scafPath = ['-'] * LEN
+        stapPath = ['-'] * LEN
         scaf = vhToScaf[vh]
 
         # scaffold path
 
-        for i in range(len(scaf)):
+        for i in range(LEN):
             base = scaf[i]
             if (base[0] != vh) & (base[0] != -1):
-                scafPath.append(base[0])
+                scafPath[i] = base[0]
                 trans_sc.append([[vh, base[0]]] + [[i, base[1]]])
             if (base[2] != vh) & (base[2] != -1):
-                scafPath.append(base[2])
+                scafPath[i] = base[2]
                 trans_sc.append([[vh, base[2]]] + [[i, base[3]]])
             if (base[0] == vh) & (base[2] == vh):
-                scafPath.append(vh)
-            if (base[0] == -1) & (base[2] == -1):
-                scafPath.append('-')
+                scafPath[i] = vh
             if (base[0] == -1) & (base[2] == vh):
-                scafPath.append('e5')
+                scafPath[i] = 'e5'
                 end5scaf = [vh, i]
-            if (base[2] == -1) & (base[0] == vh):
-                scafPath.append('e3')
+            if (base[0] == vh) & (base[2] == -1):
+                scafPath[i] = 'e3'
                 end3scaf = [vh, i]
 
         Path['scaf'][vh] = scafPath
@@ -801,35 +800,24 @@ try:
         # staple path
 
         stap = vhToStap[vh]
-        for i in range(len(stap)):
+        for i in range(LEN):
             base = stap[i]
             if (base[0] == -1) & (base[2] == vh):
-                stapPath.append('e5')
-                ends5.append([vh, i])
-            if (base[2] == -1) & (base[0] == vh):
-                stapPath.append('e3')
-                ends3.append([vh, i])
+                stapPath[i] = 'e5'
+            if (base[0] == vh) & (base[2] == -1):
+                stapPath[i] = 'e3'
             if (base[0] != vh) & (base[0] != -1):
-                stapPath.append(base[0])
+                stapPath[i] = base[0]
                 trans.append([[vh, base[0]]] + [[i, base[1]]])
             if (base[2] != vh) & (base[2] != -1):
-                stapPath.append(base[2])
+                stapPath[i] = base[2]
                 trans.append([[vh, base[2]]] + [[i, base[3]]])
             if (base[0] == vh) & (base[2] == vh):
-                stapPath.append(vh)
-            if (base[0] == -1) & (base[2] == -1):
-                stapPath.append('-')
+                stapPath[i] = vh
 
-    #    i = 0
-    #    k = 0
-    #    while i == 0 and k < len(stapPath):
-    #        if stapPath[k] != '-':
-    #            i = 1
-    #        k += 1
-    #    if i == 1:
         Path['stap'][vh] = stapPath
 
-    # join scaffold and staple
+        # join scaffold and staple
         joinedPath = []
         for i in range(len(scafPath)):
             if (scafPath[i] == '-') & (stapPath[i] == '-'):
