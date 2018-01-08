@@ -321,7 +321,7 @@ def checkreg(pair):
         end += ['e5', 'e3']
     while (Path['scaf'][vh1][b1 + c] not in end and
             Path['scaf'][vh2][b2 + c] not in end and
-            c > lim * -1):
+            c > LIM * -1):
         if Path['stap'][vh1][b1 + c] == vh2:
             ok1 = True
         c -= 1
@@ -329,7 +329,7 @@ def checkreg(pair):
 
     while (Path['scaf'][vh1][b1 + c] not in end and
             Path['scaf'][vh2][b2 + c] not in end and
-            c < lim):
+            c < LIM):
         if Path['stap'][vh1][b1 + c] == vh2:
             ok2 = True
         c += 1
@@ -890,10 +890,10 @@ elif args.lattice in ['s', 'sq', 'square']:
 else:
     raise Exception('ADMIN: Wrong lattice type')
 if SQ:
-    lim = 36 + 7
+    LIM = 36 + 7
     HC = 8
 else:
-    lim = 21 + 6
+    LIM = 21 + 6
     HC = 7
 
 # ------------- output files ----------
