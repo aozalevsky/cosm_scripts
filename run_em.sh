@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#set -v -x -e
+# set -v -x -e
 
-#set -e -x
+# set -e
 
 BASE=$(dirname $(readlink -f ${0}))
 export PATH=${BASE}:${PATH}
@@ -38,11 +38,13 @@ function python_wrapper {
   err=$(${1} 2>&1)
   # search for error message in python outpyt
   # with true fix for grep return code 
-  error=$(echo "${err}" | grep -o "Exception: .*")
+  error=$(echo "${err}" | grep -q "Exception: .*")
   if [[ ${error} ]]
     then
       error=$(echo ${error} | sed "s/Exception: //g")
       error_exit "${error}"
+    else 
+    return 0
   fi
 }
 
@@ -86,14 +88,13 @@ shift
 done
 
 
-
-
 stage 'Preparing files'
 
 job=${json%.json}
 
 python_wrapper "util.py ${job}.json"
 lattice=$(util.py ${job}.json)
+echo ${lattice}
 
 ### Select proper forcefield
 
